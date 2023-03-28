@@ -1,0 +1,15 @@
+<?php
+$servername = "localhost"; // nombre del servidor de la base de datos
+$username = "tu_nombre_de_usuario"; // nombre de usuario de la base de datos
+$password = "tu_contraseña"; // contraseña de la base de datos
+$dbname = "nombre_de_la_base_de_datos"; // nombre de la base de datos
+
+// Crear la conexión
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+
+// Verificar si la conexión fue exitosa
+if (!$conn) {
+    die("La conexión a la base de datos falló: " . mysqli_connect_error());
+}
+echo "Conexión exitosa a la base de datos";
+?>

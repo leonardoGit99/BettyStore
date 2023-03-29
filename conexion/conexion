@@ -1,8 +1,8 @@
 <?php
 $servername = "localhost"; // nombre del servidor de la base de datos
-$username = "tu_nombre_de_usuario"; // nombre de usuario de la base de datos
-$password = "tu_contraseña"; // contraseña de la base de datos
-$dbname = "nombre_de_la_base_de_datos"; // nombre de la base de datos
+$username = "root"; // nombre de usuario de la base de datos
+$password = ""; // contraseña de la base de datos
+$dbname = "bettystorebd"; // nombre de la base de datos
 
 // Crear la conexión
 $conn = mysqli_connect($servername, $username, $password, $dbname);

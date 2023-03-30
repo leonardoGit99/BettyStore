@@ -16,7 +16,7 @@ export function ThemeContextProvider(props){
         color: '#1677ff'        
     }
 
-    const [contextTheme, setContextTheme] = useState(ligth)
+    const [contextTheme, setContextTheme] = useState(dark)
 
     const switchTheme = () => {
         if(contextTheme.name === 'dark'){

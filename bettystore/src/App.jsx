@@ -1,17 +1,48 @@
 import './App.css';
-import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
-import MostrarInventario from './views/MostrarInventario';
+import { Space, Layout} from 'antd'
+import Home from './views/Home';
+//import Inventario from './views/RegistrarProducto';
+
+import SideMenu from './components/SideMenu/SideMenu';
+import AppHeader from './components/AppHeader/AppHeader';
+import { useContext } from 'react';
+import { ThemeContext } from './contexts/ThemeContext';
+import { Routes, Route } from 'react-router-dom';
+import RegistrarProducto from './views/RegistrarProducto';
+import Inventario from './views/MostrarInventario';
+
+
+const {Header, Sider, Footer, Content} = Layout
+
+function displayYear(){
+  return new Date().getFullYear()
+}
 
 function App() {
+  const {contextTheme} = useContext(ThemeContext)
+  //const {contextTheme} = useContext(ThemeContext)
   return (
-    <div className="App">
-      <Router>
-        <Routes>
-        <Route path='/mostrarinventario' element={<MostrarInventario />}> </Route>
-        </Routes>
-      </Router>
-    </div>
-  );
+    <Space direction='vertical' className='App-container'>
+      <Layout>
+        <Header className='App-header' style={{backgroundColor:contextTheme}}> <AppHeader/> </Header>
+        
+        <Layout>
+          <Sider>
+            <SideMenu />
+          </Sider>
+          <Content className='App-content'>
+            <Routes>
+              <Route path='/' element={<Home/>}/>
+              <Route path='/registrarProducto' element={<RegistrarProducto/>}/>
+              <Route path='/mostrarinventario' element={<MostrarInventario/>}/>
+            </Routes>     
+        </Content>
+        </Layout>        
+
+        <Footer className='App-footer'>UMSS &copy; - Sistema creado por Team Digitial Warriors - Todos los derechos reservados {displayYear()}</Footer>
+      </Layout>
+    </Space>
+  )
 }
 
 export default App;

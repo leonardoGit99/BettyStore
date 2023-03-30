@@ -1,0 +1,25 @@
+.App-title-header{
+    font-size: larger;
+    font-weight: bolder;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.App-container-header{
+    display: flex;
+}
+
+.App-container-header Button{
+    margin-top: 2vh;
+    margin-left: 1vh;
+}
+
+.App-image-content{
+    width: 9vh;
+    height: 9vh;
+    /*margin-top: 1px;*/
+    margin-bottom: 12px;
+    background-color: black;
+}
+
+

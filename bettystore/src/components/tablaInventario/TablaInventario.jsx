@@ -49,7 +49,7 @@ function TablaInventario() {
       title: "Opciones",
       dataIndex: "opciones",
       key: "opciones", 
-      render: fila => <Button className='btnEliminar' type="primary" >Eliminar</Button>
+     //render: fila => <Button className='btnEliminar' type="primary" >Eliminar</Button>
     },
   ];
 
@@ -181,7 +181,7 @@ function TablaInventario() {
   return (
     <div className="tabla">
       <h2 className='subtituloTabla'>Productos Registrados en Inventario</h2>
-      <Table className='tablaMostrarInventario' columns={columns} dataSource={data} />
+      <Table className='tablaMostrarInventario'columns={columns} dataSource={data} bordered={true} pagination={{pageSize: 5, pagination: true}}/>
     </div>
   );
 }

@@ -9,7 +9,7 @@ import { useContext } from 'react';
 import { ThemeContext } from './contexts/ThemeContext';
 import { Routes, Route } from 'react-router-dom';
 import RegistrarProducto from './views/RegistrarProducto';
-import Inventario from './views/MostrarInventario';
+import MostrarInventario from './views/MostrarInventario';
 
 
 const {Header, Sider, Footer, Content} = Layout
@@ -34,7 +34,7 @@ function App() {
             <Routes>
               <Route path='/' element={<Home/>}/>
               <Route path='/registrarProducto' element={<RegistrarProducto/>}/>
-              <Route path='/mostrarinventario' element={<MostrarInventario/>}/>
+              <Route path='/mostrarInventario' element={<MostrarInventario/>}/>
             </Routes>     
         </Content>
         </Layout>        

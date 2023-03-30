@@ -1,6 +1,6 @@
-import './tablaInventarioStyle.css';
+import './TablaInventarioStyle.css';
 import React from 'react';
-import {Table, Button} from 'antd';
+import {Table, /*Button*/} from 'antd';
 
 
 

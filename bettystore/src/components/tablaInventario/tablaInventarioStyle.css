@@ -1,0 +1,22 @@
+/* .tabla {
+  margin: 150px 25px 60px 250px;
+} */
+
+
+.btnEliminar {
+  background-color: midnightblue;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.subtituloTabla {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* .tablaMostrarInventario {
+  border: 1px solid black;
+} */
+
+.ant-table-tbody {
+  border: 1px solid black;
+}
+

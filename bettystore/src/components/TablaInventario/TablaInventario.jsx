@@ -13,9 +13,16 @@ function TablaInventario() {
 
   const [modalEliminar, setModalEliminar] = useState(false);
 
+  const [modalConfirmar, setModalConfirmar] = useState(false);
+
   //Accion de abrir y cerrar modal de eliminacion
   const abrirCerrarModalEliminar=()=>{
     setModalEliminar(!modalEliminar);
+  } 
+
+  //Accion de abrir y cerrar modal de confirmacion
+  const abrirCerrarModalConfirmar=()=>{
+    setModalConfirmar(!modalConfirmar);
   } 
 
   const columnas= [
@@ -169,12 +176,22 @@ function TablaInventario() {
     onCancel={abrirCerrarModalEliminar} 
     centered 
     footer={[
-      <Button type="primary" danger>Aceptar</Button>,
+      <Button type="primary" danger onClick={abrirCerrarModalConfirmar} >Aceptar</Button>,
       <Button type='primary'  onClick={abrirCerrarModalEliminar}>Cancelar</Button>,
     ]}>
     ¿Está seguro que desea <b>eliminar</b> el producto del inventario?
     </Modal>
 
+    <Modal className='App-modal-confirmación-eliminado'
+    open={modalConfirmar}
+    //close={abrirCerrarModalEliminar}
+    onCancel={abrirCerrarModalConfirmar} 
+    centered
+    footer={[
+      /*<Button type="primary" danger>Aceptar</Button>,*/
+    ]}>
+    <p className='App-modal-confirmación-texto'>Este producto ha sido eliminado exitosamente</p>
+    </Modal>
     </div>
   );
 }

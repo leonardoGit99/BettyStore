@@ -1,22 +1,30 @@
 /* .tabla {
   margin: 150px 25px 60px 250px;
 } */
-
-
-.btnEliminar {
-  background-color: midnightblue;
-  font-family: 'Montserrat', sans-serif;
-}
-
 .subtituloTabla {
   font-family: 'Montserrat', sans-serif;
+  margin-bottom: 4vh;
+}
+:where(.css-dev-only-do-not-override-mxhywb).ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-content >table >thead>tr>th{
+  background-color: #001529 ;
+  border: 1px solid white;
+  color: white;
+  font-style: normal;
+  text-align: center;
 }
 
-/* .tablaMostrarInventario {
-  border: 1px solid black;
+:where(.css-dev-only-do-not-override-mxhywb).ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-content >table >tbody>tr>td {
+  /* border: 1px solid silver; */
+  font-family: 'Times New Roman', Times, serif;
+  text-align: center;
+  /* background-color: lightgray; */
+}
+
+/* .btnEliminar {
+  background-color: #1677FF;
+  font-family: 'Montserrat', sans-serif;
+  color: white;
 } */
 
-.ant-table-tbody {
-  border: 1px solid black;
-}
+
 

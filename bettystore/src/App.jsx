@@ -39,7 +39,7 @@ function App() {
         </Content>
         </Layout>        
 
-        <Footer className='App-footer'>UMSS &copy; - Sistema creado por Team Digitial Warriors - Todos los derechos reservados {displayYear()}</Footer>
+        <Footer className='App-footer'><small>UMSS &copy; - Sistema creado por Team Digitial Warriors - Todos los derechos reservados</small> {displayYear()}</Footer>
       </Layout>
     </Space>
   )

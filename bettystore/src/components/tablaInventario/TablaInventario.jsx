@@ -1,12 +1,26 @@
 import './TablaInventarioStyle.css';
-import React from 'react';
-import {Table, /*Button*/} from 'antd';
-
+import React, {useEffect, useState} from 'react';
+import {Table, Button, Modal} from 'antd';
+import axios from "axios";
+import ErrorList from 'antd/es/form/ErrorList';
+import { DeleteOutlined  } from '@ant-design/icons'
 
 
 function TablaInventario() {
-  const columns= [
-    {title: "Codigo",
+
+  const [dinamicData, setData] = useState([]);
+  const peticionUrl= "https://api.dailymotion.com/videos?channel=sport&limit=10";
+
+  const [modalEliminar, setModalEliminar] = useState(false);
+
+  //Accion de abrir y cerrar modal de eliminacion
+  const abrirCerrarModalEliminar=()=>{
+    setModalEliminar(!modalEliminar);
+  } 
+
+  const columnas= [
+    {
+      title: "Codigo",
       dataIndex: "codigo",
       key: "codigo", 
     },
@@ -47,9 +61,8 @@ function TablaInventario() {
     },
     {
       title: "Opciones",
-      dataIndex: "opciones",
       key: "opciones", 
-     //render: fila => <Button className='btnEliminar' type="primary" >Eliminar</Button>
+      render: (fila) =>(<Button className='btnEliminar' type='primary' danger onClick={abrirCerrarModalEliminar} icon={<DeleteOutlined />}></Button>),
     },
   ];
 
@@ -120,68 +133,48 @@ function TablaInventario() {
       imagen:  "X preview",
       fecha: "DD/AA/MM",
     },
-    {
-      key: '7', 
-      codigo: '7878767891011',
-      nombre: "Bacardi Manzana",
-      descripcion: "Ron blanco con sabor a manzana verde Granny Smith, Golden Delicious y Fuji. De sabor refrescante y suavemente cítrico, idealmente para mezclar con bebida tipo ginger ale o refrescos de limón.",
-      categoria: "Licoreria",
-      precio: "80",
-      cantidad: "7",
-      imagen:  "X preview",
-      fecha: "DD/AA/MM",
-    },
-    {
-      key: '8', 
-      codigo: '7878767891011',
-      nombre: "Bacardi Manzana",
-      descripcion: "Ron blanco con sabor a manzana verde Granny Smith, Golden Delicious y Fuji. De sabor refrescante y suavemente cítrico, idealmente para mezclar con bebida tipo ginger ale o refrescos de limón.",
-      categoria: "Licoreria",
-      precio: "80",
-      cantidad: "7",
-      imagen:  "X preview",
-      fecha: "DD/AA/MM",
-    },
-    {
-      key: '9', 
-      codigo: '7878767891011',
-      nombre: "Bacardi Manzana",
-      descripcion: "Ron blanco con sabor a manzana verde Granny Smith, Golden Delicious y Fuji. De sabor refrescante y suavemente cítrico, idealmente para mezclar con bebida tipo ginger ale o refrescos de limón.",
-      categoria: "Licoreria",
-      precio: "80",
-      cantidad: "7",
-      imagen:  "X preview",
-      fecha: "DD/AA/MM",
-    },
-    {
-      key: '10', 
-      codigo: '7878767891011',
-      nombre: "Bacardi Manzana",
-      descripcion: "Ron blanco con sabor a manzana verde Granny Smith, Golden Delicious y Fuji. De sabor refrescante y suavemente cítrico, idealmente para mezclar con bebida tipo ginger ale o refrescos de limón.",
-      categoria: "Licoreria",
-      precio: "80",
-      cantidad: "7",
-      imagen:  "X preview",
-      fecha: "DD/AA/MM",
-    },
-    {
-      key: '11', 
-      codigo: '7878767891011',
-      nombre: "Bacardi Manzana",
-      descripcion: "Ron blanco con sabor a manzana verde Granny Smith, Golden Delicious y Fuji. De sabor refrescante y suavemente cítrico, idealmente para mezclar con bebida tipo ginger ale o refrescos de limón.",
-      categoria: "Licoreria",
-      precio: "80",
-      cantidad: "7",
-      imagen:  "X preview",
-      fecha: "DD/AA/MM",
-    },
-    
   ];
 
+
+//  Peticion Get de la API usando axios
+  
+  const peticionGet=async()=>{
+    await axios.get(peticionUrl)
+    .then(response=>{
+      setData(response.dinamicData);
+    }).catch(error=>{
+      console.log(error);
+    })
+  }
+
+  //uso de useEffect para poder llamar a la peticion
+
+  useEffect(()=>{
+    peticionGet();
+  },[])
+
+
+
   return (
-    <div className="tabla">
+    <div className='mostrarInventario'>
       <h2 className='subtituloTabla'>Productos Registrados en Inventario</h2>
-      <Table className='tablaMostrarInventario'columns={columns} dataSource={data} bordered={true} pagination={{pageSize: 5, pagination: true}}/>
+      {/* TablaDinamica */}
+      {/* <Table className='tabla'columns={columnas} dataSource={dinamicData} bordered={true} pagination={{pageSize: 5, pagination: true, position: ["bottomCenter"]}}  size={'small'}/>\ */}
+
+      {/* TablaEstatica */}
+    <Table className='tabla'columns={columnas} dataSource={data} bordered={true} pagination={{pageSize: 5, pagination: true, position: ["bottomRight"]}}  size={'small'}/>
+
+    <Modal 
+    open={modalEliminar} 
+    onCancel={abrirCerrarModalEliminar} 
+    centered 
+    footer={[
+      <Button type="primary" danger>Aceptar</Button>,
+      <Button type='primary'  onClick={abrirCerrarModalEliminar}>Cancelar</Button>,
+    ]}>
+    ¿Está seguro que desea <b>eliminar</b> el producto del inventario?
+    </Modal>
+
     </div>
   );
 }

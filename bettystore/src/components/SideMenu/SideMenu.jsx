@@ -8,7 +8,7 @@ const items = [
     {key: 1, label: (<Link to="/">Home</Link>)},
     {key: 2, label: (<p>Inventario</p>), children:[
         {key:3, label: (<Link to="/registrarProducto">Registrar Producto</Link>)},
-        {key:4, label: (<Link to="/inventario">Mostrar Inventario</Link>)}
+        {key:4, label: (<Link to="/mostrarInventario">Mostrar Inventario</Link>)}
     ]},
 ]
 

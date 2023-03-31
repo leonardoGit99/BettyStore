@@ -24,7 +24,7 @@ function App() {
   return (
     <Space direction='vertical' className='App-container'>
       <Layout>
-        <Header className='App-header' style={{backgroundColor:contextTheme}}> <AppHeader/> </Header>
+        <Header className='App-header' style={{color: contextTheme.color, background: contextTheme.background}}> <AppHeader/> </Header>
         
         <Layout>
           <Sider>

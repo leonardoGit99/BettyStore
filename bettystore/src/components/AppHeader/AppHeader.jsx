@@ -14,8 +14,8 @@ export default function AppHeader(props){
 
     return(
         <div className="App-container-header">
-            <span><img className="App-image-content" style={{backgroundColor:contextTheme.background}} alt='PruebaImg' src='./assets/logoBS.png'/></span>
-            <span className="App-title-header" style={{color: contextTheme.color, background: contextTheme.background}}>BettyStore</span>
+            <span><img className="App-image-content" style={{backgroundColor:contextTheme.background}} alt='PruebaImg' src='./assets/logoSuperiorBS.png'/></span>
+            <span className="App-title-header" style={{color: contextTheme.color, background: contextTheme.background}}>Sistema para Administración de Tienda</span>
             <Button shape="circle" onClick={onClickSwithButton} icon={<BgColorsOutlined />}></Button>
         </div>
     )

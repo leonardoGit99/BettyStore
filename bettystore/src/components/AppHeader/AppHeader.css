@@ -15,11 +15,10 @@
 }
 
 .App-image-content{
-    width: 9vh;
-    height: 9vh;
-    /*margin-top: 1px;*/
-    margin-bottom: 12px;
-    background-color: black;
+    width: 100px;
+    height: 110px;
+    margin-top: 1px;
+    /*background-color: black;*/
 }
 
 

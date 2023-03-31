@@ -75,7 +75,7 @@ function TablaInventario() {
       categoria: "Aguas y bebidas",
       precio: "13",
       cantidad: "24",
-      imagen: "img preview",
+      imagen: "X img preview",
       fecha: "DD/AA/MM",
     },
     {
@@ -86,7 +86,7 @@ function TablaInventario() {
       categoria: "Lacteos",
       precio: "6",
       cantidad: "57",
-      imagen: "img preview",
+      imagen: "X img preview",
       fecha: "DD/AA/MM",
     },
     {
@@ -136,7 +136,7 @@ function TablaInventario() {
   ];
 
 
-//  Peticion Get de la API usando axios
+//  Peticion Get de la API usando axios.
   
   const peticionGet=async()=>{
     await axios.get(peticionUrl)

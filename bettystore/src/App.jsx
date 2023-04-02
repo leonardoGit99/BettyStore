@@ -1,5 +1,5 @@
 import './App.css';
-import { Space, Layout} from 'antd'
+import { Space, Layout, Col} from 'antd'
 import Home from './views/Home';
 //import Inventario from './views/RegistrarProducto';
 
@@ -27,18 +27,33 @@ function App() {
         <Header className='App-header' style={{color: contextTheme.color, background: contextTheme.background}}> <AppHeader/> </Header>
         
         <Layout>
-          <Sider>
-            <SideMenu />
-          </Sider>
-          <Content className='App-content'>
-            <Routes>
-              <Route path='/' element={<Home/>}/>
-              <Route path='/registrarProducto' element={<RegistrarProducto/>}/>
-              <Route path='/mostrarInventario' element={<MostrarInventario/>}/>
-            </Routes>     
-        </Content>
-        </Layout>        
 
+            <Sider
+              breakpoint="lg"
+              collapsedWidth="0"
+              onBreakpoint={(broken) => {
+                console.log(broken);
+              }}
+              onCollapse={(collapsed, type) => {
+                console.log(collapsed, type);
+              }}
+            >
+            <SideMenu />
+            </Sider>
+
+          <Col lg={21}>
+            <Content className='App-content'>
+                <Routes>
+                  <Route path='/' element={<Home/>}/>
+                  <Route path='/registrarProducto' element={<RegistrarProducto/>}/>
+                  <Route path='/mostrarInventario' element={<MostrarInventario/>}/>
+                </Routes>     
+            </Content>
+          </Col>
+
+          
+
+        </Layout> 
         <Footer className='App-footer'><small>UMSS &copy; - Sistema creado por Team Digitial Warriors - Todos los derechos reservados</small> {displayYear()}</Footer>
       </Layout>
     </Space>

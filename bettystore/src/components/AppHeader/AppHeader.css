@@ -1,9 +1,12 @@
 .App-title-header{
-    font-size: larger;
+    /*font-size: larger;*/
+    font-size: 2vw;
     font-weight: bolder;
     flex-grow: 1;
     text-align: center;
 }
+
+
 
 .App-container-header{
     display: flex;
@@ -15,10 +18,44 @@
 }
 
 .App-image-content{
-    width: 100px;
-    height: 110px;
-    margin-top: 1px;
+    width: 120px;/*7vw;*/
+    height: 62px;/*4vw;*/
+    /*margin-top: 1px;*/
     /*background-color: black;*/
 }
 
+
+@media only screen and (max-width: 904px) {
+    .App-image-content{
+        width: 10vw;
+        height: 6vw;
+        margin-top: 1vw;
+        /*background-color: black;*/
+    }
+}
+
+@media only screen and (max-width: 760px) {
+    .App-image-content{
+        width: 10vw;
+        height: 7vw;
+        margin-top: 1vw;
+        /*background-color: black;*/
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .App-image-content{
+        width: 16vw;
+        height: 12vw;
+        margin-top: 1vw;
+        /*background-color: black;*/
+    }
+    .App-title-header{
+        /*font-size: larger;*/
+        font-size: small;
+        font-weight: bolder;
+        flex-grow: 1;
+        text-align: center;
+    }
+}
 

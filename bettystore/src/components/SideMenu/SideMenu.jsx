@@ -16,12 +16,13 @@ export default function SideMenu(props){
     const {contextTheme} = useContext(ThemeContext)
     
     return(
-        <Menu 
+            <Menu 
             className='App-sidemenu'
             theme={contextTheme.name}
             defaultSelectedKeys={['1']}
             items={items}
             mode='inline'
-        />
+            />
+
     )
 }

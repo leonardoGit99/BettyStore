@@ -30,3 +30,14 @@
   .App-modal-confirmación-texto{
     text-align: center;
   }
+
+
+
+  @media only screen and (max-width: 800px) {
+    .tabla{
+      /*min-width: 800px;*/
+      overflow-x: auto;
+      max-height: 500px;
+      max-width: 700px;
+    }
+  }

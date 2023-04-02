@@ -1,0 +1,43 @@
+/* .tabla {
+  margin: 150px 25px 60px 250px;
+} */
+.subtituloTabla {
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 4vh;
+  }
+  :where(.css-dev-only-do-not-override-mxhywb).ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-content >table >thead>tr>th{
+    background-color: #001529 ;
+    border: 1px solid white;
+    color: white;
+    font-style: normal;
+    text-align: center;
+  }
+  
+  :where(.css-dev-only-do-not-override-mxhywb).ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-content >table >tbody>tr>td {
+    /* border: 1px solid silver; */
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+    /* background-color: lightgray; */
+  }
+  
+  /* .btnEliminar {
+    background-color: #1677FF;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+  } */
+  /* */
+
+  .App-modal-confirmación-texto{
+    text-align: center;
+  }
+
+
+
+  @media only screen and (max-width: 800px) {
+    .tabla{
+      /*min-width: 800px;*/
+      overflow-x: auto;
+      max-height: 500px;
+      max-width: 700px;
+    }
+  }

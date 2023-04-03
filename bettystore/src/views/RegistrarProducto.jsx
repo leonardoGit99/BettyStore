@@ -1,6 +1,8 @@
+import FormProducto from "../components/FormProductos/FormProducto"
+
 export default function RegistrarProducto(){
     return(
-        <h1>Registrar Producto</h1>
+        <FormProducto/>
     )
 
 }

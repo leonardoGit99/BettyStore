@@ -3,7 +3,7 @@ import { Space, Layout, Col, Row} from 'antd'
 import Home from './views/Home';
 //import Inventario from './views/RegistrarProducto';
 
-import SideMenu from './components/SideMenu/SideMenu';
+import Menu from './components/Menu/Menu';
 import AppHeader from './components/AppHeader/AppHeader';
 import { useContext } from 'react';
 import { ThemeContext } from './contexts/ThemeContext';
@@ -39,7 +39,7 @@ function App() {
                       console.log(collapsed, type);
                     }}*/
                   >
-                    <SideMenu />
+                    <Menu />
                   </Sider>
                 </Col>
               </Row>

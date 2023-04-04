@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import { useContext } from "react"
 import { ThemeContext } from "../../contexts/ThemeContext"
 import { Menu } from "antd"
-import './SideMenu.css'
+import './Menu.css'
 import { HomeOutlined } from '@ant-design/icons'
 import { DatabaseOutlined } from '@ant-design/icons'
 

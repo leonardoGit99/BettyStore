@@ -28,8 +28,8 @@
   padding: 20px;
   height: 85vh;
   /*width: 85vw;*/
-  margin-left: 28px;
-  background-color: beige;
+  margin-left: 0px;
+  background-color: #F5F5DC;
 }
 
 @media only screen and (max-width: 500px) {

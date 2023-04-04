@@ -4,12 +4,14 @@
     font-weight: bolder;
     flex-grow: 1;
     text-align: center;
+    height: 2vw;
 }
 
 
 
 .App-container-header{
     display: flex;
+    height: 2vw;
 }
 
 .App-container-header Button{

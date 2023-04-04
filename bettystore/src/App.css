@@ -27,7 +27,9 @@
 .App-content{
   padding: 20px;
   height: 85vh;
+  /*width: 85vw;*/
   margin-left: 28px;
+  background-color: beige;
 }
 
 @media only screen and (max-width: 500px) {
@@ -39,6 +41,15 @@
     left: 0;
     bottom: 0;
     width: 100%;
-    height: 70px;
+    padding-top: 0%;
+    height: 40px;
   }
+}
+
+.r1{
+  background-color: aqua;
+}
+
+.r2{
+  background-color: #feaf5f;/*#001529;*/ /*orange;*/
 }

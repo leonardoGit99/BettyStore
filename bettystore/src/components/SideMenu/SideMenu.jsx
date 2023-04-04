@@ -3,10 +3,12 @@ import { useContext } from "react"
 import { ThemeContext } from "../../contexts/ThemeContext"
 import { Menu } from "antd"
 import './SideMenu.css'
+import { HomeOutlined } from '@ant-design/icons'
+import { DatabaseOutlined } from '@ant-design/icons'
 
 const items = [
-    {key: 1, label: (<Link to="/">Home</Link>)},
-    {key: 2, label: (<p>Inventario</p>), children:[
+    {key: 1, label: (<Link to="/">Home</Link>), icon:<HomeOutlined/>},
+    {key: 2, label: ('Inventario'),icon:<DatabaseOutlined/> , children:[
         {key:3, label: (<Link to="/registrarProducto">Registrar Producto</Link>)},
         {key:4, label: (<Link to="/mostrarInventario">Mostrar Inventario</Link>)}
     ]},
@@ -21,7 +23,7 @@ export default function SideMenu(props){
             theme={contextTheme.name}
             defaultSelectedKeys={['1']}
             items={items}
-            mode='inline'
+            mode='horizontal'
             />
 
     )

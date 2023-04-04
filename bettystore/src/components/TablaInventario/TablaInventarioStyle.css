@@ -1,31 +1,8 @@
-/* .tabla {
-  margin: 150px 25px 60px 250px;
-} */
+
 .subtituloTabla {
     font-family: 'Montserrat', sans-serif;
     margin-bottom: 4vh;
   }
-  :where(.css-dev-only-do-not-override-mxhywb).ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-content >table >thead>tr>th{
-    background-color: #001529 ;
-    border: 1px solid white;
-    color: white;
-    font-style: normal;
-    text-align: center;
-  }
-  
-  :where(.css-dev-only-do-not-override-mxhywb).ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-content >table >tbody>tr>td {
-    /* border: 1px solid silver; */
-    font-family: 'Times New Roman', Times, serif;
-    text-align: center;
-    /* background-color: lightgray; */
-  }
-  
-  /* .btnEliminar {
-    background-color: #1677FF;
-    font-family: 'Montserrat', sans-serif;
-    color: white;
-  } */
-  /* */
 
   .App-modal-confirmación-texto{
     text-align: center;
@@ -101,3 +78,31 @@
       max-width: 800px;/*700px;*/
     }
   }
+
+
+  .tabla th{
+    background-color: #001529 !important;
+    border: 1px solid white !important;
+    color: white !important;
+    font-style: normal !important;
+    text-align: center !important;
+    
+  }
+  
+  .tabla tr:nth-child(even) td {
+    border: 1px solid silver !important; 
+    font-family: 'Times New Roman', Times, serif !important;
+    text-align: center !important;
+    background-color: lightgray !important;
+  } 
+
+  .tabla tr:nth-child(odd) td {
+    border: 1px solid lightgrey !important; 
+    font-family: 'Times New Roman', Times, serif !important;
+    text-align: center !important;
+    background-color: white !important;
+  } 
+
+  .tabla tr:hover td{
+    background-color: gray !important;
+  } 

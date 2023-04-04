@@ -1,9 +1,9 @@
-import './TablaInventarioStyle.css';
 import React, {useEffect, useState} from 'react';
 import {Table, Button, Modal, message} from 'antd';
 import axios from "axios";
 //import ErrorList from 'antd/es/form/ErrorList';
 import { DeleteOutlined  } from '@ant-design/icons'
+import './TablaInventarioStyle.css';
 
 
 function TablaInventario() {

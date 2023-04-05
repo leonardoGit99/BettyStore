@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Input, Button, Col, Row, Select, DatePicker, Upload, /*message*/ } from "antd";
 //import dayjs from "dayjs";
 import { UploadOutlined } from '@ant-design/icons';
 import TextArea from "antd/es/input/TextArea";
+import axios from "axios";
+import TablaInventario from "../TablaInventario/TablaInventario"; 
 import './FormRegProductoStyle.css';
+
 
 
 const { Item } = Form;
 
-//Valor seleccionado de la lista desplegable
-const handleChange = (value) => {
-  console.log(`selected ${value}`);
-};
+
 
 //Formato de fechas par ael campo fecha
 const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY'];
@@ -37,6 +37,9 @@ const props = {
 };
 */
 
+//Peticion de la API
+const peticionUrl = "https://api.dailymotion.com/videos?channel=sport&limit=10";
+
 
 function FormRegProducto() {
 
@@ -45,6 +48,41 @@ function FormRegProducto() {
   const borrarCampos = () => {
     formRef.current?.resetFields();
   }
+
+  //Los nombres dentro el useState deben coincidir con los de la API
+  const [producto, setProducto] = useState({
+    id: '',
+    title: '',
+    channel: '',
+    owner: '',
+  })
+
+  //Capturar lo que el usuario esta escribiendo en los inputs, tiene que coincidir el nombre del estado con la propiedad name del input
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setProducto({ ...producto, [name]: value });
+    console.log(producto);
+  }
+
+  //Valor seleccionado de la lista desplegable
+  const handleChangeSelected = (value) => {
+    console.log(`selected ${value}`);
+  };
+
+
+//  Peticion POST a la API usando axios.
+
+const peticionPost=async()=>{
+  await axios.post(peticionUrl, producto)
+  .then(response=>{
+    console.log(response);
+    TablaInventario.setData(TablaInventario.data.list.concat(response.TablaInventario.data.list));
+  }).catch(error=>{
+    console.log(error);
+  })
+}
+
+
 
   return (
     <div className="formRegProducto">
@@ -55,28 +93,28 @@ function FormRegProducto() {
         <Row>
           <Col span={11} className="c1">
             <Item
-              label="Nombre"
-              name="nombre"
+              label="Id"
+              name="id"
               rules={[{
                 required: true,
                 message: "Porfavor ingrese el nombre del producto",
               },]}
             >
-              <Input placeholder="Ingrese el nombre del producto" />
+              <Input name="id" placeholder="Ingrese el nombre del producto" onChange={handleChange} />
             </Item>
 
             <Item
-              label="Cantidad"
-              name="cantidad"
+              label="Title"
+              name="title"
               rules={[{
                 required: true,
                 message: "Porfavor ingrese la cantidad",
               },]}
             >
-              <Input placeholder="Ingrese la cantidad del producto" />
+              <Input name="title" placeholder="Ingrese la cantidad del producto"  onChange={handleChange}/>
             </Item>
 
-            <Item
+            {/* <Item
               label="Categoria"
               name="categoria"
               rules={[{
@@ -87,7 +125,7 @@ function FormRegProducto() {
               <Select
                 defaultValue="Aseo y Limpieza"
                 style={{ width: 170, }}
-                onChange={handleChange}
+                onChange={handleChangeSelected}
                 options={[
                   {
                     value: 'aseoylimpieza',
@@ -115,8 +153,8 @@ function FormRegProducto() {
                   },
                 ]}
               />
-            </Item>
-
+            </Item> */}
+{/* 
             <Item
               label="Fecha"
               name="fecha"
@@ -125,24 +163,24 @@ function FormRegProducto() {
                 message: "Porfavor ingrese la fecha",
               },]}
             >
-              <DatePicker placeholder="DD/MM/AAAA" /*defaultValue={dayjs('01/01/2023', dateFormatList[0])}*/ format={dateFormatList} />
-            </Item>
+              <DatePicker name="fecha" placeholder="DD/MM/AAAA" defaultValue={dayjs('01/01/2023', dateFormatList[0])} format={dateFormatList}  onChange={handleChangeSelected}/>
+            </Item> */}
 
             <Item
-              label="Precio (Bs)"
-              name="precio"
+              label="Channel"
+              name="channel"
               rules={[{
                 required: true,
                 message: "Porfavor ingrese el precio",
               },]}
             >
-              <Input placeholder="Ingrese el precio del producto" />
+              <Input name="channel" placeholder="Ingrese el precio del producto" onChange={handleChange}/>
             </Item>
           </Col>
           <Col span={2}></Col>
 
           <Col span={11} className="c2">
-            <Item
+            {/* <Item
               label="Imagen"
               name="imagen"
               rules={[{
@@ -150,25 +188,25 @@ function FormRegProducto() {
                 message: "Porfavor ingrese una imagen",
               },]}
             >
-              <Upload /*{...props}*/>
+              <Upload {...props}>
                 <Button
                   icon={<UploadOutlined />}>Examinar
                 </Button>
               </Upload>
-            </Item>
+            </Item> */}
 
             <Item
-              label="Codigo"
-              name="codigo"
+              label="Owner"
+              name="owner"
               rules={[{
                 required: true,
                 message: "Porfavor ingrese el codigo del producto",
               },]}
             >
-              <Input placeholder="Ingrese el codigo del producto" />
+              <Input name="owner" placeholder="Ingrese el codigo del producto" onChange={handleChange} />
             </Item>
 
-            <Item
+            {/* <Item
               label="Descripcion"
               name="descripcion"
               rules={[{
@@ -176,13 +214,13 @@ function FormRegProducto() {
                 message: "Porfavor ingrese una descripcion del producto",
               },]}
             >
-              <TextArea rows={6} placeholder="Ingrese una descripcion del producto" />
-            </Item>
+              <TextArea name="descripcion" rows={6} placeholder="Ingrese una descripcion del producto" onChange={handleChange}/>
+            </Item> */}
           </Col>
         </Row>
         <Row>
           <Item>
-            <Button type="primary" htmlType="submit">Registrar</Button>
+            <Button type="primary" htmlType="submit" onClick={peticionPost}>Registrar</Button>
           </Item>
 
           <Item>

@@ -6,9 +6,9 @@ import { DeleteOutlined  } from '@ant-design/icons'
 import './TablaInventarioStyle.css';
 
 
-function TablaInventario() {
+function TablaInventario(props) {
 
-  const [dinamicData, setData] = useState([]);
+  const [data, setData] = useState([]);
   const peticionUrl= "https://api.dailymotion.com/videos?channel=sport&limit=10";
 
   const [modalEliminar, setModalEliminar] = useState(false);
@@ -20,44 +20,24 @@ function TablaInventario() {
 
   const columnas= [
     {
-      title: "Codigo",
-      dataIndex: "codigo",
-      key: "codigo", 
+      title: "id",
+      dataIndex: "id",
+      key: "id", 
     },
     {
-      title: "Nombre",
-      dataIndex: "nombre",
-      key: "nombre", 
+      title: "title",
+      dataIndex: "title",
+      key: "title", 
     },
     {
-      title: "Descripcion",
-      dataIndex: "descripcion",
-      key: "descripcion", 
+      title: "channel",
+      dataIndex: "channel",
+      key: "channel", 
     },
     {
-      title: "Categoria",
-      dataIndex: "categoria",
-      key: "categoria", 
-    },
-    {
-      title: "Precio",
-      dataIndex: "precio",
-      key: "precio", 
-    },
-    {
-      title: "Cantidad",
-      dataIndex: "cantidad",
-      key: "cantidad", 
-    },
-    {
-      title: "Imagen",
-      dataIndex: "imagen",
-      key: "imagen", 
-    },
-    {
-      title: "Fecha",
-      dataIndex: "fecha",
-      key: "fecha", 
+      title: "owner",
+      dataIndex: "owner",
+      key: "owner", 
     },
     {
       title: "Opciones",
@@ -65,7 +45,7 @@ function TablaInventario() {
       render: (fila) =>(<Button className='btnEliminar' type='primary' danger onClick={abrirCerrarModalEliminar} icon={<DeleteOutlined />}></Button>),
     },
   ];
-
+/*
   const data=[
     {
       key: '1', 
@@ -134,14 +114,15 @@ function TablaInventario() {
       fecha: "DD/AA/MM",
     },
   ];
-
+*/
 
 //  Peticion Get de la API usando axios.
-  
+
   const peticionGet=async()=>{
     await axios.get(peticionUrl)
     .then(response=>{
-      setData(response.dinamicData);
+      setData(response.data.list);
+      console.log(response);
     }).catch(error=>{
       console.log(error);
     })
@@ -162,10 +143,10 @@ function TablaInventario() {
     <div className='mostrarInventario'>
       <h2 className='subtituloTabla'>Productos Registrados en Inventario</h2>
       {/* TablaDinamica */}
-      {/* <Table className='tabla'columns={columnas} dataSource={dinamicData} bordered={true} pagination={{pageSize: 5, pagination: true, position: ["bottomCenter"]}}  size={'small'}/>\ */}
+      <Table className='tabla'columns={columnas} dataSource={data} bordered={true} pagination={{pageSize: 5, pagination: true, position: ["bottomCenter"]}}  size={'small'}/>\
 
       {/* TablaEstatica */}
-    <Table className='tabla'columns={columnas} dataSource={data} bordered={true} pagination={{pageSize: 5, pagination: true, position: ["bottomRight"]}}  size={'small'}/>
+    {/* <Table className='tabla'columns={columnas} dataSource={data} bordered={true} pagination={{pageSize: 5, pagination: true, position: ["bottomRight"]}}  size={'small'}/> */}
 
     <Modal 
     open={modalEliminar} 

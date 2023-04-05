@@ -16,7 +16,7 @@
 
 .App-footer{
   text-align: center;
-  background-color: #000;
+  background-color: #0f4476;/*#1a0427;*/
   color: #FFF;
   position:fixed;
   left: 0;
@@ -29,7 +29,7 @@
   height: 85vh;
   /*width: 85vw;*/
   margin-left: 0px;
-  background-color: #F5F5DC;
+  background-color: #f8f8f8;/*#F5F5DC;*/
 }
 
 @media only screen and (max-width: 500px) {

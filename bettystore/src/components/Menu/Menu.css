@@ -1,13 +1,13 @@
-.App-sidemenu{
+.App-menu{
     /*height: 100%;*/
     width: 98.9vw;
     padding-left: 1vw;
-    background-color: #e0bef4;/*#fca80b;/*#feaf5f;*/
+    background-color: #ffa9c6;/*#e0bef4;/*#fca80b;/*#feaf5f;*/
     color: #001529;
 }
 
 @media only screen and (max-width: 1060px) {
-    .App-sidemenu{
+    .App-menu{
         height: 140%;
     }
   }

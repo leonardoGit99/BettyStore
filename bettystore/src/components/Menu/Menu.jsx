@@ -19,7 +19,7 @@ export default function SideMenu(props){
     
     return(
             <Menu 
-            className='App-sidemenu'
+            className='App-menu'
             theme={contextTheme.name}
             defaultSelectedKeys={['1']}
             items={items}

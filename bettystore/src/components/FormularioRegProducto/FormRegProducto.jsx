@@ -4,7 +4,7 @@ import { Form, Input, Button, Col, Row, Select, DatePicker, Upload, /*message*/ 
 import { UploadOutlined } from '@ant-design/icons';
 import TextArea from "antd/es/input/TextArea";
 import axios from "axios";
-import TablaInventario from "../TablaInventario/TablaInventario"; 
+import TablaInventario from "../TablaInventario/TablaInventario";
 import './FormRegProductoStyle.css';
 
 
@@ -41,7 +41,7 @@ const props = {
 const peticionUrl = "https://api.dailymotion.com/videos?channel=sport&limit=10";
 
 
-function FormRegProducto() {
+function FormRegProducto(props) {
 
   //Borrar campos en caso de presionar boton cancelar
   const formRef = React.useRef(null);
@@ -49,6 +49,7 @@ function FormRegProducto() {
     formRef.current?.resetFields();
   }
 
+  /*
   //Los nombres dentro el useState deben coincidir con los de la API
   const [producto, setProducto] = useState({
     id: '',
@@ -56,12 +57,12 @@ function FormRegProducto() {
     channel: '',
     owner: '',
   })
-
+*/
   //Capturar lo que el usuario esta escribiendo en los inputs, tiene que coincidir el nombre del estado con la propiedad name del input
   const handleChange = e => {
     const { name, value } = e.target;
-    setProducto({ ...producto, [name]: value });
-    console.log(producto);
+    props.setProducto({ ...props.producto, [name]: value });
+    console.log(props.producto);
   }
 
   //Valor seleccionado de la lista desplegable
@@ -70,17 +71,17 @@ function FormRegProducto() {
   };
 
 
-//  Peticion POST a la API usando axios.
+  //  Peticion POST a la API usando axios.
 
-const peticionPost=async()=>{
-  await axios.post(peticionUrl, producto)
-  .then(response=>{
-    console.log(response);
-    TablaInventario.setData(TablaInventario.data.list.concat(response.TablaInventario.data.list));
-  }).catch(error=>{
-    console.log(error);
-  })
-}
+  const peticionPost = async () => {
+    await axios.post(peticionUrl, props.producto)
+      .then(response => {
+        props.setData(props.datosTabla.concat(response.data.list));
+        console.log(response);
+      }).catch(error => {
+        console.log(error);
+      })
+  }
 
 
 
@@ -111,7 +112,7 @@ const peticionPost=async()=>{
                 message: "Porfavor ingrese la cantidad",
               },]}
             >
-              <Input name="title" placeholder="Ingrese la cantidad del producto"  onChange={handleChange}/>
+              <Input name="title" placeholder="Ingrese la cantidad del producto" onChange={handleChange} />
             </Item>
 
             {/* <Item
@@ -154,7 +155,7 @@ const peticionPost=async()=>{
                 ]}
               />
             </Item> */}
-{/* 
+            {/* 
             <Item
               label="Fecha"
               name="fecha"
@@ -174,7 +175,7 @@ const peticionPost=async()=>{
                 message: "Porfavor ingrese el precio",
               },]}
             >
-              <Input name="channel" placeholder="Ingrese el precio del producto" onChange={handleChange}/>
+              <Input name="channel" placeholder="Ingrese el precio del producto" onChange={handleChange} />
             </Item>
           </Col>
           <Col span={2}></Col>

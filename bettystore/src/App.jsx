@@ -21,12 +21,17 @@ function displayYear() {
 
 function App() {
   const [datosTabla, setDatosTabla] = useState([]);
-  //Los nombres dentro el useState deben coincidir con los de la API
+
+  //Los nombres dentro el useState deben coincidir con los de la API (corregir el envio de parametros en el return)
   const [producto, setProducto] = useState({
-    id: '',
-    title: '',
-    channel: '',
-    owner: '',
+    codProd: '',
+    nomProd: '',
+    categoriaProd: '',
+    descripcionProd: '',
+    precioProd: '',
+    cantidadProd: '',
+    fechaProd: '',
+    imagenProd: '',
   })
 
   const { contextTheme } = useContext(ThemeContext)

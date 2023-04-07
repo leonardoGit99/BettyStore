@@ -9,7 +9,7 @@ import './TablaInventarioStyle.css';
 function TablaInventario(props) {
 
   //const [data, setData] = useState([]);
-  const peticionUrl = "https://api.dailymotion.com/videos?channel=sport&limit=10";
+  const peticionUrl = "http://localhost/crudProductos/indexConsultaGeneral.php";
 
 
   const [modalEliminar, setModalEliminar] = useState(false);
@@ -21,24 +21,44 @@ function TablaInventario(props) {
 
   const columnas = [
     {
-      title: "id",
-      dataIndex: "id",
-      key: "id",
+      title: "Codigo",
+      dataIndex: "codProd",
+      key: "codProd",
     },
     {
-      title: "title",
-      dataIndex: "title",
-      key: "title",
+      title: "Nombre",
+      dataIndex: "nomProd",
+      key: "nomProd",
     },
     {
-      title: "channel",
-      dataIndex: "channel",
-      key: "channel",
+      title: "Descripcion",
+      dataIndex: "descripcionProd",
+      key: "descripcionProd",
     },
     {
-      title: "owner",
-      dataIndex: "owner",
-      key: "owner",
+      title: "Categoria",
+      dataIndex: "categoriaProd",
+      key: "categoriaProd",
+    },
+    {
+      title: "Precio (Bs)",
+      dataIndex: "precioProd",
+      key: "precioProd",
+    },
+    {
+      title: "Cantidad",
+      dataIndex: "cantidadProd",
+      key: "cantidadProd",
+    },
+    {
+      title: "Imagen",
+      dataIndex: "imagenProd",
+      key: "imagenProd",
+    },
+    {
+      title: "Fecha",
+      dataIndex: "fechaProd",
+      key: "fechaProd",
     },
     {
       title: "Opciones",

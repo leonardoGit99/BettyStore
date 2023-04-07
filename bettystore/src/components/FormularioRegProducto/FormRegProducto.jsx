@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Form, Input, Button, Col, Row, Select, DatePicker, Upload, /*message*/ } from "antd";
-//import dayjs from "dayjs";
+import { Form, Input, Button, Col, Row, Select, DatePicker, Upload, message } from "antd";
+import dayjs from "dayjs";
 import { UploadOutlined } from '@ant-design/icons';
 import TextArea from "antd/es/input/TextArea";
 import axios from "axios";
@@ -84,7 +84,6 @@ function FormRegProducto(props) {
   }
 
 
-
   return (
     <div className="formRegProducto">
       <Form ref={formRef} >
@@ -94,30 +93,30 @@ function FormRegProducto(props) {
         <Row>
           <Col span={11} className="c1">
             <Item
-              label="Id"
-              name="id"
+              label="Nombre"
+              name="nomProd"
               rules={[{
                 required: true,
                 message: "Porfavor ingrese el nombre del producto",
               },]}
             >
-              <Input name="id" placeholder="Ingrese el nombre del producto" onChange={handleChange} />
+              <Input name="nomProd" placeholder="Ingrese el nombre del producto" onChange={handleChange} />
             </Item>
 
             <Item
-              label="Title"
-              name="title"
+              label="Cantidad"
+              name="cantidadProd"
               rules={[{
                 required: true,
                 message: "Porfavor ingrese la cantidad",
               },]}
             >
-              <Input name="title" placeholder="Ingrese la cantidad del producto" onChange={handleChange} />
+              <Input name="cantidadProd" placeholder="Ingrese la cantidad del producto" onChange={handleChange} />
             </Item>
 
-            {/* <Item
+            <Item
               label="Categoria"
-              name="categoria"
+              name="categoriaProd"
               rules={[{
                 required: true,
                 message: "Porfavor seleccione una categoria",
@@ -125,6 +124,7 @@ function FormRegProducto(props) {
             >
               <Select
                 defaultValue="Aseo y Limpieza"
+                name="categoriaProd"
                 style={{ width: 170, }}
                 onChange={handleChangeSelected}
                 options={[
@@ -154,69 +154,73 @@ function FormRegProducto(props) {
                   },
                 ]}
               />
-            </Item> */}
-            {/* 
+            </Item>
+            
             <Item
               label="Fecha"
-              name="fecha"
+              name="fechaProd"
               rules={[{
                 required: true,
                 message: "Porfavor ingrese la fecha",
               },]}
             >
-              <DatePicker name="fecha" placeholder="DD/MM/AAAA" defaultValue={dayjs('01/01/2023', dateFormatList[0])} format={dateFormatList}  onChange={handleChangeSelected}/>
-            </Item> */}
+              <DatePicker name="fechaProd" placeholder="DD/MM/AAAA" defaultValue={dayjs('01/01/2023', dateFormatList[0])} format={dateFormatList}  onChange={handleChangeSelected}/>
+            </Item> 
 
             <Item
-              label="Channel"
-              name="channel"
+              label="Precio"
+              name="precioProd"
               rules={[{
                 required: true,
                 message: "Porfavor ingrese el precio",
               },]}
             >
-              <Input name="channel" placeholder="Ingrese el precio del producto" onChange={handleChange} />
+              <Input name="precioProd" placeholder="Ingrese el precio del producto" onChange={handleChange} />
             </Item>
           </Col>
           <Col span={2}></Col>
 
           <Col span={11} className="c2">
-            {/* <Item
+            <Item
               label="Imagen"
-              name="imagen"
+              name="imagenProd"
+              /*
               rules={[{
                 required: true,
                 message: "Porfavor ingrese una imagen",
               },]}
+              */
             >
               <Upload {...props}>
                 <Button
                   icon={<UploadOutlined />}>Examinar
                 </Button>
               </Upload>
-            </Item> */}
+            </Item> 
 
             <Item
-              label="Owner"
-              name="owner"
+              label="Codigo"
+              name="codProd"
               rules={[{
                 required: true,
                 message: "Porfavor ingrese el codigo del producto",
               },]}
             >
-              <Input name="owner" placeholder="Ingrese el codigo del producto" onChange={handleChange} />
+              <Input name="codProd" placeholder="Ingrese el codigo del producto" onChange={handleChange} />
             </Item>
 
-            {/* <Item
+            <Item
               label="Descripcion"
-              name="descripcion"
+              name="descripcionProd"
+              /*
               rules={[{
                 required: true,
                 message: "Porfavor ingrese una descripcion del producto",
               },]}
+              */
             >
-              <TextArea name="descripcion" rows={6} placeholder="Ingrese una descripcion del producto" onChange={handleChange}/>
-            </Item> */}
+              <TextArea name="descripcionProd" rows={6} placeholder="Ingrese una descripcion del producto" onChange={handleChange}/>
+            </Item>
           </Col>
         </Row>
         <Row>

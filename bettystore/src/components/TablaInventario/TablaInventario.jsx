@@ -9,7 +9,8 @@ import './TablaInventarioStyle.css';
 function TablaInventario(props) {
 
   //const [data, setData] = useState([]);
-  const peticionUrl = "http://localhost/crudProductos/indexConsultaGeneral.php";
+  const peticionUrl = "http://localhost:8012/crudProductos/indexConsultaGeneral.php";
+  //esto quitar puerto 8012 si esta por defecto en el 80 
 
 
   const [modalEliminar, setModalEliminar] = useState(false);

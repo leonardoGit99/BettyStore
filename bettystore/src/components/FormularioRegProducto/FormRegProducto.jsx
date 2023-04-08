@@ -1,19 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Form, Input, Button, Col, Row, Select, DatePicker, Upload, message } from "antd";
 import dayjs from "dayjs";
 import { UploadOutlined } from '@ant-design/icons';
 import TextArea from "antd/es/input/TextArea";
 import axios from "axios";
-import TablaInventario from "../TablaInventario/TablaInventario";
 import './FormRegProductoStyle.css';
 
 
 
 const { Item } = Form;
 
+//  Darle forma o alinear los labels del formulario
+const layout = {
+  labelCol: {
+    span: 8
+  },
+  wrapperCol: {
+    span: 16
+  }
+};
 
-
-//Formato de fechas par ael campo fecha
+//Formato de fechas para el campo fecha
 const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY'];
 //Control y subida de imagen
 /*
@@ -38,13 +45,13 @@ const props = {
 */
 
 //Peticion de la API
-const peticionUrl = "https://api.dailymotion.com/videos?channel=sport&limit=10";
+const peticionPostURL = "http://localhost/crudProductos/index.php?insertar=1";
 
 
 function FormRegProducto(props) {
 
   //Borrar campos en caso de presionar boton cancelar
-  const formRef = React.useRef(null);
+  const formRef = useRef(null);
   const borrarCampos = () => {
     formRef.current?.resetFields();
   }
@@ -74,10 +81,11 @@ function FormRegProducto(props) {
   //  Peticion POST a la API usando axios.
 
   const peticionPost = async () => {
-    await axios.post(peticionUrl, props.producto)
+    await axios.post(peticionPostURL, props.producto)
       .then(response => {
-        props.setData(props.datosTabla.concat(response.data.list));
+        props.setDatosTabla(props.datosTabla.concat(response.data));
         console.log(response);
+//        borrarCampos();   no funciona r
       }).catch(error => {
         console.log(error);
       })
@@ -86,9 +94,9 @@ function FormRegProducto(props) {
 
   return (
     <div className="formRegProducto">
-      <Form ref={formRef} >
+      <Form {...layout} ref={formRef}>
         <Row>
-          <h2>Registrar Producto</h2>
+          <h2 className="tituloRegistrar">Registrar Producto</h2>
         </Row>
         <Row>
           <Col span={11} className="c1">
@@ -117,10 +125,12 @@ function FormRegProducto(props) {
             <Item
               label="Categoria"
               name="categoriaProd"
-              rules={[{
-                required: true,
-                message: "Porfavor seleccione una categoria",
-              },]}
+            /*
+            rules={[{
+              required: true,
+              message: "Porfavor seleccione una categoria",
+            },]}
+            */
             >
               <Select
                 defaultValue="Aseo y Limpieza"
@@ -155,17 +165,19 @@ function FormRegProducto(props) {
                 ]}
               />
             </Item>
-            
+
             <Item
               label="Fecha"
               name="fechaProd"
-              rules={[{
-                required: true,
-                message: "Porfavor ingrese la fecha",
-              },]}
+            /*
+            rules={[{
+              required: true,
+              message: "Porfavor ingrese la fecha",
+            },]}
+            */
             >
-              <DatePicker name="fechaProd" placeholder="DD/MM/AAAA" defaultValue={dayjs('01/01/2023', dateFormatList[0])} format={dateFormatList}  onChange={handleChangeSelected}/>
-            </Item> 
+              <DatePicker name="fechaProd" placeholder="DD/MM/AAAA" defaultValue={dayjs('01/01/2023', dateFormatList[0])} format={dateFormatList} onChange={handleChangeSelected} />
+            </Item>
 
             <Item
               label="Precio"
@@ -178,25 +190,25 @@ function FormRegProducto(props) {
               <Input name="precioProd" placeholder="Ingrese el precio del producto" onChange={handleChange} />
             </Item>
           </Col>
-          <Col span={2}></Col>
+          <Col span={1}></Col>
 
           <Col span={11} className="c2">
             <Item
               label="Imagen"
               name="imagenProd"
-              /*
-              rules={[{
-                required: true,
-                message: "Porfavor ingrese una imagen",
-              },]}
-              */
+            /*
+            rules={[{
+              required: true,
+              message: "Porfavor ingrese una imagen",
+            },]}
+            */
             >
               <Upload {...props}>
                 <Button
                   icon={<UploadOutlined />}>Examinar
                 </Button>
               </Upload>
-            </Item> 
+            </Item>
 
             <Item
               label="Codigo"
@@ -212,24 +224,24 @@ function FormRegProducto(props) {
             <Item
               label="Descripcion"
               name="descripcionProd"
-              /*
-              rules={[{
-                required: true,
-                message: "Porfavor ingrese una descripcion del producto",
-              },]}
-              */
+            /*
+            rules={[{
+              required: true,
+              message: "Porfavor ingrese una descripcion del producto",
+            },]}
+            */
             >
-              <TextArea name="descripcionProd" rows={6} placeholder="Ingrese una descripcion del producto" onChange={handleChange}/>
+              <TextArea name="descripcionProd" rows={6} placeholder="Ingrese una descripcion del producto" onChange={handleChange} />
             </Item>
           </Col>
         </Row>
         <Row>
           <Item>
-            <Button type="primary" htmlType="submit" onClick={peticionPost}>Registrar</Button>
+            <Button className="botonRegistrar" type="primary" htmlType="submit" onClick={peticionPost}>Registrar</Button>
           </Item>
 
           <Item>
-            <Button htmlType="button" onClick={borrarCampos}>Cancelar</Button>
+            <Button className="botonCancelar" htmlType="button" onClick={borrarCampos}>Cancelar</Button>
           </Item>
         </Row>
       </Form>

@@ -168,7 +168,7 @@ function FormRegProducto() {
                      placeholder="Ingrese la cantidad del producto" 
                      onChange={handleChange}
                      showCount
-                     maxLength={5} />
+                     maxLength={4} />
             </Item>
 
             <Item
@@ -222,7 +222,11 @@ function FormRegProducto() {
                 message: "Porfavor seleccione una fecha",
               },]}
             >
-              <DatePicker name="fechaProd" placeholder="DD/MM/AAAA" disabledDate={disabledDate} format={dateFormatList} onChange={handleChangeDate} />
+              <DatePicker name="fechaProd" 
+                          placeholder="DD/MM/AAAA" 
+                          disabledDate={disabledDate} 
+                          format={dateFormatList} 
+                          onChange={handleChangeDate} />
             </Item>
 
             <Item

@@ -45,7 +45,7 @@ const props = {
 */
 
 //Peticion de la API
-const peticionPostURL = "http://localhost/crudProductos/index.php?insertar=1";
+const peticionPostURL = "http://localhost:8012/crudProductos/index1.php?insertar=1";
 
 
 function FormRegProducto(props) {
@@ -74,7 +74,8 @@ function FormRegProducto(props) {
 
   //Valor seleccionado de la lista desplegable
   const handleChangeSelected = (value) => {
-    console.log(`selected ${value}`);
+    handleChange();
+    console.log(value);
   };
 
 
@@ -164,6 +165,7 @@ function FormRegProducto(props) {
                   },
                 ]}
               />
+                <Input name="categoriaProd" placeholder="Categoria" onChange={handleChange} />
             </Item>
 
             <Item

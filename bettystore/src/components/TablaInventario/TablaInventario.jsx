@@ -9,7 +9,7 @@ import './TablaInventarioStyle.css';
 function TablaInventario(props) {
 
   //const [data, setData] = useState([]);
-  const peticionUrl = "http://localhost:8012/crudProductos/indexConsultaGeneral.php";
+  const peticionUrl = "http://localhost:8012/crudProductos/index1.php";
   //esto quitar puerto 8012 si esta por defecto en el 80 
 
 
@@ -67,76 +67,6 @@ function TablaInventario(props) {
       render: (fila) => (<Button className='btnEliminar' type='primary' danger onClick={abrirCerrarModalEliminar} icon={<DeleteOutlined />}></Button>),
     },
   ];
-  /*
-    const data=[
-      {
-        key: '1', 
-        codigo: '1234567891011',
-        nombre: "Coca Cola",
-        descripcion: "Coca-Cola es una bebida azucarada gaseosa vendida a nivel mundial en tiendas, restaurantes y máquinas expendedoras en más de doscientos países o territorios",
-        categoria: "Aguas y bebidas",
-        precio: "13",
-        cantidad: "24",
-        imagen: "X img preview",
-        fecha: "DD/AA/MM",
-      },
-      {
-        key: '2', 
-        codigo: '1286869891011',
-        nombre: "Leche Pil 1L",
-        descripcion: "Es un producto elaborado a partir de leche seleccionada y controlada, la cual es higienizada, estandarizada al 3,0% de materia grasa, homogenizada y ultrapasteurizada (UHT)",
-        categoria: "Lacteos",
-        precio: "6",
-        cantidad: "57",
-        imagen: "X img preview",
-        fecha: "DD/AA/MM",
-      },
-      {
-        key: '3', 
-        codigo: '7878767891011',
-        nombre: "Bacardi Manzana",
-        descripcion: "Ron blanco con sabor a manzana verde Granny Smith, Golden Delicious y Fuji. De sabor refrescante y suavemente cítrico, idealmente para mezclar con bebida tipo ginger ale o refrescos de limón.",
-        categoria: "Licoreria",
-        precio: "80",
-        cantidad: "7",
-        imagen:  "X preview",
-        fecha: "DD/AA/MM",
-      },
-      {
-        key: '4', 
-        codigo: '7878767891011',
-        nombre: "Bacardi Manzana",
-        descripcion: "Ron blanco con sabor a manzana verde Granny Smith, Golden Delicious y Fuji. De sabor refrescante y suavemente cítrico, idealmente para mezclar con bebida tipo ginger ale o refrescos de limón.",
-        categoria: "Licoreria",
-        precio: "80",
-        cantidad: "7",
-        imagen:  "X preview",
-        fecha: "DD/AA/MM",
-      },
-      {
-        key: '5', 
-        codigo: '7878767891011',
-        nombre: "Bacardi Manzana",
-        descripcion: "Ron blanco con sabor a manzana verde Granny Smith, Golden Delicious y Fuji. De sabor refrescante y suavemente cítrico, idealmente para mezclar con bebida tipo ginger ale o refrescos de limón.",
-        categoria: "Licoreria",
-        precio: "80",
-        cantidad: "7",
-        imagen:  "X preview",
-        fecha: "DD/AA/MM",
-      },
-      {
-        key: '6', 
-        codigo: '7878767891011',
-        nombre: "Bacardi Manzana",
-        descripcion: "Ron blanco con sabor a manzana verde Granny Smith, Golden Delicious y Fuji. De sabor refrescante y suavemente cítrico, idealmente para mezclar con bebida tipo ginger ale o refrescos de limón.",
-        categoria: "Licoreria",
-        precio: "80",
-        cantidad: "7",
-        imagen:  "X preview",
-        fecha: "DD/AA/MM",
-      },
-    ];
-  */
 
   //  Peticion Get de la API usando axios.
 

@@ -7,8 +7,9 @@ export default function Home(){
         <Row>   
             <Col span={18}>
                 <div>
-                    <h1>Sistema de punto de venta para administrar una tienda de barrio</h1>
-                    <p>Parrafo de prueba</p>
+                    <h1>Home page de BettyStore</h1>
+                    <h2>Página en construcción :)</h2>
+                    <img className='homeEnDesarrollo' src='./assets/homePageEnDesarrollo.jpg'></img>
                 </div>
             </Col>
             <Col span={6}>

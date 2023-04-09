@@ -101,7 +101,7 @@
 
   }
 
-  @media only screen and (max-width: 761px) and (max-height:361px){
+  @media only screen and (max-width: 761px) and (max-height:361px) and (orientation:landscape){
     .containerForm{
       /*min-width: 800px;*/
       overflow-x: auto;
@@ -194,3 +194,124 @@
         margin-left: 4vw;
     }
   }
+
+  @media only screen and (min-width: 761px) and (max-width: 1081px) and (max-height:811px){
+    .containerForm{
+      overflow-x: auto;
+      max-height: 640px;
+    }
+
+    .entradaDatos{
+        width: 410px;
+    }
+
+    .entradaDatosCategoria{
+        width: 490px;
+    }
+
+    .campoDescripcion{
+        resize: 'none';
+        width: 490px;
+    }
+
+    .botonRegistrar{
+        width: 25vw;
+        margin-left: 24vw;
+    }
+
+    .botonCancelar{
+        width: 25vw;
+        margin-left: 4vw;
+    }
+  }
+
+  /*Este afecta a tablet landscape*/
+  @media only screen and (min-height: 361px) and (max-height: 600px) and (orientation:landscape){
+    .containerForm{
+        overflow-x: auto;
+        max-height: 200px;
+      }
+  
+      .entradaDatos{
+          width: 650px;
+      }
+  
+      .entradaDatosCategoria{
+          width: 800px;
+      }
+  
+      .campoDescripcion{
+          resize: 'none';
+          width: 650px;
+      }
+  
+      .botonRegistrar{
+          width: 25vw;
+          margin-left: 24vw;
+      }
+  
+      .botonCancelar{
+          width: 25vw;
+          margin-left: 4vw;
+      }
+  }
+
+  @media only screen and (max-height: 361px) and (orientation:landscape){
+    .containerForm{
+        overflow-x: auto;
+        max-height: 170px;
+      }
+  
+      .entradaDatos{
+          width: 450px;
+      }
+  
+      .entradaDatosCategoria{
+          width: 600px;
+      }
+  
+      .campoDescripcion{
+          resize: 'none';
+          width: 450px;
+      }
+  
+      .botonRegistrar{
+          width: 25vw;
+          margin-left: 24vw;
+      }
+  
+      .botonCancelar{
+          width: 25vw;
+          margin-left: 4vw;
+      }
+  }
+
+  /*@media only screen and (min-height: 809px) and (max-height: 810px) and (min-width: 1078px) and (max-width: 1080px) and (orientation:landscape){
+    .containerForm{
+        overflow-x: auto;
+        max-height: 200px;
+      }
+  
+      .entradaDatos{
+          width: 650px;
+      }
+  
+      .entradaDatosCategoria{
+          width: 800px;
+      }
+  
+      .campoDescripcion{
+          resize: 'none';
+          width: 650px;
+      }
+  
+      .botonRegistrar{
+          width: 25vw;
+          margin-left: 24vw;
+      }
+  
+      .botonCancelar{
+          width: 25vw;
+          margin-left: 4vw;
+      }
+  }*/

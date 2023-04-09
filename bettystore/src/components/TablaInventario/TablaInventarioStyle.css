@@ -81,7 +81,7 @@
 
 
   .tabla th{
-    background-color: #450a67 !important;
+    background-color: #639B80 !important;
     border: 1px solid white !important;
     color: white !important;
     font-style: normal !important;
@@ -93,7 +93,7 @@
     border: 1px solid silver !important; 
     font-family: 'Times New Roman', Times, serif !important;
     text-align: center !important;
-    background-color: lightgray !important;
+    background-color: rgb(232, 228, 228) !important;
   } 
 
   .tabla tr:nth-child(odd) td {
@@ -104,5 +104,5 @@
   } 
 
   .tabla tr:hover td{
-    background-color: gray !important;
+    background-color: #e7f7f2!important;
   } 

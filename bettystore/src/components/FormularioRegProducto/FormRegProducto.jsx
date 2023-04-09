@@ -1,15 +1,15 @@
-import React, { useState, useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Form, Input, Button, Col, Row, Select, DatePicker, Upload, message } from "antd";
 import dayjs from "dayjs";
 import { UploadOutlined } from '@ant-design/icons';
 import TextArea from "antd/es/input/TextArea";
 import axios from "axios";
+import TablaInventario from "../TablaInventario/TablaInventario";
 import './FormRegProductoStyle.css';
 
 
 
 const { Item } = Form;
-
 //  Darle forma o alinear los labels del formulario
 const layout = {
   labelCol: {
@@ -20,78 +20,84 @@ const layout = {
   }
 };
 
-//Formato de fechas para el campo fecha
+
+//Formato de fechas par ael campo fecha
 const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY'];
-//Control y subida de imagen
-/*
-const props = {
-  name: 'file',
-  action: 'https://run.mocky.io/v3/93883d20-fe3f-4006-8406-e01ec4210410',
-  headers: {
-    authorization: 'authorization-text',
-    accept:".jpg, .jpeg, .png",
-  },
-  onChange(info) {
-    if (info.file.status !== 'uploading') {
-      console.log(info.file, info.fileList);
-    }
-    if (info.file.status === 'done') {
-      message.success(`${info.file.name} file uploaded successfully`);
-    } else if (info.file.status === 'error') {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
-};
-*/
-
-//Peticion de la API
-const peticionPostURL = "http://localhost/crudProductos/index.php?insertar=1";
 
 
-function FormRegProducto(props) {
+function FormRegProducto() {
 
   //Borrar campos en caso de presionar boton cancelar
-  const formRef = useRef(null);
+  const formRef = React.useRef(null);
   const borrarCampos = () => {
     formRef.current?.resetFields();
   }
 
-  /*
-  //Los nombres dentro el useState deben coincidir con los de la API
   const [producto, setProducto] = useState({
-    id: '',
-    title: '',
-    channel: '',
-    owner: '',
+    codProd: '',
+    nomProd: '',
+    categoriaProd: '',
+    descripcionProd: '',
+    precioProd: '',
+    cantidadProd: '',
+    fechaProd: '',
   })
-*/
+
+  const [fileList, setFileList] = useState([]);
+
   //Capturar lo que el usuario esta escribiendo en los inputs, tiene que coincidir el nombre del estado con la propiedad name del input
   const handleChange = e => {
     const { name, value } = e.target;
-    props.setProducto({ ...props.producto, [name]: value });
-    console.log(props.producto);
+    setProducto({ ...producto, [name]: value });
+    console.log(producto);
   }
-
   //Valor seleccionado de la lista desplegable
   const handleChangeSelected = (value) => {
     console.log(`selected ${value}`);
+    producto["categoriaProd"] = value;
   };
 
-  const handleChangeSelectedDate = (value) => {
-    const date= dayjs(value).format(dateFormatList[0]);
-    
-    console.log(date);
+  //Valor de fecha seleccionada
+  const handleChangeDate = (value) => {
+    const date = dayjs(value).format(dateFormatList[0]);
+    console.log(value);
+    producto['fechaProd'] = date;
+  }
 
+  //Bloquear fechas menores a la actual
+  const disabledDate = (current) => {
+    // Can not select days before today and today
+
+    return current && current < dayjs().endOf('day');
   };
 
   //  Peticion POST a la API usando axios.
-
   const peticionPost = async () => {
-    await axios.post(peticionPostURL, props.producto)
+
+    const datos = new FormData();
+    datos.append("codProd", producto['codProd']);
+    datos.append("nomProd", producto['nomProd']);
+    datos.append("categoriaProd", producto['categoriaProd']);
+    datos.append("descripcionProd", producto['descripcionProd']);
+    datos.append("precioProd", producto['precioProd']);
+    datos.append("cantidadProd", producto['cantidadProd']);
+    datos.append("fechaProd", producto['fechaProd']);
+    datos.append("imagenProd", fileList[0]);
+
+
+    console.log(datos.get('codProd'));
+    console.log(datos.get('nomProd'));
+    console.log(datos.get('categoriaProd'));
+    console.log(datos.get('descripcionProd'));
+    console.log(datos.get('precioProd'));
+    console.log(datos.get('cantidadProd'));
+    console.log(datos.get('fechaProd'));
+    console.log(datos.get('imagenProd'));
+
+    await axios.post("http://localhost/crudProductos/indexInsertar.php/?insertar=1", datos)
       .then(response => {
-        props.setDatosTabla(props.datosTabla.concat(response.data));
+//        message.info(response.data);
         console.log(response);
-//        borrarCampos();   no funciona r
       }).catch(error => {
         console.log(error);
       })
@@ -166,43 +172,42 @@ function FormRegProducto(props) {
             </Item>
 
             <Item
-              label="Categoria"
+              label="Categoría"
               name="categoriaProd"
-              
-            rules={[{
-              required: true,
-              message: "Porfavor seleccione una categoria",
-            },]}
-            
+              rules={[{
+                required: true,
+                message: "Porfavor seleccione una categoría",
+              },]}
             >
               <Select
-                defaultValue="Aseo y Limpieza"
+                placeholder="Seleccione una categoría"
+//                defaultValue="Aseo y Limpieza"
                 name="categoriaProd"
                 style={{ width: 170, }}
                 onChange={handleChangeSelected}
                 options={[
                   {
-                    value: 'aseoylimpieza',
+                    value: 'Aseo y Limpieza',
                     label: 'Aseo y Limpieza',
                   },
                   {
-                    value: 'golosinas',
+                    value: 'Golosinas',
                     label: 'Golosinas',
                   },
                   {
-                    value: 'aguasybebidas',
+                    value: 'Aguas y Bebidas',
                     label: 'Aguas y Bebidas',
                   },
                   {
-                    value: 'lacteos',
-                    label: 'Lacteos',
+                    value: 'Lácteos',
+                    label: 'Lácteos',
                   },
                   {
-                    value: 'licoreria',
-                    label: 'Licoreria',
+                    value: 'Licorería',
+                    label: 'Licorería',
                   },
                   {
-                    value: 'abarrotesydespensa',
+                    value: 'Abarrotes y Despensa',
                     label: 'Abarrotes y Despensa',
                   },
                 ]}
@@ -212,16 +217,12 @@ function FormRegProducto(props) {
             <Item
               label="Fecha"
               name="fechaProd"
-                
-            rules={[{
-              required: true,
-              message: "Porfavor ingrese la fecha",
-            },]}
-            
+              rules={[{
+                required: true,
+                message: "Porfavor seleccione una fecha",
+              },]}
             >
-              <DatePicker name="fechaProd" placeholder="DD/MM/AAAA" 
-              defaultValue={dayjs('01/01/2023', dateFormatList[0])} 
-              format={dateFormatList} onChange={handleChangeSelectedDate} />
+              <DatePicker name="fechaProd" placeholder="DD/MM/AAAA" disabledDate={disabledDate} format={dateFormatList} onChange={handleChangeDate} />
             </Item>
 
             <Item
@@ -259,22 +260,32 @@ function FormRegProducto(props) {
             <Item
               label="Imagen"
               name="imagenProd"
-            /*
-            rules={[{
-              required: true,
-              message: "Porfavor ingrese una imagen",
-            },]}
-            */
+              valuePropName="fileList"
+              getValueFromEvent={(event) => {
+                return event?.fileList;
+              }}
+
+              rules={[{
+                required: true,
+                message: "Porfavor ingrese una imagen",
+              },]}
+
             >
-              <Upload {...props}>
+              <Upload maxCount={1} customRequest={(info) => {
+                setFileList([info.file])
+                console.log(info.file)
+              }}
+                showUploadList={false}
+              >
                 <Button
                   icon={<UploadOutlined />}>Examinar
                 </Button>
+                {fileList[0]?.name}
               </Upload>
             </Item>
 
             <Item
-              label="Codigo"
+              label="Código"
               name="codProd"
               
               rules={[{
@@ -300,7 +311,7 @@ function FormRegProducto(props) {
             </Item>
 
             <Item
-              label="Descripcion"
+              label="Descripción"
               name="descripcionProd"
             /*
             rules={[{

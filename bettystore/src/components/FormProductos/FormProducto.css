@@ -1,0 +1,25 @@
+.tituloForm{
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 4vh;
+}
+
+.form-principal{
+    max-width: 900px;
+    position: absolute;
+    border-radius: 2%;
+    border: 0.5px solid blue;
+    height: 500px;
+    width: 100%;
+    padding-top: 30px;
+    padding-left: 30px;
+}
+
+
+
+
+
+
+
+
+
+

@@ -77,6 +77,12 @@ function FormRegProducto(props) {
     console.log(`selected ${value}`);
   };
 
+  const handleChangeSelectedDate = (value) => {
+    const date= dayjs(value).format(dateFormatList[0]);
+    
+    console.log(date);
+
+  };
 
   //  Peticion POST a la API usando axios.
 
@@ -106,31 +112,68 @@ function FormRegProducto(props) {
               rules={[{
                 required: true,
                 message: "Porfavor ingrese el nombre del producto",
-              },]}
+                },
+                {whitespace:true,
+                  message:'no puede dejar en blanco este campo',
+                },
+                
+                {min:4,
+                 message:'debe ingresar minimo 4 caracteres' 
+                },
+                {
+                  validator:(_,value) =>
+                    value && value.match('^[a-zA-Z0-9\-]+$')
+                      ? Promise.resolve()
+                      : Promise.reject(new Error('debe ingresar caracteres validos')),
+                },/*
+                {pattern:'/^[a-zA-Z0-9\-\s]$/',
+                  message:'valores no validos '
+                },*/
+              ]}
+              
             >
-              <Input name="nomProd" placeholder="Ingrese el nombre del producto" onChange={handleChange} />
+              <Input name="nomProd" 
+                     placeholder="Ingrese el nombre del producto" 
+                     onChange={handleChange}
+                     showCount
+                     maxLength={24} />
             </Item>
 
             <Item
               label="Cantidad"
               name="cantidadProd"
+              
               rules={[{
                 required: true,
                 message: "Porfavor ingrese la cantidad",
-              },]}
+                },
+                {whitespace:true,
+                message:'no puede dejar en blanco este campo',
+                },
+                {
+                  validator:(_,value) =>
+                    value && value.match('^[0-9]+$')
+                      ? Promise.resolve()
+                      : Promise.reject(new Error('debe ingresar solo numeros')),
+                },
+              ]}
             >
-              <Input name="cantidadProd" placeholder="Ingrese la cantidad del producto" onChange={handleChange} />
+              <Input name="cantidadProd" 
+                     placeholder="Ingrese la cantidad del producto" 
+                     onChange={handleChange}
+                     showCount
+                     maxLength={5} />
             </Item>
 
             <Item
               label="Categoria"
               name="categoriaProd"
-            /*
+              
             rules={[{
               required: true,
               message: "Porfavor seleccione una categoria",
             },]}
-            */
+            
             >
               <Select
                 defaultValue="Aseo y Limpieza"
@@ -169,25 +212,45 @@ function FormRegProducto(props) {
             <Item
               label="Fecha"
               name="fechaProd"
-            /*
+                
             rules={[{
               required: true,
               message: "Porfavor ingrese la fecha",
             },]}
-            */
+            
             >
-              <DatePicker name="fechaProd" placeholder="DD/MM/AAAA" defaultValue={dayjs('01/01/2023', dateFormatList[0])} format={dateFormatList} onChange={handleChangeSelected} />
+              <DatePicker name="fechaProd" placeholder="DD/MM/AAAA" 
+              defaultValue={dayjs('01/01/2023', dateFormatList[0])} 
+              format={dateFormatList} onChange={handleChangeSelectedDate} />
             </Item>
 
             <Item
               label="Precio"
               name="precioProd"
+              
               rules={[{
+                
                 required: true,
                 message: "Porfavor ingrese el precio",
-              },]}
+                },
+                {whitespace:true,
+                  message:'no puede dejar en blanco este campo',
+                },
+                {
+                  validator:(_,value) =>
+                    value && value.match(/^[0-9]+(.[0-9]+)?$/)
+                      ? Promise.resolve()
+                      : Promise.reject(new Error('solo puede ingresar numeros y el signo "."')),
+                },
+              ]}
             >
-              <Input name="precioProd" placeholder="Ingrese el precio del producto" onChange={handleChange} />
+              <Input name="precioProd" 
+                     placeholder="Ingrese el precio del producto" 
+                     onChange={handleChange} 
+                     
+                     suffix='Bs  '
+                     maxLength={6}
+                     />
             </Item>
           </Col>
           <Col span={1}></Col>
@@ -213,12 +276,27 @@ function FormRegProducto(props) {
             <Item
               label="Codigo"
               name="codProd"
+              
               rules={[{
                 required: true,
                 message: "Porfavor ingrese el codigo del producto",
-              },]}
+                },
+                {whitespace:true,
+                  message:'no puede dejar en blanco este campo',
+                },
+                {
+                  validator:(_,value) =>
+                    value && value.match(/^[0-9]+$/)
+                      ? Promise.resolve()
+                      : Promise.reject(new Error('debe ingresar solo valores numericos')),
+                },
+              ]}
             >
-              <Input name="codProd" placeholder="Ingrese el codigo del producto" onChange={handleChange} />
+              <Input name="codProd" 
+                     placeholder="Ingrese el codigo del producto" 
+                     onChange={handleChange}
+                     showCount
+                     maxLength={13} />
             </Item>
 
             <Item
@@ -231,7 +309,12 @@ function FormRegProducto(props) {
             },]}
             */
             >
-              <TextArea name="descripcionProd" rows={6} placeholder="Ingrese una descripcion del producto" onChange={handleChange} />
+              <TextArea name="descripcionProd" 
+                        rows={6} 
+                        placeholder="Ingrese una descripcion del producto" 
+                        onChange={handleChange}
+                        showCount
+                        maxLength={135} />
             </Item>
           </Col>
         </Row>

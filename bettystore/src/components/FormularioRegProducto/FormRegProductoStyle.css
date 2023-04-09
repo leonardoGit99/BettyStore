@@ -19,3 +19,7 @@
 .tituloRegistrar{
     margin-left: 10vw;
 }
+
+.campoDescripcion{
+    resize: 'none';
+}

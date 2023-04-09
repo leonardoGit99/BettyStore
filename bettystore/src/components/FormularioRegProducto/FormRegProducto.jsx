@@ -40,7 +40,7 @@ function FormRegProducto() {
     descripcionProd: '',
     precioProd: '',
     cantidadProd: '',
-    fechaProd:'',
+    fechaProd: '',
   })
 
   const [fileList, setFileList] = useState([]);
@@ -54,20 +54,20 @@ function FormRegProducto() {
   //Valor seleccionado de la lista desplegable
   const handleChangeSelected = (value) => {
     console.log(`selected ${value}`);
-    producto["categoriaProd"]=value;
+    producto["categoriaProd"] = value;
   };
 
   //Valor de fecha seleccionada
   const handleChangeDate = (value) => {
-    const date= dayjs(value).format(dateFormatList[0]);
-    console.log(date);
-    producto['fechaProd']=date;
+    const date = dayjs(value).format(dateFormatList[0]);
+    console.log(value);
+    producto['fechaProd'] = date;
   }
 
   //Bloquear fechas menores a la actual
   const disabledDate = (current) => {
     // Can not select days before today and today
-    
+
     return current && current < dayjs().endOf('day');
   };
 
@@ -94,9 +94,9 @@ function FormRegProducto() {
     console.log(datos.get('fechaProd'));
     console.log(datos.get('imagenProd'));
 
-    await axios.post("http://localhost/APIPHP/indexInsertar.php/?insertar=1", datos)
+    await axios.post("http://localhost/crudProductos/indexInsertar.php/?insertar=1", datos)
       .then(response => {
-        // props.setData(props.datosTabla.concat(response.data.list
+//        message.info(response.data);
         console.log(response);
       }).catch(error => {
         console.log(error);
@@ -135,131 +135,132 @@ function FormRegProducto() {
             </Item>
 
             <Item
-              label="Categoria"
+              label="Categoría"
               name="categoriaProd"
               rules={[{
                 required: true,
-                message: "Porfavor seleccione una categoria",
+                message: "Porfavor seleccione una categoría",
               },]}
             >
               <Select
-                defaultValue="Aseo y Limpieza"
+                placeholder="Seleccione una categoría"
+//                defaultValue="Aseo y Limpieza"
                 name="categoriaProd"
                 style={{ width: 170, }}
                 onChange={handleChangeSelected}
                 options={[
                   {
-                    value: 'aseoylimpieza',
+                    value: 'Aseo y Limpieza',
                     label: 'Aseo y Limpieza',
                   },
                   {
-                    value: 'golosinas',
+                    value: 'Golosinas',
                     label: 'Golosinas',
                   },
                   {
-                    value: 'aguasybebidas',
+                    value: 'Aguas y Bebidas',
                     label: 'Aguas y Bebidas',
                   },
                   {
-                    value: 'lacteos',
-                    label: 'Lacteos',
+                    value: 'Lácteos',
+                    label: 'Lácteos',
                   },
                   {
-                    value: 'licoreria',
-                    label: 'Licoreria',
+                    value: 'Licorería',
+                    label: 'Licorería',
                   },
                   {
-                    value: 'abarrotesydespensa',
+                    value: 'Abarrotes y Despensa',
                     label: 'Abarrotes y Despensa',
                   },
                 ]}
               />
             </Item>
-            
+
             <Item
               label="Fecha"
               name="fechaProd"
               rules={[{
                 required: true,
-                message: "Porfavor ingrese la fecha",
+                message: "Porfavor seleccione una fecha",
               },]}
             >
-              <DatePicker  name="fechaProd" placeholder="DD/MM/AAAA" disabledDate={disabledDate} format={dateFormatList}  onChange={handleChangeDate}/>
-            </Item> 
+              <DatePicker name="fechaProd" placeholder="DD/MM/AAAA" disabledDate={disabledDate} format={dateFormatList} onChange={handleChangeDate} />
+            </Item>
 
             <Item
               label="Precio"
               name="precioProd"
               rules={[{
                 required: true,
-                message: "Porfavor ingrese el precio",
+                message: "Porfavor ingrese el precio del producto",
               },]}
             >
               <Input name="precioProd" placeholder="Ingrese el precio del producto" onChange={handleChange} />
             </Item>
           </Col>
-          <Col span={2}></Col>
+          <Col span={1}></Col>
 
           <Col span={11} className="c2">
             <Item
               label="Imagen"
               name="imagenProd"
               valuePropName="fileList"
-              getValueFromEvent={(event)=>{
+              getValueFromEvent={(event) => {
                 return event?.fileList;
               }}
-              /*
+
               rules={[{
                 required: true,
                 message: "Porfavor ingrese una imagen",
               },]}
-              */
+
             >
-              <Upload maxCount={1} customRequest={(info) =>{
+              <Upload maxCount={1} customRequest={(info) => {
                 setFileList([info.file])
                 console.log(info.file)
               }}
-              showUploadList={false}
+                showUploadList={false}
               >
                 <Button
                   icon={<UploadOutlined />}>Examinar
                 </Button>
                 {fileList[0]?.name}
               </Upload>
-            </Item> 
-
-            <Item
-              label="Codigo"
-              name="codProd"
-              rules={[{
-                required: true,
-                message: "Porfavor ingrese el codigo del producto",
-              },]}
-            >
-              <Input name="codProd" placeholder="Ingrese el codigo del producto" onChange={handleChange} />
             </Item>
 
             <Item
-              label="Descripcion"
-              name="descripcionProd"
-              /*
+              label="Código"
+              name="codProd"
               rules={[{
                 required: true,
-                message: "Porfavor ingrese una descripcion del producto",
+                message: "Porfavor ingrese el código del producto",
               },]}
-              */
             >
-              <TextArea name="descripcionProd" rows={6} placeholder="Ingrese una descripcion del producto" onChange={handleChange}/>
+              <Input name="codProd" placeholder="Ingrese el código del producto" onChange={handleChange} />
+            </Item>
+
+            <Item
+              label="Descripción"
+              name="descripcionProd"
+            /*
+            rules={[{
+              required: true,
+              message: "Porfavor ingrese una descripcion del producto",
+            },]}
+            */
+            >
+              <TextArea autoSize={{ minRows: 6, maxRows: 6 }} className="campoDescripcion" name="descripcionProd"  placeholder="Ingrese una descripción del producto" onChange={handleChange} />
             </Item>
           </Col>
         </Row>
         <Row>
           <Item>
-            <Button type="primary" htmlType="submit" onClick={peticionPost}>Registrar</Button>
+            <Button className="botonRegistrar" type="primary" htmlType="submit" onClick={peticionPost}>Registrar</Button>
           </Item>
 
           <Item>
-            <Button htmlType="button" onClick={borrarCampos}>Cancelar</Button>
+            <Button className="botonCancelar" htmlType="button" onClick={borrarCampos}>Cancelar</Button>
           </Item>
         </Row>
       </Form>

@@ -13,10 +13,10 @@ const { Item } = Form;
 //  Darle forma o alinear los labels del formulario
 const layout = {
   labelCol: {
-    span: 8
+    span: 4
   },
   wrapperCol: {
-    span: 16
+    span: 20
   }
 };
 
@@ -94,7 +94,7 @@ function FormRegProducto() {
     console.log(datos.get('fechaProd'));
     console.log(datos.get('imagenProd'));
 
-    await axios.post("http://localhost/crudProductos/indexInsertar.php/?insertar=1", datos)
+    await axios.post("http://localhost:8012/crudProductos/indexInsertar.php/?insertar=1", datos)
       .then(response => {
 //        message.info(response.data);
         console.log(response);
@@ -106,13 +106,14 @@ function FormRegProducto() {
 
   return (
     <div className="formRegProducto">
-      <Form {...layout} ref={formRef}>
         <Row>
           <h2 className="tituloRegistrar">Registrar Producto</h2>
         </Row>
+      <Form {...layout} ref={formRef}  className="containerForm">
+        
         <Row>
-          <Col span={11} className="c1">
-            <Item
+          <Col lg={11} xs={24}>
+            <Item 
               label="Nombre"
               name="nomProd"
               rules={[{
@@ -120,7 +121,7 @@ function FormRegProducto() {
                 message: "Porfavor ingrese el nombre del producto",
               },]}
             >
-              <Input name="nomProd" placeholder="Ingrese el nombre del producto" onChange={handleChange} />
+              <Input className="entradaDatos" name="nomProd" placeholder="Ingrese el nombre del producto" onChange={handleChange} />
             </Item>
 
             <Item
@@ -131,10 +132,10 @@ function FormRegProducto() {
                 message: "Porfavor ingrese la cantidad",
               },]}
             >
-              <Input name="cantidadProd" placeholder="Ingrese la cantidad del producto" onChange={handleChange} />
+              <Input className="entradaDatos" name="cantidadProd" placeholder="Ingrese la cantidad del producto" onChange={handleChange} />
             </Item>
 
-            <Item
+            <Item className="entradaDatosCategoria"
               label="Categoría"
               name="categoriaProd"
               rules={[{
@@ -142,11 +143,11 @@ function FormRegProducto() {
                 message: "Porfavor seleccione una categoría",
               },]}
             >
-              <Select
+              <Select 
                 placeholder="Seleccione una categoría"
-//                defaultValue="Aseo y Limpieza"
+                //defaultValue="Aseo y Limpieza"
                 name="categoriaProd"
-                style={{ width: 170, }}
+                //style={{ width: 170, }}
                 onChange={handleChangeSelected}
                 options={[
                   {
@@ -175,7 +176,6 @@ function FormRegProducto() {
                   },
                 ]}
               />
-                <Input name="categoriaProd" placeholder="Categoria" onChange={handleChange} />
             </Item>
 
             <Item
@@ -197,12 +197,12 @@ function FormRegProducto() {
                 message: "Porfavor ingrese el precio del producto",
               },]}
             >
-              <Input name="precioProd" placeholder="Ingrese el precio del producto" onChange={handleChange} />
+              <Input className="entradaDatos" name="precioProd" placeholder="Ingrese el precio del producto" onChange={handleChange} />
             </Item>
           </Col>
-          <Col span={1}></Col>
+          <Col lg={1}></Col>
 
-          <Col span={11} className="c2">
+          <Col lg={11} xs={24} className="c2">
             <Item
               label="Imagen"
               name="imagenProd"
@@ -238,7 +238,7 @@ function FormRegProducto() {
                 message: "Porfavor ingrese el código del producto",
               },]}
             >
-              <Input name="codProd" placeholder="Ingrese el código del producto" onChange={handleChange} />
+              <Input className="entradaDatos" name="codProd" placeholder="Ingrese el código del producto" onChange={handleChange} />
             </Item>
 
             <Item

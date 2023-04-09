@@ -44,7 +44,7 @@ function TablaInventario(props) {
   //  Peticion Get de la API usando axios.
 
   const peticionGet = async () => {
-    await axios.get("http://localhost/crudProductos/indexConsultaGeneral.php")
+    await axios.get("http://localhost:8012/crudProductos/indexConsultaGeneral.php")
       .then(response => {
         props.setDatosTabla(response.data);
         // console.log(response.data);
@@ -71,7 +71,7 @@ function TablaInventario(props) {
       maskClosable: 'true',
       onOk: ()=>{
 
-        axios.get('http://localhost/crudProductos/indexEliminar.php/?borrar=' + fila.codProd)
+        axios.get('http://localhost:8012/crudProductos/indexEliminar.php/?borrar=' + fila.codProd)
         .then(response => {
           console.log(response);
         }).catch(error => {
@@ -91,7 +91,7 @@ function TablaInventario(props) {
     <div className='mostrarInventario'>
       <h2 className='subtituloTabla'>Productos Registrados en Inventario</h2>
       {/* TablaDinamica */}
-      <Table className='tabla' rowKey='id' columns={columnas} dataSource={props.datosTabla} bordered={true} pagination={{ pageSize: 5, pagination: true, position: ["bottomRight"] }} size={'small'} />
+      <Table className='tabla' rowKey='id' columns={columnas} dataSource={props.datosTabla} bordered={true} pagination={{ pageSize: 4, pagination: true, position: ["bottomRight"] }} size={'small'} />
 
       {/* TablaEstatica */}
       {/* <Table className='tabla'columns={columnas} dataSource={data} bordered={true} pagination={{pageSize: 5, pagination: true, position: ["bottomRight"]}}  size={'small'}/> */}

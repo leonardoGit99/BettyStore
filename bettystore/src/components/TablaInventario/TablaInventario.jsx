@@ -8,6 +8,8 @@ import './TablaInventarioStyle.css';
 
 function TablaInventario(props) {
 
+  // const [data, setData] = useState([]);
+
   const columnas = [
     {
       title: "Codigo", dataIndex: "codProd", key: "codProd",

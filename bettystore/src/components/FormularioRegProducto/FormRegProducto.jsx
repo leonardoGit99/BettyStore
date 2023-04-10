@@ -28,7 +28,7 @@ const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY'];
 function FormRegProducto() {
 
   //Borrar campos en caso de presionar boton cancelar
-  const formRef = React.useRef(null);
+  const formRef = useRef(null);
   const borrarCampos = () => {
     formRef.current?.resetFields();
   }
@@ -68,7 +68,7 @@ function FormRegProducto() {
   const disabledDate = (current) => {
     // Can not select days before today and today
 
-    return current && current < dayjs().endOf('day');
+    return current && current < dayjs();
   };
 
   //  Peticion POST a la API usando axios.
@@ -94,9 +94,10 @@ function FormRegProducto() {
     console.log(datos.get('fechaProd'));
     console.log(datos.get('imagenProd'));
 
-    await axios.post("http://localhost:8012/crudProductos/indexInsertar.php/?insertar=1", datos)
+    await axios.post("http://localhost/crudProductos/indexInsertar.php/?insertar=1", datos)
       .then(response => {
-//        message.info(response.data);
+        message.info(response.data, 2);
+        borrarCampos();
         console.log(response);
       }).catch(error => {
         console.log(error);
@@ -106,72 +107,75 @@ function FormRegProducto() {
 
   return (
     <div className="formRegProducto">
-        <Row>
-          <h2 className="tituloRegistrar">Registrar Producto</h2>
-        </Row>
-      <Form {...layout} ref={formRef}  className="containerForm">
-        
+      <Row>
+        <h2 className="tituloRegistrar">Registrar Producto</h2>
+      </Row>
+      <Form {...layout} ref={formRef} className="containerForm" onFinish={peticionPost}>
+
         <Row>
           <Col lg={11} xs={24}>
-            <Item 
+            <Item
               label="Nombre"
               name="nomProd"
               rules={[{
                 required: true,
-                message: "Porfavor ingrese el nombre del producto",
-                },
-                {whitespace:true,
-                  message:'no puede dejar en blanco este campo',
-                },
-                
-                {min:4,
-                 message:'debe ingresar minimo 4 caracteres' 
-                },
-                {
-                  validator:(_,value) =>
-                    value && value.match('[a-zA-Z0-9\s]+$')
-                      ? Promise.resolve()
-                      : Promise.reject(new Error('debe ingresar caracteres validos')),
-                },/*
+                message: "Por favor, ingrese el nombre del producto",
+              },
+              {
+                whitespace: true,
+                message: 'No puede dejar en blanco este campo',
+              },
+
+              {
+                min: 4,
+                message: 'Debe ingresar minimo 4 caracteres'
+              },
+              {
+                validator: (_, value) =>
+                  value && value.match('[a-zA-Z0-9\s]+$')
+                    ? Promise.resolve()
+                    : Promise.reject(new Error('Debe ingresar caracteres válidos')),
+              },/*
                 {pattern:'/^[a-zA-Z0-9\-\s]$/',
                   message:'valores no validos '
                 },*/
               ]}
-              
+
             >
               <Input className="entradaDatos"
-                     name="nomProd" 
-                     placeholder="Ingrese el nombre del producto" 
-                     onChange={handleChange}
-                     showCount
-                     maxLength={24} />
+                name="nomProd"
+                placeholder="Ingrese el nombre del producto"
+                onChange={handleChange}
+                showCount
+                maxLength={24} />
             </Item>
 
             <Item
               label="Cantidad"
               name="cantidadProd"
-              
+
               rules={[{
                 required: true,
-                message: "Porfavor ingrese la cantidad",
-                },
-                {whitespace:true,
-                message:'no puede dejar en blanco este campo',
-                },
-                {
-                  validator:(_,value) =>
-                    value && value.match('^[0-9]+$')
-                      ? Promise.resolve()
-                      : Promise.reject(new Error('debe ingresar solo numeros')),
-                },
+                message: "Por favor, ingrese la cantidad",
+              },
+              {
+                whitespace: true,
+                message: 'No puede dejar en blanco este campo',
+              },
+              {
+                validator: (_, value) =>
+                  value && value.match('^[0-9]+$')
+                    ? Promise.resolve()
+                    : Promise.reject(new Error('Debe ingresar solo números')),
+              },
               ]}
             >
               <Input className="entradaDatos"
-                     name="cantidadProd" 
-                     placeholder="Ingrese la cantidad del producto" 
-                     onChange={handleChange}
-                     showCount
-                     maxLength={4} />
+                name="cantidadProd"
+                placeholder="Ingrese la cantidad del producto"
+                onChange={handleChange}
+                showCount
+                maxLength={4} />
             </Item>
 
             <Item className="entradaDatosCategoria"
@@ -179,10 +183,10 @@ function FormRegProducto() {
               name="categoriaProd"
               rules={[{
                 required: true,
-                message: "Porfavor seleccione una categoría",
+                message: "Por favor, seleccione una categoría",
               },]}
             >
-              <Select 
+              <Select
                 placeholder="Seleccione una categoría"
                 //defaultValue="Aseo y Limpieza"
                 name="categoriaProd"
@@ -222,44 +226,45 @@ function FormRegProducto() {
               name="fechaProd"
               rules={[{
                 required: true,
-                message: "Porfavor seleccione una fecha",
+                message: "Por favor, seleccione una fecha",
               },]}
             >
-              <DatePicker name="fechaProd" 
-                          placeholder="DD/MM/AAAA" 
-                          disabledDate={disabledDate} 
-                          format={dateFormatList} 
-                          onChange={handleChangeDate} />
+              <DatePicker name="fechaProd"
+                placeholder="DD/MM/AAAA"
+                disabledDate={disabledDate}
+                format={dateFormatList}
+                onChange={handleChangeDate} />
             </Item>
 
             <Item
               label="Precio"
               name="precioProd"
-              
+
               rules={[{
-                
+
                 required: true,
-                message: "Porfavor ingrese el precio",
-                },
-                {whitespace:true,
-                  message:'no puede dejar en blanco este campo',
-                },
-                {
-                  validator:(_,value) =>
-                    value && value.match(/^[0-9]+(.[0-9]+)?$/)
-                      ? Promise.resolve()
-                      : Promise.reject(new Error('solo puede ingresar numeros y el signo "."')),
-                },
+                message: "Por favor, ingrese el precio",
+              },
+              {
+                whitespace: true,
+                message: 'No puede dejar en blanco este campo',
+              },
+              {
+                validator: (_, value) =>
+                  value && value.match(/^[0-9]+(.[0-9]+)?$/)
+                    ? Promise.resolve()
+                    : Promise.reject(new Error('Solo puede ingresar números y el signo "."')),
+              },
               ]}
             >
               <Input className="entradaDatos"
-                     name="precioProd" 
-                     placeholder="Ingrese el precio del producto" 
-                     onChange={handleChange} 
-                     
-                     suffix='Bs  '
-                     maxLength={6}
-                     />
+                name="precioProd"
+                placeholder="Ingrese el precio del producto"
+                onChange={handleChange}
+
+                suffix='Bs  '
+                maxLength={6}
+              />
             </Item>
           </Col>
           <Col lg={1}></Col>
@@ -275,7 +280,7 @@ function FormRegProducto() {
 
               rules={[{
                 required: true,
-                message: "Porfavor ingrese una imagen",
+                message: "Por favor, ingrese una imagen",
               },]}
 
             >
@@ -295,32 +300,33 @@ function FormRegProducto() {
             <Item
               label="Código"
               name="codProd"
-              
+
               rules={[{
                 required: true,
-                message: "Porfavor ingrese el codigo del producto",
-                },
-                {whitespace:true,
-                  message:'no puede dejar en blanco este campo',
-                },
-                {
-                  validator:(_,value) =>
-                    value && value.match(/^[0-9]+$/)
-                      ? Promise.resolve()
-                      : Promise.reject(new Error('debe ingresar solo valores numericos')),
-                },
-                {
-                  min:11,
-                  message:'Código inválido'
-                },
+                message: "Por favor, ingrese el código del producto",
+              },
+              {
+                whitespace: true,
+                message: 'No puede dejar en blanco este campo',
+              },
+              {
+                validator: (_, value) =>
+                  value && value.match(/^[0-9]+$/)
+                    ? Promise.resolve()
+                    : Promise.reject(new Error('Debe ingresar solo valores numéricos')),
+              },
+              {
+                min: 11,
+                message: 'Código inválido'
+              },
               ]}
             >
               <Input className="entradaDatos"
-                     name="codProd" 
-                     placeholder="Ingrese el codigo del producto" 
-                     onChange={handleChange}
-                     showCount
-                     maxLength={13} />
+                name="codProd"
+                placeholder="Ingrese el código del producto"
+                onChange={handleChange}
+                showCount
+                maxLength={13} />
             </Item>
 
             <Item
@@ -333,19 +339,18 @@ function FormRegProducto() {
             },]}
             */
             >
-              <TextArea name="descripcionProd" 
-                        rows={6} 
-                        placeholder="Ingrese una descripcion del producto" 
-                        onChange={handleChange}
-                        showCount
-                        maxLength={135}
-                        autoSize={{minRows:6, maxRows:6}} />
+              <TextArea name="descripcionProd"
+                placeholder="Ingrese una descripción del producto"
+                onChange={handleChange}
+                showCount
+                maxLength={135}
+                autoSize={{ minRows: 6, maxRows: 6 }} />
             </Item>
           </Col>
         </Row>
         <Row>
           <Item>
-            <Button className="botonRegistrar" type="primary" htmlType="submit" onClick={peticionPost}>Registrar</Button>
+            <Button className="botonRegistrar" type="primary" htmlType="submit">Registrar</Button>
           </Item>
 
           <Item>

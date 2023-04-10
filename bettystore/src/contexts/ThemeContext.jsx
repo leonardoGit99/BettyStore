@@ -6,7 +6,7 @@ export function ThemeContextProvider(props){
     
     const dark = {
         name: 'dark',
-        background: '#639B80',/*'#1a0427',*/
+        background: '#132d46',/*'#1a0427',*/
         color: '#FFF'
     }
 

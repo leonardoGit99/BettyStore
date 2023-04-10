@@ -16,7 +16,7 @@
 
 .App-footer{
   text-align: center;
-  background-color: #639B80;/*#1a0427;*/
+  background-color: #132d46;/*#1a0427;*/
   color: #FFF;
   position:fixed;
   left: 0;
@@ -35,7 +35,7 @@
 @media only screen and (max-width: 500px) {
   .App-footer{
     text-align: center;
-    background-color: #639B80;
+    background-color: #132d46;
     color: #FFF;
     position:fixed;
     left: 0;
@@ -51,7 +51,7 @@
 }
 
 .r2{
-  background-color: #95c5b7;/*#feaf5f;*//*#001529;*/ /*orange;*/
+  background-color: #01c38e;/*#feaf5f;*//*#001529;*/ /*orange;*/
 }
 
 .homeEnDesarrollo{

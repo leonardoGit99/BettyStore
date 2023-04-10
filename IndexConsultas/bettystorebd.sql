@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-04-2023 a las 17:02:12
+-- Tiempo de generación: 10-04-2023 a las 03:00:03
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.2.0
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `bettystorebd`
 --
+CREATE DATABASE IF NOT EXISTS `bettystorebd` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `bettystorebd`;
 
 -- --------------------------------------------------------
 
@@ -62,9 +64,9 @@ CREATE TABLE `producto` (
   `nomProd` varchar(100) DEFAULT NULL,
   `categoriaProd` varchar(100) DEFAULT NULL,
   `descripcionProd` varchar(200) DEFAULT NULL,
-  `precioProd` int(11) DEFAULT NULL,
+  `precioProd` double DEFAULT NULL,
   `cantidadProd` int(11) DEFAULT NULL,
-  `fechaProd` date DEFAULT NULL,
+  `fechaProd` varchar(15) DEFAULT NULL,
   `imagenProd` mediumblob DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 

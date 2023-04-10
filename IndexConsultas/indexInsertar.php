@@ -5,6 +5,7 @@ header("Access-Control-Allow-Methods: GET,POST");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 // Conecta a la base de datos  con usuario, contraseña y nombre de la BD
 $servidor = "localhost"; $usuario = "root"; $contrasenia = ""; $nombreBaseDatos = "bettystorebd";
 $conexionBD = new mysqli($servidor, $usuario, $contrasenia, $nombreBaseDatos);

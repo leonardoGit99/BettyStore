@@ -338,7 +338,8 @@ function FormRegProducto() {
                         placeholder="Ingrese una descripcion del producto" 
                         onChange={handleChange}
                         showCount
-                        maxLength={135} />
+                        maxLength={135}
+                        autoSize={{minRows:6, maxRows:6}} />
             </Item>
           </Col>
         </Row>

@@ -8,23 +8,29 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 // Conecta a la base de datos  con usuario, contraseña y nombre de la BD
 $servidor = "localhost"; $usuario = "root"; $contrasenia = ""; $nombreBaseDatos = "bettystorebd";
 $conexionBD = new mysqli($servidor, $usuario, $contrasenia, $nombreBaseDatos);
-if($conexionBD){
-    echo"conexxion establecida?? ";
+
+//Consulta todos los registros y devuelve el vector
+$vector = array(); 
+$sql = "SELECT * FROM producto";
+$sqlProducto = mysqli_query($conexionBD, $sql);
+
+while($fila = mysqli_fetch_assoc($sqlProducto)) {
+    $vector[] = array(
+        "codProd" => $fila['codProd'],
+        "nomProd" => $fila['nomProd'],
+        "categoriaProd" => $fila['categoriaProd'],
+        "descripcionProd" => $fila['descripcionProd'],
+        "precioProd" => $fila['precioProd'],
+        "cantidadProd" => $fila['cantidadProd'],
+        "fechaProd" => $fila['fechaProd'],
+        "imagenProd" =>  base64_encode($fila['imagenProd'])
+        
+    );
 }
-else{
-    echo"noh hay conexion";
 
-}
+mysqli_close($conexionBD);
 
-
-
-// Consulta todos los registros de la tabla empleados
-$sqlProducto = mysqli_query($conexionBD,"SELECT * FROM producto ");
-if(mysqli_num_rows($sqlProducto) > 0){
-    $producto = mysqli_fetch_all($sqlProducto,MYSQLI_ASSOC);
-    echo json_encode($producto);
-}
-else{ echo json_encode([["success"=>0]]); }
-
+$json = json_encode($vector);
+echo $json;
 
 ?>

@@ -96,7 +96,7 @@ function FormRegProducto() {
 
     await axios.post("http://localhost/crudProductos/indexInsertar.php/?insertar=1", datos)
       .then(response => {
-        message.info(response.data, 0.8);
+        message.info(response.data, 2);
         borrarCampos();
         console.log(response);
       }).catch(error => {
@@ -343,8 +343,8 @@ function FormRegProducto() {
                 placeholder="Ingrese una descripción del producto"
                 onChange={handleChange}
                 showCount
-                maxLength={135} 
-                autoSize={{ minRows: 6, maxRows: 6 }}/>
+                maxLength={135}
+                autoSize={{ minRows: 6, maxRows: 6 }} />
             </Item>
           </Col>
         </Row>

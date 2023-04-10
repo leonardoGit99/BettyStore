@@ -44,7 +44,7 @@ function TablaInventario(props) {
   //  Peticion Get de la API usando axios.
 
   const peticionGet = async () => {
-    await axios.get("http://localhost:8012/crudProductos/indexConsultaGeneral.php")
+    await axios.get("http://localhost/crudProductos/indexConsultaGeneral.php")
       .then(response => {
         props.setDatosTabla(response.data);
         // console.log(response.data);
@@ -71,20 +71,18 @@ function TablaInventario(props) {
       maskClosable: 'true',
       onOk: ()=>{
 
-        axios.get('http://localhost:8012/crudProductos/indexEliminar.php/?borrar=' + fila.codProd)
+        axios.get('http://localhost/crudProductos/indexEliminar.php/?borrar=' + fila.codProd)
         .then(response => {
+          peticionGet();
           console.log(response);
         }).catch(error => {
           console.log(error);
         })
-
-        peticionGet();
-        message.info('Este producto ha sido eliminado exitosamente');
+        message.info('Este producto ha sido eliminado exitosamente', 0.8);
 
       } 
       
     })
-
   }
 
   return (

@@ -129,7 +129,7 @@ function FormRegProducto() {
                 },
                 {
                   validator:(_,value) =>
-                    value && value.match('^[a-zA-Z0-9\-]+$')
+                    value && value.match('[a-zA-Z0-9\s]+$')
                       ? Promise.resolve()
                       : Promise.reject(new Error('debe ingresar caracteres validos')),
                 },/*
@@ -308,6 +308,10 @@ function FormRegProducto() {
                     value && value.match(/^[0-9]+$/)
                       ? Promise.resolve()
                       : Promise.reject(new Error('debe ingresar solo valores numericos')),
+                },
+                {
+                  min:11,
+                  message:'Código inválido'
                 },
               ]}
             >

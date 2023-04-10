@@ -119,20 +119,59 @@ function FormRegProducto() {
               rules={[{
                 required: true,
                 message: "Porfavor ingrese el nombre del producto",
-              },]}
+                },
+                {whitespace:true,
+                  message:'no puede dejar en blanco este campo',
+                },
+                
+                {min:4,
+                 message:'debe ingresar minimo 4 caracteres' 
+                },
+                {
+                  validator:(_,value) =>
+                    value && value.match('^[a-zA-Z0-9\-]+$')
+                      ? Promise.resolve()
+                      : Promise.reject(new Error('debe ingresar caracteres validos')),
+                },/*
+                {pattern:'/^[a-zA-Z0-9\-\s]$/',
+                  message:'valores no validos '
+                },*/
+              ]}
+              
             >
-              <Input className="entradaDatos" name="nomProd" placeholder="Ingrese el nombre del producto" onChange={handleChange} />
+              <Input className="entradaDatos"
+                     name="nomProd" 
+                     placeholder="Ingrese el nombre del producto" 
+                     onChange={handleChange}
+                     showCount
+                     maxLength={24} />
             </Item>
 
             <Item
               label="Cantidad"
               name="cantidadProd"
+              
               rules={[{
                 required: true,
                 message: "Porfavor ingrese la cantidad",
-              },]}
+                },
+                {whitespace:true,
+                message:'no puede dejar en blanco este campo',
+                },
+                {
+                  validator:(_,value) =>
+                    value && value.match('^[0-9]+$')
+                      ? Promise.resolve()
+                      : Promise.reject(new Error('debe ingresar solo numeros')),
+                },
+              ]}
             >
-              <Input className="entradaDatos" name="cantidadProd" placeholder="Ingrese la cantidad del producto" onChange={handleChange} />
+              <Input className="entradaDatos"
+                     name="cantidadProd" 
+                     placeholder="Ingrese la cantidad del producto" 
+                     onChange={handleChange}
+                     showCount
+                     maxLength={4} />
             </Item>
 
             <Item className="entradaDatosCategoria"
@@ -186,18 +225,41 @@ function FormRegProducto() {
                 message: "Porfavor seleccione una fecha",
               },]}
             >
-              <DatePicker name="fechaProd" placeholder="DD/MM/AAAA" disabledDate={disabledDate} format={dateFormatList} onChange={handleChangeDate} />
+              <DatePicker name="fechaProd" 
+                          placeholder="DD/MM/AAAA" 
+                          disabledDate={disabledDate} 
+                          format={dateFormatList} 
+                          onChange={handleChangeDate} />
             </Item>
 
             <Item
               label="Precio"
               name="precioProd"
+              
               rules={[{
+                
                 required: true,
-                message: "Porfavor ingrese el precio del producto",
-              },]}
+                message: "Porfavor ingrese el precio",
+                },
+                {whitespace:true,
+                  message:'no puede dejar en blanco este campo',
+                },
+                {
+                  validator:(_,value) =>
+                    value && value.match(/^[0-9]+(.[0-9]+)?$/)
+                      ? Promise.resolve()
+                      : Promise.reject(new Error('solo puede ingresar numeros y el signo "."')),
+                },
+              ]}
             >
-              <Input className="entradaDatos" name="precioProd" placeholder="Ingrese el precio del producto" onChange={handleChange} />
+              <Input className="entradaDatos"
+                     name="precioProd" 
+                     placeholder="Ingrese el precio del producto" 
+                     onChange={handleChange} 
+                     
+                     suffix='Bs  '
+                     maxLength={6}
+                     />
             </Item>
           </Col>
           <Col lg={1}></Col>
@@ -233,12 +295,28 @@ function FormRegProducto() {
             <Item
               label="Código"
               name="codProd"
+              
               rules={[{
                 required: true,
-                message: "Porfavor ingrese el código del producto",
-              },]}
+                message: "Porfavor ingrese el codigo del producto",
+                },
+                {whitespace:true,
+                  message:'no puede dejar en blanco este campo',
+                },
+                {
+                  validator:(_,value) =>
+                    value && value.match(/^[0-9]+$/)
+                      ? Promise.resolve()
+                      : Promise.reject(new Error('debe ingresar solo valores numericos')),
+                },
+              ]}
             >
-              <Input className="entradaDatos" name="codProd" placeholder="Ingrese el código del producto" onChange={handleChange} />
+              <Input className="entradaDatos"
+                     name="codProd" 
+                     placeholder="Ingrese el codigo del producto" 
+                     onChange={handleChange}
+                     showCount
+                     maxLength={13} />
             </Item>
 
             <Item
@@ -251,7 +329,12 @@ function FormRegProducto() {
             },]}
             */
             >
-              <TextArea autoSize={{ minRows: 6, maxRows: 6 }} className="campoDescripcion" name="descripcionProd"  placeholder="Ingrese una descripción del producto" onChange={handleChange} />
+              <TextArea name="descripcionProd" 
+                        rows={6} 
+                        placeholder="Ingrese una descripcion del producto" 
+                        onChange={handleChange}
+                        showCount
+                        maxLength={135} />
             </Item>
           </Col>
         </Row>

@@ -71,7 +71,7 @@ function App() {
         </Col>
       </Row>
       {/*</Layout>*/}
-      <Footer className='App-footer'><small>UMSS &copy; - Sistema creado por Team Digitial Warriors - Todos los derechos reservados</small> {displayYear()}</Footer>
+      <Footer className='App-footer'><small>UMSS &copy; - Sistema creado por Team Digital Warriors - Todos los derechos reservados</small> {displayYear()}</Footer>
       {/*</Layout>*/}
     </Space>
   )

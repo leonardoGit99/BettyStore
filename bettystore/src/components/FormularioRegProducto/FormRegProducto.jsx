@@ -31,6 +31,7 @@ function FormRegProducto() {
   const formRef = useRef(null);
   const borrarCampos = () => {
     formRef.current?.resetFields();
+    setFileList([]);
   }
 
   const [producto, setProducto] = useState({

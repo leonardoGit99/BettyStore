@@ -18,11 +18,12 @@
   margin-left: 2vw;
 }
 
-/*
+
 .tituloRegistrar {
-  margin-left: 10vw;
+  /* margin-left: 10vw; */
+  font-family: 'Montserrat', sans-serif;
 }
-*/
+
 
 
 .containerForm {

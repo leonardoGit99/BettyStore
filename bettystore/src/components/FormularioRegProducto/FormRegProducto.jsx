@@ -285,14 +285,17 @@ function FormRegProducto() {
               },]}
 
             >
-              <Upload maxCount={1} customRequest={(info) => {
+              <Upload  maxCount={1}  customRequest={(info) => {
                 setFileList([info.file])
                 console.log(info.file)
               }}
-                showUploadList={false}
+              beforeUpload={() =>{
+               // message.info('Imagen subida correctamente');
+                return false;
+              }}showUploadList={true} 
               >
-                <Button
-                  icon={<UploadOutlined />}>Examinar
+                <Button 
+                  icon={<UploadOutlined />} >Examinar
                 </Button>
                 {fileList[0]?.name}
               </Upload>

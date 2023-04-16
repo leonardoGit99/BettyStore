@@ -104,6 +104,19 @@ function FormRegProducto() {
       })
   }
 
+  const controlarArchivo = (file) => {
+    const tipoValido = (file.type === 'image/png') || (file.type === 'image/jpeg');
+    const pesoValido = file.size < 6000000;
+
+    if (!tipoValido) {
+      message.error(`${file.name} no posee una extensión válida, ingrese una imagen en formato jpg o png.`);
+      return tipoValido || Upload.LIST_IGNORE;
+    }else if (!pesoValido){
+      message.error("La imagen no debe pesar más de 6MB.");
+      return pesoValido || Upload.LIST_IGNORE;
+    }
+
+  }
 
   return (
     <div className="formRegProducto">
@@ -284,16 +297,18 @@ function FormRegProducto() {
               },]}
 
             >
-              <Upload maxCount={1} customRequest={(info) => {
-                setFileList([info.file])
-                console.log(info.file)
-              }}
-                showUploadList={false}
+              <Upload maxCount={1} 
+                customRequest={(info) => {
+                  setFileList([info.file])
+                  console.log(info.file)
+                }}
+                // showUploadList={false}
+                beforeUpload={controlarArchivo}
               >
                 <Button
                   icon={<UploadOutlined />}>Examinar
                 </Button>
-                {fileList[0]?.name}
+                {/* {fileList[0]?.name} */}
               </Upload>
             </Item>
 

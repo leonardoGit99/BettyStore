@@ -289,10 +289,9 @@ function FormRegProducto() {
                 setFileList([info.file])
                 console.log(info.file)
               }}
-              beforeUpload={() =>{
-               // message.info('Imagen subida correctamente');
-                return false;
-              }}showUploadList={true} 
+/*              beforeUpload={() =>{
+                  return false;
+              }} */showUploadList={false} 
               >
                 <Button 
                   icon={<UploadOutlined />} >Examinar

@@ -31,6 +31,7 @@ function FormRegProducto() {
   const formRef = useRef(null);
   const borrarCampos = () => {
     formRef.current?.resetFields();
+    setFileList([]);
   }
 
   const [producto, setProducto] = useState({
@@ -284,14 +285,16 @@ function FormRegProducto() {
               },]}
 
             >
-              <Upload maxCount={1} customRequest={(info) => {
+              <Upload  maxCount={1}  customRequest={(info) => {
                 setFileList([info.file])
                 console.log(info.file)
               }}
-                showUploadList={false}
+/*              beforeUpload={() =>{
+                  return false;
+              }} */showUploadList={false} 
               >
-                <Button
-                  icon={<UploadOutlined />}>Examinar
+                <Button 
+                  icon={<UploadOutlined />} >Examinar
                 </Button>
                 <p className="nombreArchivoSubido">{fileList[0]?.name}</p>
               </Upload>

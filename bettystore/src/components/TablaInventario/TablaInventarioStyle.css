@@ -91,18 +91,16 @@
   
   .tabla tr:nth-child(even) td {
     border: 1px solid silver !important; 
-    font-family: 'Times New Roman', Times, serif !important;
     text-align: center !important;
     background-color: rgb(232, 228, 228) !important;
   } 
 
   .tabla tr:nth-child(odd) td {
     border: 1px solid lightgrey !important; 
-    font-family: 'Times New Roman', Times, serif !important;
     text-align: center !important;
     background-color: white !important;
   } 
 
   .tabla tr:hover td{
-    background-color: #e7f7f2!important;
+    background-color: #dff6ef!important;
   } 

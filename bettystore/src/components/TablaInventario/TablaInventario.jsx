@@ -89,7 +89,7 @@ function TablaInventario(props) {
     <div className='mostrarInventario'>
       <h2 className='subtituloTabla'>Productos Registrados en Inventario</h2>
       {/* TablaDinamica */}
-      <Table className='tabla' rowKey='id' columns={columnas} dataSource={props.datosTabla} bordered={true} pagination={{ pageSize: 4, pagination: true, position: ["bottomRight"] }} size={'small'} />
+      <Table className='tabla' locale={{emptyText: 'No hay productos registrados'}} rowKey='id' columns={columnas} dataSource={props.datosTabla} bordered={true} pagination={{ pageSize: 4, pagination: true, position: ["bottomRight"] }} size={'small'} />
 
       {/* TablaEstatica */}
       {/* <Table className='tabla'columns={columnas} dataSource={data} bordered={true} pagination={{pageSize: 5, pagination: true, position: ["bottomRight"]}}  size={'small'}/> */}

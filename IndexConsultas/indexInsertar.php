@@ -26,7 +26,8 @@ if(isset($_GET["insertar"])){
     $query1=mysqli_query($conexionBD, $sqlQuery1);
     $totalProducto=mysqli_num_rows($query1);
     if($totalProducto>=1){
-       echo json_encode("Nombre de producto existente en inventario");
+        
+        echo json_encode("Producto ya registrado");
     }else{
         $sql = "INSERT INTO producto (codProd, nomProd, categoriaProd, descripcionProd, precioProd, cantidadProd, fechaProd, imagenProd) VALUES ('".$codProd."', '".$nomProd."', '".$categoriaProd."', '".$descripcionProd."', '".$precioProd."', '".$cantidadProd."', '".$fechaProd."', '".$imagenProd."')";
 
@@ -38,10 +39,15 @@ if(isset($_GET["insertar"])){
         }catch (Exception $error){
             if(strpos($error->getMessage(), "PRIMARY") !== false){
             echo json_encode("Error: El código de producto ya esta registrado");
-            }else{
+            } else{
+                if(strpos($error->getMessage(), "gone away") !== false){
+                    echo json_encode("Error: Existe un error desconocido con la imagen");
+                }else{
                 //Otro error que pueda surgir **Mensaje en ingles**
                 echo json_encode("Error: ".$error->getMessage());
+                }
             }
+            
 
         }
     }

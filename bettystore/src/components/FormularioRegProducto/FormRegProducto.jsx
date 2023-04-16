@@ -110,10 +110,10 @@ function FormRegProducto() {
     const pesoValido = file.size < 6000000;
 
     if (!tipoValido) {
-      message.error(`${file.name} no posee una extensión válida, ingrese una imagen en formato jpg o png.`);
+      message.error(`${file.name} no posee una extensión válida, ingrese una imagen en formato jpg o png.`,2);
       return tipoValido || Upload.LIST_IGNORE;
     }else if (!pesoValido){
-      message.error("La imagen no debe pesar más de 6MB.");
+      message.error("La imagen no debe pesar más de 6MB.",2);
       return pesoValido || Upload.LIST_IGNORE;
     }
 

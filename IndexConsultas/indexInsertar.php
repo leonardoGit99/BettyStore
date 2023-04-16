@@ -27,7 +27,7 @@ if(isset($_GET["insertar"])){
     $totalProducto=mysqli_num_rows($query1);
     if($totalProducto>=1){
         
-        echo json_encode("Producto ya registrado");
+        echo json_encode("Nombre de producto existente en inventario");
     }else{
         $sql = "INSERT INTO producto (codProd, nomProd, categoriaProd, descripcionProd, precioProd, cantidadProd, fechaProd, imagenProd) VALUES ('".$codProd."', '".$nomProd."', '".$categoriaProd."', '".$descripcionProd."', '".$precioProd."', '".$cantidadProd."', '".$fechaProd."', '".$imagenProd."')";
 

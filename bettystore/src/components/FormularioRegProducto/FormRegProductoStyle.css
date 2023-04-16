@@ -6,7 +6,14 @@
     background-color: blueviolet;
 } */
 
-
+.nombreArchivoSubido{
+  width: 37vw; /* Ancho máximo del contenedor */
+  white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+  overflow: hidden; /* Oculta el texto que excede el ancho máximo */
+  text-overflow: ellipsis; /* Agrega puntos suspensivos para indicar que se ha truncado el texto */
+  color: #1677FF;
+  cursor: pointer;
+}
 
 .botonRegistrar {
   width: 10vw;

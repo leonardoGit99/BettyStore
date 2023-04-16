@@ -293,7 +293,7 @@ function FormRegProducto() {
                 <Button
                   icon={<UploadOutlined />}>Examinar
                 </Button>
-                {fileList[0]?.name}
+                <p className="nombreArchivoSubido">{fileList[0]?.name}</p>
               </Upload>
             </Item>
 

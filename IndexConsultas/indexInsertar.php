@@ -22,22 +22,36 @@ if(isset($_GET["insertar"])){
     $fechaProd=$_POST["fechaProd"];
     $imagenProd=addslashes(file_get_contents($_FILES["imagenProd"]['tmp_name']));
 
-    $sql = "INSERT INTO producto (codProd, nomProd, categoriaProd, descripcionProd, precioProd, cantidadProd, fechaProd, imagenProd) VALUES ('".$codProd."', '".$nomProd."', '".$categoriaProd."', '".$descripcionProd."', '".$precioProd."', '".$cantidadProd."', '".$fechaProd."', '".$imagenProd."')";
-
-    try{
+    $sqlQuery1   = ("SELECT DISTINCT nomProd FROM producto WHERE nomProd='{$nomProd}'");
+    $query1=mysqli_query($conexionBD, $sqlQuery1);
+    $totalProducto=mysqli_num_rows($query1);
+    if($totalProducto>=1){
         
-        mysqli_query($conexionBD, $sql);
-        echo json_encode("Producto registrado exitosamente");
+        echo json_encode("Nombre de producto existente en inventario");
+    }else{
+        $sql = "INSERT INTO producto (codProd, nomProd, categoriaProd, descripcionProd, precioProd, cantidadProd, fechaProd, imagenProd) VALUES ('".$codProd."', '".$nomProd."', '".$categoriaProd."', '".$descripcionProd."', '".$precioProd."', '".$cantidadProd."', '".$fechaProd."', '".$imagenProd."')";
 
-    }catch (Exception $error){
-        if(strpos($error->getMessage(), "PRIMARY") !== false){
-            echo json_encode("Error: El código de producto ya esta registrado");
-        }else{
-            //Otro error que pueda surgir **Mensaje en ingles**
-            echo json_encode("Error: ".$error->getMessage());
+        try{
+        
+            mysqli_query($conexionBD, $sql);
+            echo json_encode("Producto registrado exitosamente");
+
+        }catch (Exception $error){
+            if(strpos($error->getMessage(), "PRIMARY") !== false){
+                echo json_encode("Error: El código de producto ya esta registrado");
+            } else{
+                if(strpos($error->getMessage(), "gone away") !== false){
+                    echo json_encode("Error: Existe un error desconocido con la imagen");
+                }else{
+                //Otro error que pueda surgir **Mensaje en ingles**
+                    echo json_encode("Error: ".$error->getMessage());
+                }
+            }
+            
+
         }
-
     }
+    
 
 }
 ?>

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { ThemeContext } from "../../contexts/ThemeContext"
 import { Menu } from "antd"
 import './Menu.css'
@@ -16,11 +16,19 @@ const items = [
 
 export default function SideMenu(props){
     const {contextTheme} = useContext(ThemeContext)
-    
+    /*const [posicionActual, setPosActual] = useState('1');
+    const onClick = (e) => {
+      console.log('click ', e);
+      setPosActual(e.key);
+      console.log(e.key);
+    };*/
+
     return(
             <Menu 
+            //onClick={onClick}
             className='App-menu'
             theme={contextTheme.name}
+            //selectedKeys={[posicionActual]}
             defaultSelectedKeys={['1']}
             items={items}
             mode='horizontal'

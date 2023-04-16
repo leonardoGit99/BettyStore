@@ -64,10 +64,10 @@ function TablaInventario(props) {
   const peticionDelete = (fila) => {
     // console.log(fila);
     Modal.confirm({
-      okText: 'Eliminar',
+      okText: 'Aceptar',
       cancelText: 'Cancelar',
       okType: 'danger',
-      title: '¿Está seguro que desea eliminar el producto '+fila.nomProd+' del inventario?',
+      title: '¿Está seguro de eliminar el producto?',//'¿Está seguro que desea eliminar el producto '+fila.nomProd+' del inventario?',
       maskClosable: 'true',
       onOk: ()=>{
 

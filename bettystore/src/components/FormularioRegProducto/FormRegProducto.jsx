@@ -132,13 +132,23 @@ function FormRegProducto() {
               },
               {
                 validator: (_, value) =>
-                  value && value.match('[a-zA-Z0-9\s]+$')
+                  value && value.match('^(?=.*[a-zA-Z])[a-zA-Z0-9 ]*(?:[0-9].{0,3}\b)?[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]*$')
                     ? Promise.resolve()
                     : Promise.reject(new Error('Debe ingresar caracteres válidos')),
               },/*
                 {pattern:'/^[a-zA-Z0-9\-\s]$/',
                   message:'valores no validos '
-                },*/
+                },
+                function NombreInput() {
+                  const onlyLettersAndNumbers = (event) => {
+                    const pattern = /^[A-Za-zñÑáéíóúÁÉÍÓÚ\s]*[0-9]{0,4}$/;
+                    const inputChar = String.fromCharCode(event.charCode);
+                    if (!pattern.test(inputChar)) {
+                      event.preventDefault();
+                    }
+                  };
+                */
+
               ]}
 
             >
@@ -164,7 +174,7 @@ function FormRegProducto() {
               },
               {
                 validator: (_, value) =>
-                  value && value.match('^[0-9]+$')
+                  value && value.match('^0*[1-9][0-9]*$')
                     ? Promise.resolve()
                     : Promise.reject(new Error('Debe ingresar solo números')),
               },
@@ -249,12 +259,14 @@ function FormRegProducto() {
                 whitespace: true,
                 message: 'No puede dejar en blanco este campo',
               },
+             
               {
                 validator: (_, value) =>
-                  value && value.match(/^[0-9]+(.[0-9]+)?$/)
+                  value && value.match(/^(?:[1-9]\d{0,3}|[1-9]\d{0,3}\.\d|[1-9]\d{0,3}\.\d{1,2}|9999(?:\.0|\.0{1,2})?)$/)
                     ? Promise.resolve()
-                    : Promise.reject(new Error('Solo puede ingresar números y el signo "."')),
+                    : Promise.reject(new Error('solo se puede ingresar numeros validos y el signo "."')),
               },
+              
               ]}
             >
               <Input className="entradaDatos"
@@ -316,7 +328,7 @@ function FormRegProducto() {
                     : Promise.reject(new Error('Debe ingresar solo valores numéricos')),
               },
               {
-                min: 11,
+                min: 4,
                 message: 'Código inválido'
               },
               ]}
@@ -326,7 +338,7 @@ function FormRegProducto() {
                 placeholder="Ingrese el código del producto"
                 onChange={handleChange}
                 showCount
-                maxLength={13} />
+                maxLength={4} />
             </Item>
 
             <Item

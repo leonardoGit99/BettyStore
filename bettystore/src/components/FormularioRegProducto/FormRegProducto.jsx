@@ -190,7 +190,7 @@ function FormRegProducto() {
                 validator: (_, value) =>
                   value && value.match('^0*[1-9][0-9]*$')
                     ? Promise.resolve()
-                    : Promise.reject(new Error('Debe ingresar solo números')),
+                    : Promise.reject(new Error('Debe ingresar solo números y un valor mayor a cero')),
               },
               ]}
             >

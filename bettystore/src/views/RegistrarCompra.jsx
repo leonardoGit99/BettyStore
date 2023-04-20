@@ -1,6 +1,7 @@
 import { Form, Input, Button, Col, Row, Select, DatePicker, Upload, message, Layout } from "antd";
 import dayjs from "dayjs";
 import { ShoppingCartOutlined } from '@ant-design/icons'
+import TablaDetalleCompras from "../components/TablaDetalleCompras/TablaDetalleCompras";
 
 //Valor de fecha seleccionada
 const handleChangeDate = (value) => {
@@ -99,11 +100,12 @@ export default function RegistrarCompra() {
                 {/*<Layout></Layout>*/}
                 <Col lg={2}></Col>
                 <Col lg={20} className="componentsContainer">
-                    <Input className="entradaBuscador"
+                    {/* <Input className="entradaBuscador"
                         name="buscador"
-                        placeholder="Aquí vendría el detalle de venta"
+                        placeholder="Aquí vendría el detalle de compra"
                         maxLength={10}
-                    />
+                    /> */}
+                    <TablaDetalleCompras/>
                 </Col>
                 <Col lg={2}></Col>
             </Row>

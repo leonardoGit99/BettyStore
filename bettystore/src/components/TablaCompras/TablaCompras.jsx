@@ -3,7 +3,7 @@ import { Table } from 'antd';
 import axios from "axios";
 import './TablaComprasStyle.css';
 
-function TablaComprasRegistradas() {
+function TablaCompras() {
 
   const [datosTablaCompra, setDatosTablaCompra] = useState([]);
 
@@ -22,7 +22,7 @@ function TablaComprasRegistradas() {
     await axios.get("http://localhost/IndexConsultasSegundoSprint/indexConsultaGeneralCompra.php")
       .then(response => {
         setDatosTablaCompra(response.data);
-         console.log(response.data);
+        console.log(response.data);
       }).catch(error => {
         console.log(error);
       })
@@ -41,4 +41,4 @@ function TablaComprasRegistradas() {
     </div>
   )
 }
-export default TablaComprasRegistradas;
+export default TablaCompras;

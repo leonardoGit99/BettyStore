@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-04-2023 a las 03:00:03
+-- Tiempo de generación: 20-04-2023 a las 01:47:38
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.2.0
 
@@ -33,8 +33,8 @@ CREATE TABLE `detallecompra` (
   `codDetCompra` int(11) NOT NULL,
   `nomDetCompra` varchar(150) DEFAULT NULL,
   `cantDetCompra` int(11) DEFAULT NULL,
-  `precioDetCompra` int(11) DEFAULT NULL,
-  `fechaDetCompra` date DEFAULT NULL,
+  `precioDetCompra` double DEFAULT NULL,
+  `fechaDetCompra` varchar(15) DEFAULT NULL,
   `Producto_codProducto` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -48,8 +48,8 @@ CREATE TABLE `detalleventa` (
   `codDetVenta` int(11) NOT NULL,
   `nomDetVenta` varchar(150) DEFAULT NULL,
   `cantDetVenta` int(11) DEFAULT NULL,
-  `precioDetVenta` int(11) DEFAULT NULL,
-  `fechaDeVenta` date DEFAULT NULL,
+  `precioDetVenta` double DEFAULT NULL,
+  `fechaDeVenta` varchar(15) DEFAULT NULL,
   `Producto_codProducto` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 

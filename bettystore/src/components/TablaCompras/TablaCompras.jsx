@@ -8,21 +8,21 @@ function TablaComprasRegistradas() {
   const [datosTablaCompra, setDatosTablaCompra] = useState([]);
 
   const columnas = [
-    { title: 'Código', dataIndex: 'codProd', key: 'codProd' },
-    { title: 'Nombre', dataIndex: 'nomProd', key: 'nomProd', },
-    { title: 'Precio', dataIndex: 'precioProd', key: 'precioProd', },
-    { title: 'Cantidad', dataIndex: 'cantidadProd', key: 'cantidadProd', },
-    { title: 'Fecha', dataIndex: 'fechaProd', key: 'fechaProd', },
+    { title: 'Código', dataIndex: 'codDetCompra', key: 'CodDetCompra' },
+    { title: 'Nombre', dataIndex: 'nomDetCompra', key: 'nomDetCompra', },
+    { title: 'Precio', dataIndex: 'precioDetCompra', key: 'precioDetCompra', },
+    { title: 'Cantidad', dataIndex: 'cantDetCompra', key: 'cantDetCompra', },
+    { title: 'Fecha', dataIndex: 'fechaDetCompra', key: 'fechaDetCompra', },
   ];
 
 
   //  Peticion Get de la API usando axios.
 
   const peticionGet = async () => {
-    await axios.get("http://localhost/crudProductos/...")
+    await axios.get("http://localhost/IndexConsultasSegundoSprint/indexConsultaGeneralCompra.php")
       .then(response => {
         setDatosTablaCompra(response.data);
-        // console.log(response.data);
+         console.log(response.data);
       }).catch(error => {
         console.log(error);
       })

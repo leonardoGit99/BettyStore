@@ -12,6 +12,10 @@ const items = [
         {key:3, label: (<Link to="/registrarProducto">Registrar Producto</Link>)},
         {key:4, label: (<Link to="/mostrarInventario">Mostrar Inventario</Link>)}
     ]},
+    {key: 5, label: ('Compra'), children:[
+        {key:6, label: (<Link to="/registrarCompra">Registrar Compra</Link>)},
+        {key:7, label: (<Link to="/mostrarCompra">Mostrar Compra</Link>)}
+    ]},
 ]
 
 export default function SideMenu(props){

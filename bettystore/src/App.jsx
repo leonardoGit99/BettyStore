@@ -12,6 +12,8 @@ import RegistrarProducto from './views/RegistrarProducto';
 import MostrarInventario from './views/MostrarInventario';
 import TablaInventario from './components/TablaInventario/TablaInventario';
 import FormRegProducto from './components/FormularioRegProducto/FormRegProducto';
+import MostrarCompra from './views/MostrarCompra';
+import RegistrarCompra from './views/RegistrarCompra';
 
 const { Header, Sider, Footer, Content } = Layout
 
@@ -66,6 +68,8 @@ function App() {
               <Route path='/' element={<Home />} />
               <Route path='/registrarProducto' element={<FormRegProducto datosTabla={datosTabla} setDatosTabla={setDatosTabla}  producto={producto} setProducto={setProducto}/>} />
               <Route path='/mostrarInventario' element={<TablaInventario datosTabla={datosTabla} setDatosTabla={setDatosTabla} producto={producto} setProducto={setProducto}/>} />
+              <Route path='/registrarCompra'element={<RegistrarCompra />}/>
+              <Route path='/mostrarCompra'element={<MostrarCompra />}/>
             </Routes>
           </Content>
         </Col>

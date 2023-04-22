@@ -14,6 +14,7 @@ import TablaInventario from './components/TablaInventario/TablaInventario';
 import FormRegProducto from './components/FormularioRegProducto/FormRegProducto';
 import MostrarCompra from './views/MostrarCompra';
 import RegistrarCompra from './views/RegistrarCompra';
+//import Footer from './components/Footer/Footer';
 
 const { Header, Sider, Footer, Content } = Layout
 
@@ -66,16 +67,18 @@ function App() {
           <Content className='App-content'>
             <Routes>
               <Route path='/' element={<Home />} />
-              <Route path='/registrarProducto' element={<FormRegProducto datosTabla={datosTabla} setDatosTabla={setDatosTabla}  producto={producto} setProducto={setProducto}/>} />
-              <Route path='/mostrarInventario' element={<TablaInventario datosTabla={datosTabla} setDatosTabla={setDatosTabla} producto={producto} setProducto={setProducto}/>} />
-              <Route path='/registrarCompra'element={<RegistrarCompra />}/>
-              <Route path='/mostrarCompra'element={<MostrarCompra />}/>
+              <Route path='/registrarProducto' element={<FormRegProducto datosTabla={datosTabla} setDatosTabla={setDatosTabla} producto={producto} setProducto={setProducto} />} />
+              <Route path='/mostrarInventario' element={<TablaInventario datosTabla={datosTabla} setDatosTabla={setDatosTabla} producto={producto} setProducto={setProducto} />} />
+              <Route path='/registrarCompra' element={<RegistrarCompra />} />
+              <Route path='/mostrarCompra' element={<MostrarCompra />} />
             </Routes>
           </Content>
         </Col>
       </Row>
       {/*</Layout>*/}
-      <Footer className='App-footer'><small>UMSS &copy; - Sistema creado por Team Digital Warriors - Todos los derechos reservados</small> {displayYear()}</Footer>
+      {/*<Row span={24}>*/}
+        <Footer className='App-footer'><small>UMSS &copy; - Sistema creado por Team Digital Warriors - Todos los derechos reservados</small> {displayYear()}</Footer>
+      {/*</Row>*/}
       {/*</Layout>*/}
     </Space>
   )

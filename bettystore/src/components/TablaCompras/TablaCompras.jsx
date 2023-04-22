@@ -6,7 +6,7 @@ import './TablaComprasStyle.css';
 function TablaCompras() {
 
   const [datosTablaCompra, setDatosTablaCompra] = useState([]);
-
+ 
   const columnas = [
     { title: 'Código', dataIndex: 'codDetCompra', key: 'CodDetCompra' },
     { title: 'Nombre', dataIndex: 'nomDetCompra', key: 'nomDetCompra', },

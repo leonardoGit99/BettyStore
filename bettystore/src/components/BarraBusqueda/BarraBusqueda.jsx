@@ -72,7 +72,8 @@ function BarraBusqueda() {
   return (
     <div className="formRegProducto">
 
-      <AutoComplete style={{width:800}}
+      <AutoComplete 
+        className="barraBusqueda"
         options={productos.map((producto) => ({value:producto.nomProd, cantidadProd:producto.cantidadProd, precioProd:producto.precioProd, codProd:producto.codProd}))}
         onSelect={handleSelect}
         placeholder="Busque un producto del inventario"
@@ -84,7 +85,7 @@ function BarraBusqueda() {
       </AutoComplete>
 
       <Button onClick={mostrarSeleccionado}>Mostrar seleccionado por consola</Button>
-      <Input style={{color: "#676767"}} disabled placeholder="Ningun producto seleccionado" value={seleccionado.value}></Input>
+      <Input className="inputProdSeleccionado" disabled placeholder="Ningun producto seleccionado" value={seleccionado.value}></Input>
       <Button icon={<ShoppingCartOutlined />}>Agregar</Button>
 
     </div>

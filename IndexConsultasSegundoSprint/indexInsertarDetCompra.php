@@ -10,6 +10,7 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 $servidor = "localhost"; $usuario = "root"; $contrasenia = ""; $nombreBaseDatos = "bettystorebd";
 $conexionBD = new mysqli($servidor, $usuario, $contrasenia, $nombreBaseDatos);
 
+
 //Inserta un nuevo registro y recepciona los datos de codigo,nombre,...
 if(isset($_GET["insertarCompra"])){
 
@@ -19,8 +20,11 @@ if(isset($_GET["insertarCompra"])){
     $precioDetCompra=$_POST["precioDetCompra"];
     $fechaDetCompra=$_POST["fechaDetCompra"];
     
+    $sqlQuery1   = ("SELECT DISTINCT codProd FROM producto WHERE nomProd='{$nomDetCompra}'");
+    $query1 = mysqli_query($conexionBD, $sqlQuery1);
+    $arr = (int)$query1;
 
-    $sql = "INSERT INTO detallecompra (codDetCompra, nomDetCompra, cantDetCompra, precioDetCompra, fechaDetCompra) VALUES ('".$codDetCompra."', '".$nomDetCompra."', '".$cantDetCompra."', '".$precioDetCompra."', '".$fechaDetCompra."')";
+    $sql = "INSERT INTO detallecompra (codDetCompra, nomDetCompra, cantDetCompra, precioDetCompra, fechaDetCompra,Producto_codProd) VALUES ('".$codDetCompra."', '".$nomDetCompra."', '".$cantDetCompra."', '".$precioDetCompra."', '".$fechaDetCompra."', '".$arr."')";
 
     try{
         

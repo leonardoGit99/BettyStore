@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Button, Modal, message, Image } from 'antd';
+import { Table, Button, Modal, message, Image, Row, Col} from 'antd';
 import axios from "axios";
 //import ErrorList from 'antd/es/form/ErrorList';
 import { DeleteOutlined } from '@ant-design/icons'
 import './TablaInventarioStyle.css';
+import Footer from '../Footer/Footer';
 
 
 function TablaInventario(props) {
@@ -87,13 +88,19 @@ function TablaInventario(props) {
 
   return (
     <div className='mostrarInventario'>
-      <h2 className='subtituloTabla'>Productos Registrados en Inventario</h2>
-      {/* TablaDinamica */}
-      <Table className='tabla' locale={{emptyText: 'No hay productos registrados'}} rowKey='id' columns={columnas} dataSource={props.datosTabla} bordered={true} pagination={{ pageSize: 4, pagination: true, position: ["bottomRight"] }} size={'small'} />
+      <Row>
+        <Col lg={2}></Col>
+        <Col lg={20}>
+          <h2 className='subtituloTabla'>Productos Registrados en Inventario</h2>
+          {/* TablaDinamica */}
+          <Table className='tabla' locale={{emptyText: 'No hay productos registrados'}} rowKey='id' columns={columnas} dataSource={props.datosTabla} bordered={true} pagination={{ pageSize: 4, pagination: true, position: ["bottomRight"] }} size={'small'} />
 
-      {/* TablaEstatica */}
-      {/* <Table className='tabla'columns={columnas} dataSource={data} bordered={true} pagination={{pageSize: 5, pagination: true, position: ["bottomRight"]}}  size={'small'}/> */}
-
+          {/* TablaEstatica */}
+          {/* <Table className='tabla'columns={columnas} dataSource={data} bordered={true} pagination={{pageSize: 5, pagination: true, position: ["bottomRight"]}}  size={'small'}/> */}
+          <Footer/>
+        </Col>
+      </Row>
+      <Col lg={2}></Col>
     </div>
   );
 }

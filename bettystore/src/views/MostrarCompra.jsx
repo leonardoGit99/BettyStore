@@ -5,11 +5,11 @@ export default function MostrarCompra(props){
   return(
       <div>
         <Row>
-          <Col lg={2}></Col>
-            <Col lg={20}>
+          <Col lg={2} xs={2}></Col>
+            <Col lg={20} xs={20}>
                 <TablaCompras />
             </Col>
-            <Col lg={2}></Col>
+            <Col lg={2} xs={2}></Col>
           </Row>           
       </div>
   )

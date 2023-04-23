@@ -16,7 +16,7 @@ import MostrarCompra from './views/MostrarCompra';
 import RegistrarCompra from './views/RegistrarCompra';
 //import Footer from './components/Footer/Footer';
 
-const { Header, Sider, Footer, Content } = Layout
+const { Header, Sider, Content } = Layout
 
 function displayYear() {
   return new Date().getFullYear()
@@ -77,7 +77,8 @@ function App() {
       </Row>
       {/*</Layout>*/}
       {/*<Row span={24}>*/}
-        <Footer className='App-footer'><small>UMSS &copy; - Sistema creado por Team Digital Warriors - Todos los derechos reservados</small> {displayYear()}</Footer>
+        {/*<Footer/>*/}
+        {/*<Footer className='App-footer'><small>UMSS &copy; - Sistema creado por Team Digital Warriors - Todos los derechos reservados</small> {displayYear()}</Footer>*/}
       {/*</Row>*/}
       {/*</Layout>*/}
     </Space>

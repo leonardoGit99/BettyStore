@@ -3,6 +3,7 @@ import { Form, Input, Button, Col, Row, DatePicker, Table, AutoComplete } from "
 import dayjs from "dayjs";
 import { ShoppingCartOutlined } from '@ant-design/icons'
 import axios from "axios";
+import Footer from "../components/Footer/Footer";
 
 export default function RegistrarCompra() {
 
@@ -58,8 +59,6 @@ export default function RegistrarCompra() {
     console.log(seleccionado);
   }
 
-
-
   //COMPONENTE FORMULARIO
   const { Item } = Form;
 
@@ -92,10 +91,48 @@ export default function RegistrarCompra() {
     { title: 'Fecha', dataIndex: 'fechaDetCompra', key: 'fechaDetCompra', },
   ];
 
+  
+  //Petición Post botón registrar, para pasar datos de tabal detalle de compras a tabla compras.
+  /*const peticionPost = async () => {
+
+    const datos = new FormData();
+    datos.append("codProd", producto['codProd']);
+    datos.append("nomProd", producto['nomProd']);
+    datos.append("categoriaProd", producto['categoriaProd']);
+    datos.append("descripcionProd", producto['descripcionProd']);
+    datos.append("precioProd", producto['precioProd']);
+    datos.append("cantidadProd", producto['cantidadProd']);
+    datos.append("fechaProd", producto['fechaProd']);
+    datos.append("imagenProd", fileList[0]);
+
+
+    console.log(datos.get('codProd'));
+    console.log(datos.get('nomProd'));
+    console.log(datos.get('categoriaProd'));
+    console.log(datos.get('descripcionProd'));
+    console.log(datos.get('precioProd'));
+    console.log(datos.get('cantidadProd'));
+    console.log(datos.get('fechaProd'));
+    console.log(datos.get('imagenProd'));
+
+    await axios.post("http://localhost/crudProductos/indexInsertar.php/?insertar=1", datos)
+      .then(response => {
+        message.info(response.data, 2);
+        borrarCampos();
+        console.log(response);
+      }).catch(error => {
+        console.log(error);
+      })
+  }*/
+
   return (
     <div>
       <Row>
-        <h1>Registrar Compra</h1>
+        <Col lg={2}></Col>
+        <Col lg={20}>
+            <h1>Registrar Compra</h1>
+        </Col>
+        <Col lg={2}></Col>
       </Row>
       <Row>
         {/*<Layout></Layout>*/}
@@ -176,12 +213,23 @@ export default function RegistrarCompra() {
       <Row>
         {/*<Layout></Layout>*/}
         <Col lg={2}></Col>
-        <Col lg={20} className="componentsContainer">
+        <Col lg={20} xs={24} className="componentsContainer">
           {/* Tabla detalle de compras */}
           <h2 className='subtituloTablaDetalleCompras'>Detalle de compra</h2>
           <Table className='tabla' locale={{ emptyText: 'No hay compras' }} rowKey='id' columns={columnas} bordered={true} pagination={{ pageSize: 4, pagination: true, position: ["bottomRight"] }} size={'small'}></Table>
+          {/*<Item>
+            <p></p>
+            <Button className="botonRegistrar" type="primary" htmlType="submit" /*onClick={peticionPost}> Registrar</Button>
+          </Item>*/}
         </Col>
         <Col lg={2}></Col>
+      </Row>
+      <Row>
+        <p></p>
+      </Row>
+      <Row>
+        <p></p>
+        <Footer/>
       </Row>
 
 

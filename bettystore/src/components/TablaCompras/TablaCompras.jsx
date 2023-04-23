@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
 import axios from "axios";
 import './TablaComprasStyle.css';
+import Footer from '../Footer/Footer';
 
 function TablaCompras() {
 
@@ -38,6 +39,7 @@ function TablaCompras() {
     <div>
       <h2 className='subtituloTabla'>Compras registradas</h2>
       <Table className='tabla' locale={{ emptyText: 'No hay compras registradas' }} rowKey='id' columns={columnas} dataSource={datosTablaCompra} bordered={true} pagination={{ pageSize: 4, pagination: true, position: ["bottomRight"] }} size={'small'}></Table>
+      <Footer/>
     </div>
   )
 }

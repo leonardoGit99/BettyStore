@@ -9,10 +9,17 @@ import '../App.css';
 
 export default function RegistrarCompra() {
   const [form] = Form.useForm();
-  const [productos, setProductos] = useState([]);
-  console.log(productos);
+  const [comprasTotales, setComprasTotales] = useState([]);
+  console.log(comprasTotales);
 
   //COMPONENTE BUSCADOR
+
+  const [productos, setProductos] = useState([{
+    codProd: '',
+    nomProd: '',
+    precioProd: '',
+    cantidadProd: '',
+  }]);
 
   const [datosInventario, setDatosInventario] = useState([{
     codProd: '',
@@ -92,7 +99,7 @@ export default function RegistrarCompra() {
       cantidad: producto.cantidad,
       fecha: producto.fecha.format('YYYY-MM-DD'),
     };
-    setProductos([...productos, nuevoProducto]);
+    setComprasTotales([...comprasTotales, nuevoProducto]);
     form.resetFields();
   };
 
@@ -195,8 +202,8 @@ export default function RegistrarCompra() {
 
           {/* Tabla detalle de compras */}
           <h2 className='subtituloTablaDetalleCompras'>Detalle de compra</h2>
-          <Table className='tabla' dataSource={productos} columns={columnasTablaDetalleCompras} locale={{ emptyText: 'No hay compras' }} bordered={true} pagination={{ pageSize: 4, pagination: true, position: ["bottomRight"] }} size={'small'} />
-          {productos.length > 0 && (
+          <Table className='tabla' dataSource={comprasTotales} columns={columnasTablaDetalleCompras} locale={{ emptyText: 'No hay compras' }} bordered={true} pagination={{ pageSize: 4, pagination: true, position: ["bottomRight"] }} size={'small'} />
+          {comprasTotales.length > 0 && (
             <Button type="primary">
               Registrar
             </Button>

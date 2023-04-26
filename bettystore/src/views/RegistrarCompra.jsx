@@ -117,6 +117,26 @@ export default function RegistrarCompra() {
     setComprasTotales(productoAEliminarDelDetalleCompra);
   };
 
+  //BOTON QUE ENVIA A B.D. infomarción de la Tabla Detalle de compra.
+  const confirmarCompra = async () => {
+    // Verifica que haya al menos un producto en el carrito
+    if (comprasTotales.length === 0) {
+      message.warning('Agrega productos al detalle de compras primero');
+      return;
+    }
+    //Petición Post botón registrar, para pasar datosInventario de tabla detalle de compras a tabla compras.
+    // Envia los productos al servidor
+    await axios.post('url_del_servidor', comprasTotales)
+      .then(response => {
+        // Si la respuesta es exitosa, se limpia el detalle de compras
+        setComprasTotales([]);
+        message.success('Compra realizada con éxito');
+      })
+      .catch(error => {
+        message.error('Hubo un error al procesar la compra');
+        console.log(error);
+      });
+  }
 
   //Modal
   const [modalEsVisible, setModalEsVisible] = useState(false);
@@ -241,7 +261,7 @@ export default function RegistrarCompra() {
           <h2 className='subtituloTablaDetalleCompras'>Detalle de compra</h2>
           <Table className='tabla' rowKey="codigoCompra" dataSource={comprasTotales} columns={columnasTablaDetalleCompras} locale={{ emptyText: 'No hay compras' }} bordered={true} pagination={{ pageSize: 4, pagination: true, position: ["bottomRight"] }} size={'small'} />
           {comprasTotales.length > 0 && (
-            <Button type="primary">
+            <Button type="primary" onClick={confirmarCompra}>
               Registrar
             </Button>
           )}

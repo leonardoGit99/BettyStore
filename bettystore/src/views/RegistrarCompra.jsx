@@ -87,6 +87,14 @@ export default function RegistrarCompra() {
     { title: 'Precio', dataIndex: 'precio', key: 'precio' },
     { title: 'Cantidad', dataIndex: 'cantidad', key: 'cantidad' },
     { title: 'Fecha', dataIndex: 'fecha', key: 'fecha' },
+    {
+      title: 'Opciones',
+      dataIndex: 'opciones',
+      key: 'opciones',
+      render: (_, fila) => (
+        <Button type="primary" danger onClick={() => eliminarProductoDetalleCompras(fila.codigoCompra)} icon={<DeleteOutlined />} />
+      ),
+    },
   ];
 
   //FUNCIONES PARA INSERTAR DATOS EN TABLA DETALLE DE COMPRAS
@@ -101,6 +109,11 @@ export default function RegistrarCompra() {
     };
     setComprasTotales([...comprasTotales, nuevoProducto]);
     form.resetFields();
+  };
+
+  const eliminarProductoDetalleCompras = (key) => {
+    const productoAEliminarDelDetalleCompra = comprasTotales.filter((product) => product.codigoCompra !== key);
+    setComprasTotales(productoAEliminarDelDetalleCompra);
   };
 
 
@@ -202,7 +215,7 @@ export default function RegistrarCompra() {
 
           {/* Tabla detalle de compras */}
           <h2 className='subtituloTablaDetalleCompras'>Detalle de compra</h2>
-          <Table className='tabla' dataSource={comprasTotales} columns={columnasTablaDetalleCompras} locale={{ emptyText: 'No hay compras' }} bordered={true} pagination={{ pageSize: 4, pagination: true, position: ["bottomRight"] }} size={'small'} />
+          <Table className='tabla' rowKey="codigoCompra" dataSource={comprasTotales} columns={columnasTablaDetalleCompras} locale={{ emptyText: 'No hay compras' }} bordered={true} pagination={{ pageSize: 4, pagination: true, position: ["bottomRight"] }} size={'small'} />
           {comprasTotales.length > 0 && (
             <Button type="primary">
               Registrar

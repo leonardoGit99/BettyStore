@@ -1,22 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, Button, Col, Row, DatePicker, Table, AutoComplete } from "antd";
+import { Form, Input, Button, Col, Row, DatePicker, Table, AutoComplete, message, } from "antd";
 import dayjs from "dayjs";
 import { ShoppingCartOutlined } from '@ant-design/icons'
+import { DeleteOutlined } from '@ant-design/icons';
 import axios from "axios";
 import Footer from "../components/Footer/Footer";
+import '../App.css';
 
 export default function RegistrarCompra() {
-
+  const [form] = Form.useForm();
+  const [productos, setProductos] = useState([]);
+  console.log(productos);
 
   //COMPONENTE BUSCADOR
-  const [productos, setProductos] = useState([{
-    codProd: '',
-    nomProd: '',
-    precioProd: '',
-    cantidadProd: '',
-  }]);
 
-  const [datos, setDatos] = useState([{
+  const [datosInventario, setDatosInventario] = useState([{
     codProd: '',
     nomProd: '',
     precioProd: '',
@@ -29,7 +27,7 @@ export default function RegistrarCompra() {
     await axios.get("http://localhost/IndexConsultasSegundoSprint/indexConsultaSimple.php")
       .then(response => {
         setProductos(response.data);
-        setDatos(response.data);
+        setDatosInventario(response.data);
         console.log(response.data);
       }).catch(error => {
         console.log(error);
@@ -45,7 +43,7 @@ export default function RegistrarCompra() {
   }
 
   function handleSearch(busqueda) {
-    const filtrado = datos.filter((producto) =>
+    const filtrado = datosInventario.filter((producto) =>
       filtrarOpciones(busqueda, producto)
     );
     setProductos(filtrado);
@@ -55,12 +53,7 @@ export default function RegistrarCompra() {
     return producto.nomProd.toLowerCase().indexOf(busqueda.toLowerCase()) !== -1;
   }
 
-  function mostrarSeleccionado() {
-    console.log(seleccionado);
-  }
 
-  //COMPONENTE FORMULARIO
-  const { Item } = Form;
 
   //Valor de fecha seleccionada
   const handleChangeDate = (value) => {
@@ -78,149 +71,136 @@ export default function RegistrarCompra() {
 
   const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY'];
 
-
-
-
   //COMPONENTE TABLA DETALLE DE COMPRAS
-  //Columnas tabla Detalle de compras
-  const columnas = [
-    { title: 'Código', dataIndex: 'codDetCompra', key: 'CodDetCompra' },
-    { title: 'Nombre', dataIndex: 'nomDetCompra', key: 'nomDetCompra', },
-    { title: 'Precio', dataIndex: 'precioDetCompra', key: 'precioDetCompra', },
-    { title: 'Cantidad', dataIndex: 'cantDetCompra', key: 'cantDetCompra', },
-    { title: 'Fecha', dataIndex: 'fechaDetCompra', key: 'fechaDetCompra', },
+  //Tabla detalle de compras pruebas
+  const columnasTablaDetalleCompras = [
+    { title: 'Código compra', dataIndex: 'codigoCompra', key: 'codigoCompra' },
+    { title: 'Código producto', dataIndex: 'codProd', key: 'codProd' },
+    { title: 'Nombre', dataIndex: 'nombre', key: 'nombre' },
+    { title: 'Precio', dataIndex: 'precio', key: 'precio' },
+    { title: 'Cantidad', dataIndex: 'cantidad', key: 'cantidad' },
+    { title: 'Fecha', dataIndex: 'fecha', key: 'fecha' },
   ];
 
-  
-  //Petición Post botón registrar, para pasar datos de tabal detalle de compras a tabla compras.
-  /*const peticionPost = async () => {
+  //FUNCIONES PARA INSERTAR DATOS EN TABLA DETALLE DE COMPRAS
+  const agregarAlDetalleDeCompras = (producto) => {
+    const nuevoProducto = {
+      codigoCompra: producto.codigoCompra,
+      codProd: '',
+      nombre: '',
+      precio: '',
+      cantidad: producto.cantidad,
+      fecha: producto.fecha.format('YYYY-MM-DD'),
+    };
+    setProductos([...productos, nuevoProducto]);
+    form.resetFields();
+  };
 
-    const datos = new FormData();
-    datos.append("codProd", producto['codProd']);
-    datos.append("nomProd", producto['nomProd']);
-    datos.append("categoriaProd", producto['categoriaProd']);
-    datos.append("descripcionProd", producto['descripcionProd']);
-    datos.append("precioProd", producto['precioProd']);
-    datos.append("cantidadProd", producto['cantidadProd']);
-    datos.append("fechaProd", producto['fechaProd']);
-    datos.append("imagenProd", fileList[0]);
-
-
-    console.log(datos.get('codProd'));
-    console.log(datos.get('nomProd'));
-    console.log(datos.get('categoriaProd'));
-    console.log(datos.get('descripcionProd'));
-    console.log(datos.get('precioProd'));
-    console.log(datos.get('cantidadProd'));
-    console.log(datos.get('fechaProd'));
-    console.log(datos.get('imagenProd'));
-
-    await axios.post("http://localhost/crudProductos/indexInsertar.php/?insertar=1", datos)
-      .then(response => {
-        message.info(response.data, 2);
-        borrarCampos();
-        console.log(response);
-      }).catch(error => {
-        console.log(error);
-      })
-  }*/
 
   return (
     <div>
       <Row>
         <Col lg={2}></Col>
         <Col lg={20}>
-            <h1>Registrar Compra</h1>
+          <h1>Registrar Compra</h1>
         </Col>
         <Col lg={2}></Col>
       </Row>
       <Row>
+
         {/*<Layout></Layout>*/}
-        <Col lg={2}></Col>
-        <Col lg={20} className="componentsContainer">
+        <Col lg={2} xs={2}></Col>
+        <Col lg={20} xs={20} className="componentsContainer">
           <Row>
-            {/* Buscador de inventario */}
-            <AutoComplete
-              style={{ width: 800 }}
-              options={productos.map((producto) => ({ value: producto.nomProd, cantidadProd: producto.cantidadProd, precioProd: producto.precioProd, codProd: producto.codProd }))}
-              onSelect={handleSelect}
-              placeholder="Busque un producto del inventario"
-              onSearch={handleSearch}
-            >
-              <Input
-                size="large"
-              />
-            </AutoComplete>
-            {/* Boton para mostrar el producto seleccionado por consola */}
-            <Button onClick={mostrarSeleccionado}>Mostrar seleccionado por consola</Button>
+            <Col lg={1}></Col>
+            <Col lg={10}>
+
+              {/* Buscador de inventario */}
+              <AutoComplete
+                style={{ width: 750 }}
+                options={productos.map((producto) => ({ value: producto.nomProd, cantidadProd: producto.cantidadProd, precioProd: producto.precioProd, codProd: producto.codProd }))}
+                onSelect={handleSelect}
+                placeholder="Busque un producto del inventario"
+                onSearch={handleSearch}
+              >
+                <Input
+                  size="large"
+                />
+              </AutoComplete>
+              {/* Boton para mostrar el producto seleccionado por consola */}
+              {/*<Button onClick={mostrarSeleccionado}>Mostrar seleccionado por consola</Button>*/}
+            </Col>
           </Row>
           <p></p> {/* Esto estaría bien así o manejarlo como una Row*/}
           <Row>
-            <Col lg={12}>
-              <Item
-                label="Producto Seleccionado: "
-              >
-                <Input
-                  style={{ color: "#676767" }}
-                  disabled
-                  placeholder="Ningun producto seleccionado"
-                  value={seleccionado.value}>
-                </Input>
-              </Item>
+            <Col span={1}></Col>
+            {/*Columna para todo el formulario*/}
+            <Col span={22}>
+              <Form form={form} onFinish={agregarAlDetalleDeCompras} layout="inline">
+                <Col lg={10}>
+                  <Form.Item label="Producto Seleccionado: ">
+                    <Input
+                      style={{ color: "#676767" }}
+                      disabled
+                      placeholder="Ningun producto seleccionado"
+                      value={seleccionado.value}
+                      name="nombre"
+                      rules={[{ required: true }]}
+                    >
+
+                    </Input>
+                  </Form.Item>
+                </Col>
+                <Col lg={1}></Col>
+                <Col lg={6}>
+                  <Form.Item label="Fecha" name="fecha" rules={[{ required: true }]}>
+                    <DatePicker format="YYYY-MM-DD" />
+                  </Form.Item>
+                </Col>
+
+                <Col lg={6}>
+                  <Form.Item label="Cantidad" name="cantidad" rules={[{ required: true }]}>
+                    <Col lg={10}>
+                      <Input type="number" min="0" step="1" />
+                    </Col>
+                  </Form.Item>
+                </Col>
+
+                <Col lg={6}>
+                  <Form.Item label="Código Compra" name="codigoCompra" rules={[{ required: true }]}>
+                    <Col lg={10}>
+                      <Input />
+                    </Col>
+                  </Form.Item>
+                </Col>
+                <Col lg={6}>
+                  <Form.Item>
+                    <Button type="primary" htmlType="submit">
+                      Agregar
+                    </Button>
+                  </Form.Item>
+                </Col>
+              </Form>
             </Col>
-            <Col lg={2}></Col>
-            <Col lg={6} >
-              <Item
-                label="Fecha de Compra"
-                name="fechaCompra"
-                rules={[{
-                  required: true,
-                  message: "Por favor, seleccione una fecha",
-                },]}
-              >
-                <DatePicker name="fechaProd"
-                  placeholder="DD/MM/AAAA"
-                  disabledDate={disabledDate}
-                  format={dateFormatList}
-                  onChange={handleChangeDate} />
-              </Item>
-            </Col>
-          </Row>
-          <Row>
-            <Col lg={8}>
-              <Item
-                label="Cantidad: "
-              >
-                <Input
-                  className="cantidadProducto"
-                  name="cantProd"
-                  placeholder="#"
-                  maxLength={3}
-                />
-              </Item>
-            </Col>
-            <Col lg={2}></Col>
-            <Col lg={6} >
-              {/* Boton Agregar al detalle de compras */}
-              <Button
-                icon={<ShoppingCartOutlined />} >Agregar
-              </Button>
-            </Col>
+            <Col span={1}></Col>
           </Row>
         </Col>
         <Col lg={2}></Col>
       </Row>
+
       <Row>
         {/*<Layout></Layout>*/}
         <Col lg={2}></Col>
         <Col lg={20} xs={24} className="componentsContainer">
+
           {/* Tabla detalle de compras */}
           <h2 className='subtituloTablaDetalleCompras'>Detalle de compra</h2>
-          <Table className='tabla' locale={{ emptyText: 'No hay compras' }} rowKey='id' columns={columnas} bordered={true} pagination={{ pageSize: 4, pagination: true, position: ["bottomRight"] }} size={'small'}></Table>
-          {/*<Item>
-            <p></p>
-            <Button className="botonRegistrar" type="primary" htmlType="submit" /*onClick={peticionPost}> Registrar</Button>
-          </Item>*/}
+          <Table className='tabla' dataSource={productos} columns={columnasTablaDetalleCompras} locale={{ emptyText: 'No hay compras' }} bordered={true} pagination={{ pageSize: 4, pagination: true, position: ["bottomRight"] }} size={'small'} />
+          {productos.length > 0 && (
+            <Button type="primary">
+              Registrar
+            </Button>
+          )}
         </Col>
         <Col lg={2}></Col>
       </Row>
@@ -229,11 +209,8 @@ export default function RegistrarCompra() {
       </Row>
       <Row>
         <p></p>
-        <Footer/>
+        <Footer />
       </Row>
-
-
     </div>
   )
-
 }

@@ -6,6 +6,8 @@ import { DeleteOutlined } from '@ant-design/icons';
 import axios from "axios";
 import Footer from "../components/Footer/Footer";
 import '../App.css';
+import 'dayjs/locale/es';
+dayjs.locale('es');
 
 export default function RegistrarCompra() {
   const [form] = Form.useForm();
@@ -211,23 +213,61 @@ export default function RegistrarCompra() {
                   </Col>
                   <Col lg={1}></Col>
                   <Col lg={6}>
-                    <Form.Item label="Fecha" name="fecha" rules={[{ required: true }]}>
-                      <DatePicker format="YYYY-MM-DD" />
+                    <Form.Item label="Fecha" name="fecha" 
+                    rules={[{ required: true,message: "Por favor, seleccione una fecha", }]}>
+                      <DatePicker placeholder="DD/MM/AAAA"
+                                  disabledDate={disabledDate}
+                                  locale={{lang: {locale: 'es', ok: 'Aceptar', cancel: 'Cancelar'}}}
+                                  format={dateFormatList}
+                                  onChange={handleChangeDate} />
                     </Form.Item>
                   </Col>
 
                   <Col lg={6}>
-                    <Form.Item label="Cantidad" name="cantidad" rules={[{ required: true }]}>
+                    <Form.Item label="Cantidad" name="cantidad" 
+                    rules={[{
+                      required: true,
+                      message: "Por favor, seleccione una cantidad",
+                    },
+                    {
+                      whitespace: true,
+                      message: 'No puede dejar en blanco este campo',
+                    },
+                    {
+                      validator: (_, value) =>
+                        value && value.match('^0*[1-9][0-9]*$')
+                          ? Promise.resolve()
+                          : Promise.reject(new Error('Debe ingresar solo números y un valor mayor a cero')),
+                    },
+                    ]}>
                       <Col lg={10}>
-                        <Input type="number" min="0" step="1" />
+                        <Input  showCount
+                                maxLength={4} />
                       </Col>
                     </Form.Item>
                   </Col>
 
                   <Col lg={6}>
-                    <Form.Item label="Código Compra" name="codigoCompra" rules={[{ required: true }]}>
+                    <Form.Item label="Código Compra" name="codigoCompra" 
+                      rules={[{
+                        required: true,
+                        message: "Por favor, ingrese un codigo",
+                      },
+                      {
+                        whitespace: true,
+                        message: 'No puede dejar en blanco este campo',
+                      },
+                      {
+                        validator: (_, value) =>
+                          value && value.match('^0*[1-9][0-9]*$')
+                            ? Promise.resolve()
+                            : Promise.reject(new Error('Debe ingresar solo números y un valor mayor a cero')),
+                      },
+                      ]}
+                    >
                       <Col lg={10}>
-                        <Input />
+                        <Input showCount
+                               maxLength={4}/>
                       </Col>
                     </Form.Item>
                   </Col>

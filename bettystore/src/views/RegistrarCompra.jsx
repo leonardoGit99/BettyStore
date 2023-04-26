@@ -86,9 +86,9 @@ export default function RegistrarCompra() {
   const agregarAlDetalleDeCompras = (producto) => {
     const nuevoProducto = {
       codigoCompra: producto.codigoCompra,
-      codProd: '',
-      nombre: '',
-      precio: '',
+      codProd: seleccionado.codProd,
+      nombre: seleccionado.value,
+      precio: seleccionado.precioProd,
       cantidad: producto.cantidad,
       fecha: producto.fecha.format('YYYY-MM-DD'),
     };

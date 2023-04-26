@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, Button, Col, Row, DatePicker, Table, InputNumber, AutoComplete } from "antd";
+import { Form, Input, Button, Col, Row, DatePicker, Table, AutoComplete, message, Modal } from "antd";
 import dayjs from "dayjs";
 import { ShoppingCartOutlined } from '@ant-design/icons'
-import SearchOutlined from '@ant-design/icons/SearchOutlined';
-import 'dayjs/locale/es';
-
-
+import { DeleteOutlined } from '@ant-design/icons';
 import axios from "axios";
-dayjs.locale('es');
+import Footer from "../components/Footer/Footer";
+import '../App.css';
 
 export default function RegistrarCompra() {
-
+  const [form] = Form.useForm();
+  const [comprasTotales, setComprasTotales] = useState([]);
+  console.log(comprasTotales);
 
   //COMPONENTE BUSCADOR
+
   const [productos, setProductos] = useState([{
     codProd: '',
     nomProd: '',
@@ -20,7 +21,7 @@ export default function RegistrarCompra() {
     cantidadProd: '',
   }]);
 
-  const [datos, setDatos] = useState([{
+  const [datosInventario, setDatosInventario] = useState([{
     codProd: '',
     nomProd: '',
     precioProd: '',
@@ -33,7 +34,7 @@ export default function RegistrarCompra() {
     await axios.get("http://localhost/IndexConsultasSegundoSprint/indexConsultaSimple.php")
       .then(response => {
         setProductos(response.data);
-        setDatos(response.data);
+        setDatosInventario(response.data);
         console.log(response.data);
       }).catch(error => {
         console.log(error);
@@ -49,7 +50,7 @@ export default function RegistrarCompra() {
   }
 
   function handleSearch(busqueda) {
-    const filtrado = datos.filter((producto) =>
+    const filtrado = datosInventario.filter((producto) =>
       filtrarOpciones(busqueda, producto)
     );
     setProductos(filtrado);
@@ -59,14 +60,7 @@ export default function RegistrarCompra() {
     return producto.nomProd.toLowerCase().indexOf(busqueda.toLowerCase()) !== -1;
   }
 
-  function mostrarSeleccionado() {
-    console.log(seleccionado);
-  }
 
-
-
-  //COMPONENTE FORMULARIO
-  const { Item } = Form;
 
   //Valor de fecha seleccionada
   const handleChangeDate = (value) => {
@@ -84,167 +78,203 @@ export default function RegistrarCompra() {
 
   const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY'];
 
-
-
-
   //COMPONENTE TABLA DETALLE DE COMPRAS
-  //Columnas tabla Detalle de compras
-  const columnas = [
-    { title: 'Código', dataIndex: 'codDetCompra', key: 'CodDetCompra' },
-    { title: 'Nombre', dataIndex: 'nomDetCompra', key: 'nomDetCompra', },
-    { title: 'Precio', dataIndex: 'precioDetCompra', key: 'precioDetCompra', },
-    { title: 'Cantidad', dataIndex: 'cantDetCompra', key: 'cantDetCompra', },
-    { title: 'Fecha', dataIndex: 'fechaDetCompra', key: 'fechaDetCompra', },
+  //Tabla detalle de compras pruebas
+  const columnasTablaDetalleCompras = [
+    { title: 'Código compra', dataIndex: 'codigoCompra', key: 'codigoCompra' },
+    { title: 'Código producto', dataIndex: 'codProd', key: 'codProd' },
+    { title: 'Nombre', dataIndex: 'nombre', key: 'nombre' },
+    { title: 'Precio', dataIndex: 'precio', key: 'precio' },
+    { title: 'Cantidad', dataIndex: 'cantidad', key: 'cantidad' },
+    { title: 'Fecha', dataIndex: 'fecha', key: 'fecha' },
+    {
+      title: 'Opciones',
+      dataIndex: 'opciones',
+      key: 'opciones',
+      render: (_, fila) => (
+        <Button type="primary" danger onClick={() => eliminarProductoDetalleCompras(fila.codigoCompra)} icon={<DeleteOutlined />} />
+      ),
+    },
   ];
+
+  //FUNCIONES PARA INSERTAR DATOS EN TABLA DETALLE DE COMPRAS
+  const agregarAlDetalleDeCompras = (producto) => {
+    const nuevoProducto = {
+      codigoCompra: producto.codigoCompra,
+      codProd: seleccionado.codProd,
+      nombre: seleccionado.value,
+      precio: seleccionado.precioProd,
+      cantidad: producto.cantidad,
+      fecha: producto.fecha.format('YYYY-MM-DD'),
+    };
+    setComprasTotales([...comprasTotales, nuevoProducto]);
+    form.resetFields();
+    cerrarModal();
+  };
+
+  const eliminarProductoDetalleCompras = (key) => {
+    const productoAEliminarDelDetalleCompra = comprasTotales.filter((product) => product.codigoCompra !== key);
+    setComprasTotales(productoAEliminarDelDetalleCompra);
+  };
+
+  //BOTON QUE ENVIA A B.D. infomarción de la Tabla Detalle de compra.
+  const confirmarCompra = async () => {
+    // Verifica que haya al menos un producto en el carrito
+    if (comprasTotales.length === 0) {
+      message.warning('Agrega productos al detalle de compras primero');
+      return;
+    }
+    //Petición Post botón registrar, para pasar datosInventario de tabla detalle de compras a tabla compras.
+    // Envia los productos al servidor
+    await axios.post('url_del_servidor', comprasTotales)
+      .then(response => {
+        // Si la respuesta es exitosa, se limpia el detalle de compras
+        setComprasTotales([]);
+        message.success('Compra realizada con éxito');
+      })
+      .catch(error => {
+        message.error('Hubo un error al procesar la compra');
+        console.log(error);
+      });
+  }
+
+  //Modal
+  const [modalEsVisible, setModalEsVisible] = useState(false);
+
+  const mostrarModal = () => {
+    setModalEsVisible(true);
+  }
+
+  const cerrarModal = () => {
+    setModalEsVisible(false);
+  }
 
   return (
     <div>
       <Row>
-        <h1>Registrar Compra</h1>
-      </Row>
-      <Row>
-        {/*<Layout></Layout>*/}
         <Col lg={2}></Col>
-        <Col lg={20} className="componentsContainer">
-          <Row>
-            {/* Buscador de inventario */}
-            <AutoComplete
-              style={{ width: 800 }}
-              options={productos.map((producto) => ({ value: producto.nomProd, cantidadProd: producto.cantidadProd, precioProd: producto.precioProd, codProd: producto.codProd }))}
-              onSelect={handleSelect}
-              placeholder="Busque un producto del inventario"
-              onSearch={handleSearch}
-              
-            >
-              <Input
-                size="middle"
-                suffix={<SearchOutlined />}
-              />
-            </AutoComplete>
-            {/* Boton para mostrar el producto seleccionado por consola */}
-            <Button onClick={mostrarSeleccionado}>Mostrar seleccionado por consola</Button>
-          </Row>
-          <p></p> {/* Esto estaría bien así o manejarlo como una Row*/}
-          <Form>
-          <Row>  
-            <Col lg={12}>
-              <Item
-                label="Producto Seleccionado: "
-              >
-                <Input
-                  style={{ color: "#676767" }}
-                  disabled
-                  placeholder="Ningun producto seleccionado"
-                  value={seleccionado.value}>
-                </Input>
-              </Item>
-            </Col>
-            <Col lg={3}></Col>
-            <Col lg={6} >
-              <Item
-                label="Fecha de Compra"
-                name="fechaCompra"
-                rules={[{
-                  required: true,
-                  message: "Por favor, seleccione una fecha",
-                },]}
-              >
-                <DatePicker name="fechaProd"
-                  placeholder="DD/MM/AAAA"
-                  disabledDate={disabledDate}
-                  locale={{lang: {locale: 'es', ok: 'Aceptar', cancel: 'Cancelar'}}}
-                  format={dateFormatList}
-                  onChange={handleChangeDate} />
-              </Item>
-            </Col>
-            
-          </Row>
-          <Row>
-            <Col lg={6}>
-              <Item
-                label="Cantidad: "
-                name ='cantCompra'
-                rules={[{
-                  required: true,
-                  message: "Por favor, seleccione una cantidad",
-                },
-                {
-                  whitespace: true,
-                  message: 'No puede dejar en blanco este campo',
-                },
-                {
-                  validator: (_, value) =>
-                    value && value.match('^0*[1-9][0-9]*$')
-                      ? Promise.resolve()
-                      : Promise.reject(new Error('Debe ingresar solo números y un valor mayor a cero')),
-                },
-                ]}
-              >
-                <Input
-                  className="cantidadProducto"
-                  name="cantProd"
-                  placeholder="#"
-                  showCount
-                  maxLength={4}
-                />
-              </Item>
-            </Col>
-            <Col lg={1}></Col>
-            <Col lg={6}>
-              <Item
-                label="Codigo Compra: "
-                name ='codCompra'
-                rules={[{
-                  required: true,
-                  message: "Por favor, ingrese un codigo",
-                },
-                {
-                  whitespace: true,
-                  message: 'No puede dejar en blanco este campo',
-                },
-                {
-                  validator: (_, value) =>
-                    value && value.match('^0*[1-9][0-9]*$')
-                      ? Promise.resolve()
-                      : Promise.reject(new Error('Debe ingresar solo números y un valor mayor a cero')),
-                },
-                ]}
-              >
-                <Input
-                  className="cantidadProducto"
-                  name="cantProd"
-                  placeholder="#"
-                  showCount
-                  maxLength={4}
-                />
-              </Item>
-            </Col>
-            <Col lg={2}></Col>
-
-            <Col lg={6} >
-              {/* Boton Agregar al detalle de compras */}
-              <Button
-                icon={<ShoppingCartOutlined />} htmlType="submit" >Agregar
-              </Button>
-            </Col>
-          </Row>
-          </Form>
+        <Col lg={20}>
+          <h1>Registrar Compra</h1>
         </Col>
         <Col lg={2}></Col>
       </Row>
       <Row>
+        <Modal
+          title="Agrega un Producto al detalle de compras"
+          open={modalEsVisible}
+          onCancel={cerrarModal}
+          footer={null}
+          width={1270}
+        >
+          {/*<Layout></Layout>*/}
+          <Col lg={2} xs={2}></Col>
+          <Col lg={20} xs={20} className="componentsContainer">
+            <Row>
+              <Col lg={1}></Col>
+              <Col lg={10}>
+
+                {/* Buscador de inventario */}
+                <AutoComplete
+                  style={{ width: 750 }}
+                  options={productos.map((producto) => ({ value: producto.nomProd, cantidadProd: producto.cantidadProd, precioProd: producto.precioProd, codProd: producto.codProd }))}
+                  onSelect={handleSelect}
+                  placeholder="Busque un producto del inventario"
+                  onSearch={handleSearch}
+                >
+                  <Input
+                    size="large"
+                  />
+                </AutoComplete>
+                {/* Boton para mostrar el producto seleccionado por consola */}
+                {/*<Button onClick={mostrarSeleccionado}>Mostrar seleccionado por consola</Button>*/}
+              </Col>
+            </Row>
+            <p></p> {/* Esto estaría bien así o manejarlo como una Row*/}
+            <Row>
+              <Col span={1}></Col>
+              {/*Columna para todo el formulario*/}
+              <Col span={22}>
+                <Form form={form} onFinish={agregarAlDetalleDeCompras} layout="inline">
+                  <Col lg={10}>
+                    <Form.Item label="Producto Seleccionado: ">
+                      <Input
+                        style={{ color: "#676767" }}
+                        disabled
+                        placeholder="Ningun producto seleccionado"
+                        value={seleccionado.value}
+                        name="nombre"
+                        rules={[{ required: true }]}
+                      >
+
+                      </Input>
+                    </Form.Item>
+                  </Col>
+                  <Col lg={1}></Col>
+                  <Col lg={6}>
+                    <Form.Item label="Fecha" name="fecha" rules={[{ required: true }]}>
+                      <DatePicker format="YYYY-MM-DD" />
+                    </Form.Item>
+                  </Col>
+
+                  <Col lg={6}>
+                    <Form.Item label="Cantidad" name="cantidad" rules={[{ required: true }]}>
+                      <Col lg={10}>
+                        <Input type="number" min="0" step="1" />
+                      </Col>
+                    </Form.Item>
+                  </Col>
+
+                  <Col lg={6}>
+                    <Form.Item label="Código Compra" name="codigoCompra" rules={[{ required: true }]}>
+                      <Col lg={10}>
+                        <Input />
+                      </Col>
+                    </Form.Item>
+                  </Col>
+                  <Col lg={6}>
+                    <Form.Item>
+                      <Button type="primary" htmlType="submit">
+                        Agregar
+                      </Button>
+                    </Form.Item>
+                  </Col>
+                </Form>
+              </Col>
+              <Col span={1}></Col>
+            </Row>
+          </Col>
+          <Col lg={2}></Col>
+        </Modal>
+      </Row>
+
+      <Row>
         {/*<Layout></Layout>*/}
         <Col lg={2}></Col>
-        <Col lg={20} className="componentsContainer">
+        <Col lg={20} xs={24} className="componentsContainer">
+          <Col lg={2}></Col>
+          <Col lg={20}>
+            <Button type="primary" onClick={mostrarModal}>Agregar Producto</Button>
+          </Col>
+          <Col lg={2}></Col>
+
           {/* Tabla detalle de compras */}
           <h2 className='subtituloTablaDetalleCompras'>Detalle de compra</h2>
-          <Table className='tabla' locale={{ emptyText: 'No hay compras' }} rowKey='id' columns={columnas} bordered={true} pagination={{ pageSize: 4, pagination: true, position: ["bottomRight"] }} size={'small'}></Table>
+          <Table className='tabla' rowKey="codigoCompra" dataSource={comprasTotales} columns={columnasTablaDetalleCompras} locale={{ emptyText: 'No hay compras' }} bordered={true} pagination={{ pageSize: 4, pagination: true, position: ["bottomRight"] }} size={'small'} />
+          {comprasTotales.length > 0 && (
+            <Button type="primary" onClick={confirmarCompra}>
+              Registrar
+            </Button>
+          )}
         </Col>
         <Col lg={2}></Col>
       </Row>
-
-
+      <Row>
+        <p></p>
+      </Row>
+      <Row>
+        <p></p>
+        <Footer />
+      </Row>
     </div>
   )
-
 }

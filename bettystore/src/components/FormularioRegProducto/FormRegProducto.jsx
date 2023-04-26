@@ -6,7 +6,7 @@ import TextArea from "antd/es/input/TextArea";
 import axios from "axios";
 import TablaInventario from "../TablaInventario/TablaInventario";
 import './FormRegProductoStyle.css';
-//import Footer from "../Footer/Footer";
+import Footer from "../Footer/Footer";
 
 
 
@@ -123,7 +123,11 @@ function FormRegProducto() {
   return (
     <div className="formRegProducto">
       <Row>
-        <h2 className="tituloRegistrar">Registrar Producto</h2>
+        <Col lg={2}></Col>
+        <Col lg={20}>
+          <h2 className="tituloRegistrar">Registrar Producto</h2>
+        </Col>
+        <Col lg={2}></Col>
       </Row>
       <Row>
         <Col lg={2}></Col>
@@ -393,9 +397,10 @@ function FormRegProducto() {
         </Col>
         <Col lg={2}></Col>
       </Row>
-      {/*<Row>
+      <Row>
+        <p></p>
         <Footer/>
-        </Row>*/}
+      </Row>
     </div>
   );
 }

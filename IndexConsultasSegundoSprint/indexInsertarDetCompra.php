@@ -14,32 +14,35 @@ $conexionBD = new mysqli($servidor, $usuario, $contrasenia, $nombreBaseDatos);
 //Inserta un nuevo registro y recepciona los datos de codigo,nombre,...
 if(isset($_GET["insertarCompra"])){
 
-    $codDetCompra=$_POST["codDetCompra"];
-    $nomDetCompra=$_POST["nomDetCompra"];
-    $cantDetCompra=$_POST["cantDetCompra"];
-    $precioDetCompra=$_POST["precioDetCompra"];
-    $fechaDetCompra=$_POST["fechaDetCompra"];
+    // Recibir los datos de la tabla comprasTotales de React
+    $comprasTotales = $_POST["comprasTotales"];
+    // Insertar los datos en la tabla detalleCompra
+    foreach ($comprasTotales as $compraTotal) {
+        $codDetCompra=$compraTotal["codigoCompra"];
+        $nomDetCompra=$compraTotal["nombre"];
+        $cantDetCompra=$compraTotal["cantidad"];
+        $precioDetCompra=$compraTotal["precio"];
+        $fechaDetCompra=$compraTotal["fecha"];
+        $producto_codProd=$compraTotal["codProd"];
     
-    $sqlQuery1   = ("SELECT DISTINCT codProd FROM producto WHERE nomProd='{$nomDetCompra}'");
-    $query1 = mysqli_query($conexionBD, $sqlQuery1);
-    $arr = (int)$query1;
+        $sql = "INSERT INTO detallecompra (codDetCompra, nomDetCompra, cantDetCompra, precioDetCompra, fechaDetCompra, Producto_codProd) VALUES ('".$codDetCompra."', '".$nomDetCompra."', '".$cantDetCompra."', '".$precioDetCompra."', '".$fechaDetCompra."', '".$producto_codProd."')";
 
-    $sql = "INSERT INTO detallecompra (codDetCompra, nomDetCompra, cantDetCompra, precioDetCompra, fechaDetCompra,Producto_codProd) VALUES ('".$codDetCompra."', '".$nomDetCompra."', '".$cantDetCompra."', '".$precioDetCompra."', '".$fechaDetCompra."', '".$arr."')";
-
-    try{
+        try{
         
-        mysqli_query($conexionBD, $sql);
-        echo json_encode("Compra exitosa");
+            mysqli_query($conexionBD, $sql);
+            echo json_encode("Compra exitosa");
 
-    }catch (Exception $error){
-        if(strpos($error->getMessage(), "PRIMARY") !== false){
-            echo json_encode("Error: El código de compra ya esta registrado");
-        }else{
-            //Otro error que pueda surgir **Mensaje en ingles**
-            echo json_encode("Error: ".$error->getMessage());
+        }catch (Exception $error){
+            if(strpos($error->getMessage(), "PRIMARY") !== false){
+                echo json_encode("Error: El código de compra ya esta registrado");
+            }else{
+                //Otro error que pueda surgir **Mensaje en ingles**
+                echo json_encode("Error: ".$error->getMessage());
+            }
+
         }
-
     }
+    
 
 }
 ?>

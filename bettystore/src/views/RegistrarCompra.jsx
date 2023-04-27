@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Form, Input, Button, Col, Row, DatePicker, Table, AutoComplete, message, Modal, Space } from "antd";
 import dayjs from "dayjs";
 import { ShoppingCartOutlined } from '@ant-design/icons'
@@ -134,6 +134,7 @@ export default function RegistrarCompra() {
       //Arreglar bug de key cambiar por nombre de producto
       title: '¿Está seguro que desea eliminar el producto '+ key +' del detalle de compra?',
       maskClosable: 'true',
+      //onCancel:borrarCampos(),
       onOk: ()=>{
         const productoAEliminarDelDetalleCompra = comprasTotales.filter((product) => product.codProd !== key);
         setComprasTotales(productoAEliminarDelDetalleCompra);
@@ -172,6 +173,7 @@ export default function RegistrarCompra() {
 
   const cerrarModal = () => {
     setModalEsVisible(false);
+    borrarCampos();
   }
 
   const layout = {
@@ -182,6 +184,12 @@ export default function RegistrarCompra() {
       span: 18
     }
   };
+
+  //Borrar los campos del formulario de reg. Compras
+  const formRefRegComp = useRef(null);
+  const borrarCampos = () => {
+    formRefRegComp.current?.resetFields();
+  }
 
   return (
     <div>
@@ -202,6 +210,7 @@ export default function RegistrarCompra() {
           onCancel={cerrarModal}
           footer={null}
           width={600}
+          destroyOnClose='true'
         >
           {/*<Layout></Layout>*/}
           {/*Contenedor general*/}
@@ -235,7 +244,7 @@ export default function RegistrarCompra() {
               <Col lg={0} md={0} xs={1}></Col>
               {/*Columna para todo el formulario*/}
               <Col lg={24} md={24} xs={22}>
-                <Form {...layout} form={form} onFinish={agregarAlDetalleDeCompras} layout="horizontal">
+                <Form {...layout} form={form} ref={formRefRegComp} onFinish={agregarAlDetalleDeCompras} layout="horizontal">
                   <Col span={24}>
                     <Form.Item label="Producto Seleccionado: " labelAlign="left"  /*name="Producto seleccionado"*/ rules={[{ required: true }]}>
                       <Input

@@ -94,7 +94,7 @@ export default function RegistrarCompra() {
       dataIndex: 'opciones',
       key: 'opciones',
       render: (_, fila) => (
-        <Button type="primary" danger onClick={() => eliminarProductoDetalleCompras(fila.codigoCompra)} icon={<DeleteOutlined />} />
+        <Button type="primary" danger onClick={() => eliminarProductoDetalleCompras(fila.codProd)} icon={<DeleteOutlined />} />
       ),
     },
   ];
@@ -109,13 +109,25 @@ export default function RegistrarCompra() {
       cantidad: producto.cantidad,
       fecha: producto.fecha.format('YYYY-MM-DD'),
     };
-    setComprasTotales([...comprasTotales, nuevoProducto]);
-    form.resetFields();
-    cerrarModal();
+    // Control de producto existente en detalle de compras
+    let productoExistente = false;
+    for (let i = 0; i < comprasTotales.length; i++){
+      if((comprasTotales[i].codProd === nuevoProducto.codProd && comprasTotales[i].codigoCompra === nuevoProducto.codigoCompra) || (comprasTotales[i].codProd === nuevoProducto.codProd && comprasTotales[i].codigoCompra !== nuevoProducto.codigoCompra) || (comprasTotales[i].codProd !== nuevoProducto.codProd && comprasTotales[i].codigoCompra === nuevoProducto.codigoCompra)){
+        productoExistente = true; 
+        break;
+      }
+    }
+    if (productoExistente){
+      message.error("Producto existente en el detalle de compras");
+    }else{
+      setComprasTotales([...comprasTotales, nuevoProducto]);
+      form.resetFields();
+      cerrarModal();
+    }
   };
 
   const eliminarProductoDetalleCompras = (key) => {
-    const productoAEliminarDelDetalleCompra = comprasTotales.filter((product) => product.codigoCompra !== key);
+    const productoAEliminarDelDetalleCompra = comprasTotales.filter((product) => product.codProd !== key);
     setComprasTotales(productoAEliminarDelDetalleCompra);
   };
 
@@ -299,7 +311,7 @@ export default function RegistrarCompra() {
 
           {/* Tabla detalle de compras */}
           <h2 className='subtituloTablaDetalleCompras'>Detalle de compra</h2>
-          <Table className='tabla' rowKey="codigoCompra" dataSource={comprasTotales} columns={columnasTablaDetalleCompras} locale={{ emptyText: 'No hay compras' }} bordered={true} pagination={{ pageSize: 4, pagination: true, position: ["bottomRight"] }} size={'small'} />
+          <Table className='tabla' rowKey="codProd" dataSource={comprasTotales} columns={columnasTablaDetalleCompras} locale={{ emptyText: 'No hay compras' }} bordered={true} pagination={{ pageSize: 4, pagination: true, position: ["bottomRight"] }} size={'small'} />
           {comprasTotales.length > 0 && (
             <Button type="primary" onClick={confirmarCompra}>
               Registrar

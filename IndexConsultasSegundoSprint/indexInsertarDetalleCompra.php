@@ -15,7 +15,9 @@ $conexionBD = new mysqli($servidor, $usuario, $contrasenia, $nombreBaseDatos);
 if(isset($_GET["insertarCompra"])){
 
     // Recibir los datos de la tabla comprasTotales de React
-    $comprasTotales = $_POST["comprasTotales"];
+    
+    $comprasTotales = json_decode(file_get_contents("php://input"), true);
+
     // Insertar los datos en la tabla detalleCompra
     foreach ($comprasTotales as $compraTotal) {
         $codDetCompra=$compraTotal["codigoCompra"];
@@ -25,7 +27,7 @@ if(isset($_GET["insertarCompra"])){
         $fechaDetCompra=$compraTotal["fecha"];
         $producto_codProd=$compraTotal["codProd"];
     
-        $sql = "INSERT INTO detallecompra (codDetCompra, nomDetCompra, cantDetCompra, precioDetCompra, fechaDetCompra, Producto_codProd) VALUES ('".$codDetCompra."', '".$nomDetCompra."', '".$cantDetCompra."', '".$precioDetCompra."', '".$fechaDetCompra."', '".$producto_codProd."')";
+        $sql = "INSERT INTO detallecompra (codDetCompra, nomDetCompra, cantDetCompra, precioDetCompra, fechaDetCompra, Producto_codProducto) VALUES ('".$codDetCompra."', '".$nomDetCompra."', '".$cantDetCompra."', '".$precioDetCompra."', '".$fechaDetCompra."', '".$producto_codProd."')";
 
         try{
         
@@ -34,7 +36,7 @@ if(isset($_GET["insertarCompra"])){
 
         }catch (Exception $error){
             if(strpos($error->getMessage(), "PRIMARY") !== false){
-                echo json_encode("Error: El código de compra ya esta registrado");
+                echo json_encode("Error: El código de compra ".$codDetCompra." ya esta registrado");
             }else{
                 //Otro error que pueda surgir **Mensaje en ingles**
                 echo json_encode("Error: ".$error->getMessage());

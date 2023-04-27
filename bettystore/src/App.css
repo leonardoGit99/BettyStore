@@ -68,3 +68,11 @@
   padding-left: 2vw;
   padding-right: 2vw;
 }
+
+.subtituloTablaDetalleCompras{
+  text-align: center;
+}
+
+.buscador{
+  width: 32vw;
+}

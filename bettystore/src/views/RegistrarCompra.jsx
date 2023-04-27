@@ -137,6 +137,7 @@ export default function RegistrarCompra() {
       onOk: ()=>{
         const productoAEliminarDelDetalleCompra = comprasTotales.filter((product) => product.codProd !== key);
         setComprasTotales(productoAEliminarDelDetalleCompra);
+        message.info('Esta compra ha sido eliminada exitosamente del detalle de compra', 2);
       }
     })
   };

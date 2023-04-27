@@ -55,7 +55,14 @@ export default function RegistrarCompra() {
     const filtrado = datosInventario.filter((producto) =>
       filtrarOpciones(busqueda, producto)
     );
-    setProductos(filtrado);
+
+    if(filtrado.length>=1){
+      setProductos(filtrado);
+    }else{
+      setProductos(filtrado);
+      message.info("No se encontraron productos.", 0.65);
+    }
+
   }
 
   function filtrarOpciones(busqueda, producto) {

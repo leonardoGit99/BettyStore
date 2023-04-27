@@ -125,11 +125,11 @@ export default function RegistrarCompra() {
       if ((comprasTotales[i].codProd === nuevoProducto.codProd && comprasTotales[i].codigoCompra === nuevoProducto.codigoCompra)) {
         productoExistenteC1 = true;
         break;
-      // Nombre de producto ya esta en tabla detalle de compras y codigo de compra es diferente al del detalle de compras
+        // Nombre de producto ya esta en tabla detalle de compras y codigo de compra es diferente al del detalle de compras
       } else if ((comprasTotales[i].codProd === nuevoProducto.codProd && comprasTotales[i].codigoCompra !== nuevoProducto.codigoCompra)) {
         productoExistenteC2 = true;
         break;
-      // Nombre diferente al detalle de compras y codigo de compras que ya esta en el detalle de compras
+        // Nombre diferente al detalle de compras y codigo de compras que ya esta en el detalle de compras
       } else if ((comprasTotales[i].codProd !== nuevoProducto.codProd && comprasTotales[i].codigoCompra === nuevoProducto.codigoCompra)) {
         codigoDeCompraExistente = true;
         break;
@@ -229,43 +229,39 @@ export default function RegistrarCompra() {
           <Col lg={24} md={24} xs={24} className="componentsContainer">
             <Row>
               <Col lg={0} md={0} xs={1}></Col>
-              <Col lg={22} md={22} xs={23}>
-
-                {/* Buscador de inventario */}
-
-                <AutoComplete
-                  /*style={{ width: 500 }}*/
-                  className="buscador"
-                  options={productos.map((producto) => ({ value: producto.nomProd, cantidadProd: producto.cantidadProd, precioProd: producto.precioProd, codProd: producto.codProd }))}
-                  onSelect={handleSelect}
-                  placeholder="Busque un producto del inventario"
-                  onSearch={handleSearch}
-                >
-                  <Input
-                    size="large"
-                    suffix={<SearchOutlined />}
-                  />
-                </AutoComplete>
-
-                {/* Boton para mostrar el producto seleccionado por consola */}
-                {/*<Button onClick={mostrarSeleccionado}>Mostrar seleccionado por consola</Button>*/}
-              </Col>
-              <Col lg={0}></Col>
-            </Row>
-            <p></p> {/* Esto estaría bien así o manejarlo como una Row*/}
-            <Row>
-              <Col lg={0} md={0} xs={1}></Col>
               {/*Columna para todo el formulario*/}
               <Col lg={24} md={24} xs={22}>
                 <Form {...layout} form={form} onFinish={agregarAlDetalleDeCompras} layout="horizontal">
+                  <Row>
+                    <Col lg={0} md={0} xs={1}></Col>
+                    <Col lg={22} md={22} xs={23}>
+
+                      {/* Buscador de inventario */}
+                      <Form.Item name="buscador" rules={[{ required: true, message: "Por favor, seleccione un producto del inventario" }]}>
+                        <AutoComplete
+                          /*style={{ width: 500 }}*/
+                          className="buscador"
+                          options={productos.map((producto) => ({ value: producto.nomProd, cantidadProd: producto.cantidadProd, precioProd: producto.precioProd, codProd: producto.codProd }))}
+                          onSelect={handleSelect}
+                          placeholder="Busque un producto del inventario"
+                          onSearch={handleSearch}
+                        >
+                          <Input
+                            size="large"
+                            suffix={<SearchOutlined />}
+                          />
+                        </AutoComplete>
+                      </Form.Item>
+                    </Col>
+                    <Col lg={0}></Col>
+                  </Row>
                   <Col span={24}>
-                    <Form.Item label="Producto Seleccionado: " labelAlign="left"  /*name="Producto seleccionado"*/ rules={[{ required: true }]}>
+                    <Form.Item label="Producto Seleccionado: " labelAlign="left" name="buscador" rules={[{ required: true, message: "Por favor, seleccione un producto del inventario" }]}>
                       <Input
                         style={{ color: "#676767" }}
                         disabled
                         placeholder="Ningun producto seleccionado"
                         value={seleccionado.value}
-                        name="nombre"
                       >
 
                       </Input>

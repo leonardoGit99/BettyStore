@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Form, Input, Button, Col, Row, DatePicker, Table, AutoComplete, message, Modal, Space } from "antd";
 import dayjs from "dayjs";
 import { ShoppingCartOutlined } from '@ant-design/icons'
-import { DeleteOutlined } from '@ant-design/icons';
+import { DeleteOutlined, SearchOutlined } from '@ant-design/icons';
 import axios from "axios";
 import Footer from "../components/Footer/Footer";
 import '../App.css';
@@ -221,6 +221,7 @@ export default function RegistrarCompra() {
                 >
                   <Input
                     size="large"
+                    suffix = {<SearchOutlined />}
                   />
                 </AutoComplete>
                 

@@ -135,7 +135,7 @@ export default function RegistrarCompra() {
       title: '¿Está seguro que desea eliminar el producto '+ key +' del detalle de compra?',
       maskClosable: 'true',
       onOk: ()=>{
-        const productoAEliminarDelDetalleCompra = comprasTotales.filter((product) => product.codigoCompra !== key);
+        const productoAEliminarDelDetalleCompra = comprasTotales.filter((product) => product.codProd !== key);
         setComprasTotales(productoAEliminarDelDetalleCompra);
       }
     })

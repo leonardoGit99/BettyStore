@@ -114,7 +114,7 @@ export default function RegistrarCompra() {
       nombre: seleccionado.value,
       precio: seleccionado.precioProd,
       cantidad: producto.cantidad,
-      fecha: producto.fecha.format('YYYY-MM-DD'),
+      fecha: producto.fecha.format(dateFormatList[0]),
     };
     // Control de producto existente en detalle de compras
     let productoExistente = false;

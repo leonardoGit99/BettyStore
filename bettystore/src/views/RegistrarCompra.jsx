@@ -117,15 +117,30 @@ export default function RegistrarCompra() {
       fecha: producto.fecha.format(dateFormatList[0]),
     };
     // Control de producto existente en detalle de compras
-    let productoExistente = false;
+    let productoExistenteC1 = false;
+    let productoExistenteC2 = false;
+    let codigoDeCompraExistente = false;
     for (let i = 0; i < comprasTotales.length; i++) {
-      if ((comprasTotales[i].codProd === nuevoProducto.codProd && comprasTotales[i].codigoCompra === nuevoProducto.codigoCompra) || (comprasTotales[i].codProd === nuevoProducto.codProd && comprasTotales[i].codigoCompra !== nuevoProducto.codigoCompra) || (comprasTotales[i].codProd !== nuevoProducto.codProd && comprasTotales[i].codigoCompra === nuevoProducto.codigoCompra)) {
-        productoExistente = true;
+      //Nombre del producto y el codigo de compras ya esta en tabla detalle de compras                    
+      if ((comprasTotales[i].codProd === nuevoProducto.codProd && comprasTotales[i].codigoCompra === nuevoProducto.codigoCompra)) {
+        productoExistenteC1 = true;
+        break;
+      // Nombre de producto ya esta en tabla detalle de compras y codigo de compra es diferente al del detalle de compras
+      } else if ((comprasTotales[i].codProd === nuevoProducto.codProd && comprasTotales[i].codigoCompra !== nuevoProducto.codigoCompra)) {
+        productoExistenteC2 = true;
+        break;
+      // Nombre diferente al detalle de compras y codigo de compras que ya esta en el detalle de compras
+      } else if ((comprasTotales[i].codProd !== nuevoProducto.codProd && comprasTotales[i].codigoCompra === nuevoProducto.codigoCompra)) {
+        codigoDeCompraExistente = true;
         break;
       }
     }
-    if (productoExistente) {
-      message.error("Producto existente en el detalle de compras");
+    if (productoExistenteC1) {
+      message.error("Producto existente en el detalle de compras", 2.5);
+    } else if (productoExistenteC2) {
+      message.error("Producto existente en el detalle de compras", 2.5);
+    } else if (codigoDeCompraExistente) {
+      message.error("Código de compra existente en el detalle de compras", 2.5);
     } else {
       setComprasTotales([...comprasTotales, nuevoProducto]);
       form.resetFields();

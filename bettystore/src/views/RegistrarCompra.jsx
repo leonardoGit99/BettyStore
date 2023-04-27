@@ -56,9 +56,9 @@ export default function RegistrarCompra() {
       filtrarOpciones(busqueda, producto)
     );
 
-    if(filtrado.length>=1){
+    if (filtrado.length >= 1) {
       setProductos(filtrado);
-    }else{
+    } else {
       setProductos(filtrado);
       message.info("No se encontraron productos.", 0.65);
     }
@@ -82,7 +82,7 @@ export default function RegistrarCompra() {
   const disabledDate = (current) => {
     // Can not select days before today and today
 
-    return current && current < dayjs().subtract(1,'day').endOf('day');
+    return current && current < dayjs().subtract(1, 'day').endOf('day');
   };
 
   const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY'];
@@ -101,7 +101,7 @@ export default function RegistrarCompra() {
       dataIndex: 'opciones',
       key: 'opciones',
       render: (_, fila) => (
-        <Button type="primary" danger onClick={() => eliminarProductoDetalleCompras(fila.codProd)} icon={<DeleteOutlined />} />
+        <Button type="primary" danger onClick={() => eliminarProductoDetalleCompras(fila.nombre)} icon={<DeleteOutlined />} />
       ),
     },
   ];
@@ -118,15 +118,15 @@ export default function RegistrarCompra() {
     };
     // Control de producto existente en detalle de compras
     let productoExistente = false;
-    for (let i = 0; i < comprasTotales.length; i++){
-      if((comprasTotales[i].codProd === nuevoProducto.codProd && comprasTotales[i].codigoCompra === nuevoProducto.codigoCompra) || (comprasTotales[i].codProd === nuevoProducto.codProd && comprasTotales[i].codigoCompra !== nuevoProducto.codigoCompra) || (comprasTotales[i].codProd !== nuevoProducto.codProd && comprasTotales[i].codigoCompra === nuevoProducto.codigoCompra)){
-        productoExistente = true; 
+    for (let i = 0; i < comprasTotales.length; i++) {
+      if ((comprasTotales[i].codProd === nuevoProducto.codProd && comprasTotales[i].codigoCompra === nuevoProducto.codigoCompra) || (comprasTotales[i].codProd === nuevoProducto.codProd && comprasTotales[i].codigoCompra !== nuevoProducto.codigoCompra) || (comprasTotales[i].codProd !== nuevoProducto.codProd && comprasTotales[i].codigoCompra === nuevoProducto.codigoCompra)) {
+        productoExistente = true;
         break;
       }
     }
-    if (productoExistente){
+    if (productoExistente) {
       message.error("Producto existente en el detalle de compras");
-    }else{
+    } else {
       setComprasTotales([...comprasTotales, nuevoProducto]);
       form.resetFields();
       cerrarModal();
@@ -139,10 +139,10 @@ export default function RegistrarCompra() {
       cancelText: 'Cancelar',
       okType: 'danger',
       //Arreglar bug de key cambiar por nombre de producto
-      title: '¿Está seguro que desea eliminar el producto '+ key +' del detalle de compra?',
+      title: '¿Está seguro que desea eliminar el producto ' + key + ' del detalle de compra?',
       maskClosable: 'true',
-      onOk: ()=>{
-        const productoAEliminarDelDetalleCompra = comprasTotales.filter((product) => product.codProd !== key);
+      onOk: () => {
+        const productoAEliminarDelDetalleCompra = comprasTotales.filter((product) => product.nombre !== key);
         setComprasTotales(productoAEliminarDelDetalleCompra);
       }
     })
@@ -217,8 +217,8 @@ export default function RegistrarCompra() {
               <Col lg={22} md={22} xs={23}>
 
                 {/* Buscador de inventario */}
-                
-                <AutoComplete 
+
+                <AutoComplete
                   /*style={{ width: 500 }}*/
                   className="buscador"
                   options={productos.map((producto) => ({ value: producto.nomProd, cantidadProd: producto.cantidadProd, precioProd: producto.precioProd, codProd: producto.codProd }))}
@@ -228,10 +228,10 @@ export default function RegistrarCompra() {
                 >
                   <Input
                     size="large"
-                    suffix = {<SearchOutlined />}
+                    suffix={<SearchOutlined />}
                   />
                 </AutoComplete>
-                
+
                 {/* Boton para mostrar el producto seleccionado por consola */}
                 {/*<Button onClick={mostrarSeleccionado}>Mostrar seleccionado por consola</Button>*/}
               </Col>
@@ -258,40 +258,40 @@ export default function RegistrarCompra() {
                   </Col>
                   {/*<Col lg={1}></Col>*/}
                   <Col span={24}>
-                    <Form.Item label="Fecha" labelAlign="left"  name="fecha" 
-                    rules={[{ required: true,message: "Por favor, seleccione una fecha", }]}>
+                    <Form.Item label="Fecha" labelAlign="left" name="fecha"
+                      rules={[{ required: true, message: "Por favor, seleccione una fecha", }]}>
                       <DatePicker placeholder="DD/MM/AAAA"
-                                  disabledDate={disabledDate}
-                                  locale={{lang: {locale: 'es', ok: 'Aceptar', cancel: 'Cancelar'}}}
-                                  format={dateFormatList}
-                                  onChange={handleChangeDate} />
+                        disabledDate={disabledDate}
+                        locale={{ lang: { locale: 'es', ok: 'Aceptar', cancel: 'Cancelar' } }}
+                        format={dateFormatList}
+                        onChange={handleChangeDate} />
                     </Form.Item>
                   </Col>
 
                   <Col span={24}>
-                    <Form.Item label="Cantidad" labelAlign="left"  name="cantidad" 
-                    rules={[{
-                      required: true,
-                      message: "Por favor, seleccione una cantidad",
-                    },
-                    {
-                      whitespace: true,
-                      message: 'No puede dejar en blanco este campo',
-                    },
-                    {
-                      validator: (_, value) =>
-                        value && value.match('^0*[1-9][0-9]*$')
-                          ? Promise.resolve()
-                          : Promise.reject(new Error('Debe ingresar solo números y un valor mayor a cero')),
-                    },
-                    ]}>
-                        <Input  showCount
-                                maxLength={4} />
+                    <Form.Item label="Cantidad" labelAlign="left" name="cantidad"
+                      rules={[{
+                        required: true,
+                        message: "Por favor, seleccione una cantidad",
+                      },
+                      {
+                        whitespace: true,
+                        message: 'No puede dejar en blanco este campo',
+                      },
+                      {
+                        validator: (_, value) =>
+                          value && value.match('^0*[1-9][0-9]*$')
+                            ? Promise.resolve()
+                            : Promise.reject(new Error('Debe ingresar solo números y un valor mayor a cero')),
+                      },
+                      ]}>
+                      <Input showCount
+                        maxLength={4} />
                     </Form.Item>
                   </Col>
 
                   <Col span={24}>
-                    <Form.Item label="Código Compra" labelAlign="left"  name="codigoCompra" 
+                    <Form.Item label="Código Compra" labelAlign="left" name="codigoCompra"
                       rules={[{
                         required: true,
                         message: "Por favor, ingrese un codigo",
@@ -308,8 +308,8 @@ export default function RegistrarCompra() {
                       },
                       ]}
                     >
-                        <Input showCount
-                               maxLength={4}/>
+                      <Input showCount
+                        maxLength={4} />
                     </Form.Item>
                   </Col>
                   <Col span={24}>
@@ -340,7 +340,7 @@ export default function RegistrarCompra() {
 
           {/* Tabla detalle de compras */}
           <h2 className='subtituloTablaDetalleCompras'>Detalle de compra</h2>
-          <Table className='tabla' rowKey="codProd" dataSource={comprasTotales} columns={columnasTablaDetalleCompras} locale={{ emptyText: 'No hay compras' }} bordered={true} pagination={{ pageSize: 4, pagination: true, position: ["bottomRight"] }} size={'small'} />
+          <Table className='tabla' rowKey="nombre" dataSource={comprasTotales} columns={columnasTablaDetalleCompras} locale={{ emptyText: 'No hay compras' }} bordered={true} pagination={{ pageSize: 4, pagination: true, position: ["bottomRight"] }} size={'small'} />
           {comprasTotales.length > 0 && (
             <Button type="primary" onClick={confirmarCompra}>
               Registrar

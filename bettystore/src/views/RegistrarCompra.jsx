@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, Button, Col, Row, DatePicker, Table, AutoComplete, message, Modal } from "antd";
+import { Form, Input, Button, Col, Row, DatePicker, Table, AutoComplete, message, Modal, Space } from "antd";
 import dayjs from "dayjs";
 import { ShoppingCartOutlined } from '@ant-design/icons'
 import { DeleteOutlined } from '@ant-design/icons';
@@ -115,8 +115,18 @@ export default function RegistrarCompra() {
   };
 
   const eliminarProductoDetalleCompras = (key) => {
-    const productoAEliminarDelDetalleCompra = comprasTotales.filter((product) => product.codigoCompra !== key);
-    setComprasTotales(productoAEliminarDelDetalleCompra);
+    Modal.confirm({
+      okText: 'Eliminar',
+      cancelText: 'Cancelar',
+      okType: 'danger',
+      //Arreglar bug de key cambiar por nombre de producto
+      title: '¿Está seguro que desea eliminar el producto '+ key +' del detalle de compra?',
+      maskClosable: 'true',
+      onOk: ()=>{
+        const productoAEliminarDelDetalleCompra = comprasTotales.filter((product) => product.codigoCompra !== key);
+        setComprasTotales(productoAEliminarDelDetalleCompra);
+      }
+    })
   };
 
   //BOTON QUE ENVIA A B.D. infomarción de la Tabla Detalle de compra.
@@ -151,33 +161,47 @@ export default function RegistrarCompra() {
     setModalEsVisible(false);
   }
 
+  const layout = {
+    labelCol: {
+      span: 8
+    },
+    wrapperCol: {
+      span: 18
+    }
+  };
+
   return (
     <div>
       <Row>
-        <Col lg={2}></Col>
-        <Col lg={20}>
+        <Col lg={2} md={2} xs={0}></Col>
+        <Col lg={20} md={20} xs={24}>
           <h1>Registrar Compra</h1>
         </Col>
-        <Col lg={2}></Col>
+        <Col lg={2} md={2}></Col>
       </Row>
+
+      {/*Fila para el Modal y el formulario de registro*/}
       <Row>
         <Modal
           title="Agrega un Producto al detalle de compras"
+          /*style={{textAlign:'center'}}*/
           open={modalEsVisible}
           onCancel={cerrarModal}
           footer={null}
-          width={1270}
+          width={600}
         >
           {/*<Layout></Layout>*/}
-          <Col lg={2} xs={2}></Col>
-          <Col lg={20} xs={20} className="componentsContainer">
+          {/*Contenedor general*/}
+          <Col lg={24} md={24} xs={24} className="componentsContainer">
             <Row>
-              <Col lg={1}></Col>
-              <Col lg={10}>
+              <Col lg={0} md={0} xs={1}></Col>
+              <Col lg={22} md={22} xs={23}>
 
                 {/* Buscador de inventario */}
-                <AutoComplete
-                  style={{ width: 750 }}
+                
+                <AutoComplete 
+                  /*style={{ width: 500 }}*/
+                  className="buscador"
                   options={productos.map((producto) => ({ value: producto.nomProd, cantidadProd: producto.cantidadProd, precioProd: producto.precioProd, codProd: producto.codProd }))}
                   onSelect={handleSelect}
                   placeholder="Busque un producto del inventario"
@@ -187,33 +211,34 @@ export default function RegistrarCompra() {
                     size="large"
                   />
                 </AutoComplete>
+                
                 {/* Boton para mostrar el producto seleccionado por consola */}
                 {/*<Button onClick={mostrarSeleccionado}>Mostrar seleccionado por consola</Button>*/}
               </Col>
+              <Col lg={0}></Col>
             </Row>
             <p></p> {/* Esto estaría bien así o manejarlo como una Row*/}
             <Row>
-              <Col span={1}></Col>
+              <Col lg={0} md={0} xs={1}></Col>
               {/*Columna para todo el formulario*/}
-              <Col span={22}>
-                <Form form={form} onFinish={agregarAlDetalleDeCompras} layout="inline">
-                  <Col lg={10}>
-                    <Form.Item label="Producto Seleccionado: ">
+              <Col lg={24} md={24} xs={22}>
+                <Form {...layout} form={form} onFinish={agregarAlDetalleDeCompras} layout="horizontal">
+                  <Col span={24}>
+                    <Form.Item label="Producto Seleccionado: " labelAlign="left"  /*name="Producto seleccionado"*/ rules={[{ required: true }]}>
                       <Input
                         style={{ color: "#676767" }}
                         disabled
                         placeholder="Ningun producto seleccionado"
                         value={seleccionado.value}
                         name="nombre"
-                        rules={[{ required: true }]}
                       >
 
                       </Input>
                     </Form.Item>
                   </Col>
-                  <Col lg={1}></Col>
-                  <Col lg={6}>
-                    <Form.Item label="Fecha" name="fecha" 
+                  {/*<Col lg={1}></Col>*/}
+                  <Col span={24}>
+                    <Form.Item label="Fecha" labelAlign="left"  name="fecha" 
                     rules={[{ required: true,message: "Por favor, seleccione una fecha", }]}>
                       <DatePicker placeholder="DD/MM/AAAA"
                                   disabledDate={disabledDate}
@@ -223,8 +248,8 @@ export default function RegistrarCompra() {
                     </Form.Item>
                   </Col>
 
-                  <Col lg={6}>
-                    <Form.Item label="Cantidad" name="cantidad" 
+                  <Col span={24}>
+                    <Form.Item label="Cantidad" labelAlign="left"  name="cantidad" 
                     rules={[{
                       required: true,
                       message: "Por favor, seleccione una cantidad",
@@ -240,15 +265,13 @@ export default function RegistrarCompra() {
                           : Promise.reject(new Error('Debe ingresar solo números y un valor mayor a cero')),
                     },
                     ]}>
-                      <Col lg={10}>
                         <Input  showCount
                                 maxLength={4} />
-                      </Col>
                     </Form.Item>
                   </Col>
 
-                  <Col lg={6}>
-                    <Form.Item label="Código Compra" name="codigoCompra" 
+                  <Col span={24}>
+                    <Form.Item label="Código Compra" labelAlign="left"  name="codigoCompra" 
                       rules={[{
                         required: true,
                         message: "Por favor, ingrese un codigo",
@@ -265,13 +288,11 @@ export default function RegistrarCompra() {
                       },
                       ]}
                     >
-                      <Col lg={10}>
                         <Input showCount
                                maxLength={4}/>
-                      </Col>
                     </Form.Item>
                   </Col>
-                  <Col lg={6}>
+                  <Col span={24}>
                     <Form.Item>
                       <Button type="primary" htmlType="submit">
                         Agregar
@@ -280,22 +301,22 @@ export default function RegistrarCompra() {
                   </Col>
                 </Form>
               </Col>
-              <Col span={1}></Col>
+              <Col xs={1}></Col>
             </Row>
           </Col>
-          <Col lg={2}></Col>
+          {/*<Col lg={2}></Col>*/}
         </Modal>
       </Row>
 
       <Row>
         {/*<Layout></Layout>*/}
-        <Col lg={2}></Col>
-        <Col lg={20} xs={24} className="componentsContainer">
-          <Col lg={2}></Col>
-          <Col lg={20}>
+        <Col lg={2} md={2}></Col>
+        <Col lg={20} md={20} xs={24} className="componentsContainer">
+          <Col lg={2} md={2}></Col>
+          <Col lg={20} md={20}>
             <Button type="primary" onClick={mostrarModal}>Agregar Producto</Button>
           </Col>
-          <Col lg={2}></Col>
+          <Col lg={2} md={2}></Col>
 
           {/* Tabla detalle de compras */}
           <h2 className='subtituloTablaDetalleCompras'>Detalle de compra</h2>
@@ -306,7 +327,7 @@ export default function RegistrarCompra() {
             </Button>
           )}
         </Col>
-        <Col lg={2}></Col>
+        <Col lg={2} md={2}></Col>
       </Row>
       <Row>
         <p></p>

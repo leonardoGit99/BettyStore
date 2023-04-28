@@ -61,6 +61,7 @@ export default function RegistrarCompra() {
     } else {
       setProductos(filtrado);
       message.info("No se encontraron productos.", 0.65);
+      borrarCampos();
     }
 
   }

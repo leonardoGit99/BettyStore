@@ -15,7 +15,6 @@ $conexionBD = new mysqli($servidor, $usuario, $contrasenia, $nombreBaseDatos);
 if(isset($_GET["insertarCompra"])){
 
     // Recibir los datos de la tabla comprasTotales de React
-    
     $comprasTotales = json_decode(file_get_contents("php://input"), true);
     //Incluir el archivo que contiene la definición de la clase
     require_once 'indexAumentarInventario.php';

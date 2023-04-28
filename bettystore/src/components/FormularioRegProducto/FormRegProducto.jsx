@@ -284,7 +284,7 @@ function FormRegProducto() {
 
                   {
                     validator: (_, value) =>
-                      value && value.match(/^(?:[1-9]\d{0,3}|[1-9]\d{0,3}\.\d|[1-9]\d{0,3}\.\d{1,2}|9999(?:\.0|\.0{1,2})?)$/)
+                      value && (value.match(/^(?:[1-9]\d{0,3}(?:\.\d{1,2})?|0\.[1-9]\d?|9999(?:\.0{1,2})?)$/) || value.match(/^0*[1-9][0-9]{0,3}$/))
                         ? Promise.resolve()
                         : Promise.reject(new Error('solo se puede ingresar numeros validos y el signo "."')),
                   },

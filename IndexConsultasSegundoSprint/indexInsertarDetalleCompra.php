@@ -17,9 +17,11 @@ if(isset($_GET["insertarCompra"])){
     // Recibir los datos de la tabla comprasTotales de React
     
     $comprasTotales = json_decode(file_get_contents("php://input"), true);
-
+    //Incluir el archivo que contiene la definición de la clase
+    require_once 'indexAumentarInventario.php';
     // Insertar los datos en la tabla detalleCompra
     foreach ($comprasTotales as $compraTotal) {
+        
         $codDetCompra=$compraTotal["codigoCompra"];
         $nomDetCompra=$compraTotal["nombre"];
         $cantDetCompra=$compraTotal["cantidad"];
@@ -32,19 +34,23 @@ if(isset($_GET["insertarCompra"])){
         try{
         
             mysqli_query($conexionBD, $sql);
-            echo json_encode("Compra exitosa");
+            echo json_encode("Compra exitosa") . PHP_EOL;
+            //Instanciar la clase
+            $objeto = new indexAumentarInventario();
+            // Llamar al método aumentarInventario pasándole los parámetros de cantidad y codigo de producto
+            $objeto->aumentarInventario($cantDetCompra, $producto_codProd);
 
         }catch (Exception $error){
             if(strpos($error->getMessage(), "PRIMARY") !== false){
-                echo json_encode("Error: El código de compra ".$codDetCompra." ya esta registrado");
+                echo json_encode("Error: El codigo de compra ".$codDetCompra." ya esta registrado") . PHP_EOL;
             }else{
                 //Otro error que pueda surgir **Mensaje en ingles**
-                echo json_encode("Error: ".$error->getMessage());
+                echo json_encode("Error: ".$error->getMessage()) . PHP_EOL;
             }
 
         }
+        
     }
-    
 
 }
 ?>

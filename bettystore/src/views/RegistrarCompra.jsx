@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Form, Input, Button, Col, Row, DatePicker, Table, AutoComplete, message, Modal, Space } from "antd";
 import dayjs from "dayjs";
 import { ShoppingCartOutlined } from '@ant-design/icons'
-import { DeleteOutlined, SearchOutlined } from '@ant-design/icons';
+import { DeleteOutlined, SearchOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import axios from "axios";
 import Footer from "../components/Footer/Footer";
 import '../App.css';
@@ -211,6 +211,7 @@ export default function RegistrarCompra() {
   const borrarCampos = () => {
     formRefRegComp.current?.resetFields();
   }
+  
 
   return (
     <div>
@@ -350,7 +351,7 @@ export default function RegistrarCompra() {
       <Row>
         {/*<Layout></Layout>*/}
         <Col lg={2} md={2}></Col>
-        <Col lg={20} md={20} xs={24} className="componentsContainer">
+        <Col lg={20} md={20} xs={24} className="componentsContainerDetCompras">
           <Col lg={2} md={2}></Col>
           <Col lg={20} md={20}>
             <Button type="primary" onClick={mostrarModal}>Agregar Producto</Button>
@@ -361,7 +362,7 @@ export default function RegistrarCompra() {
           <h2 className='subtituloTablaDetalleCompras'>Detalle de compra</h2>
           <Table className='tabla' rowKey="nombre" dataSource={comprasTotales} columns={columnasTablaDetalleCompras} locale={{ emptyText: 'No hay compras' }} bordered={true} pagination={{ pageSize: 4, pagination: true, position: ["bottomRight"] }} size={'small'} />
           {comprasTotales.length > 0 && (
-            <Button type="primary" onClick={confirmarCompra}>
+            <Button type="primary" onClick={confirmarCompra} icon={<CheckCircleOutlined/>}>
               Registrar
             </Button>
           )}

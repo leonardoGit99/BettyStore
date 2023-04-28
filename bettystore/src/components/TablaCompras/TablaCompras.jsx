@@ -7,9 +7,10 @@ import Footer from '../Footer/Footer';
 function TablaCompras() {
 
   const [datosTablaCompra, setDatosTablaCompra] = useState([]);
- 
+
   const columnas = [
-    { title: 'Código', dataIndex: 'codDetCompra', key: 'CodDetCompra' },
+    { title: 'Código Compra', dataIndex: 'codDetCompra', key: 'CodDetCompra' },
+    { title: 'Código Producto', dataIndex: 'producto_codProducto', key: 'producto_codProducto' },
     { title: 'Nombre', dataIndex: 'nomDetCompra', key: 'nomDetCompra', },
     { title: 'Precio', dataIndex: 'precioDetCompra', key: 'precioDetCompra', },
     { title: 'Cantidad', dataIndex: 'cantDetCompra', key: 'cantDetCompra', },
@@ -38,7 +39,7 @@ function TablaCompras() {
   return (
     <div>
       <h2 className='subtituloTabla'>Compras registradas</h2>
-      <Table className='tabla' locale={{ emptyText: 'No hay compras registradas' }} rowKey='id' columns={columnas} dataSource={datosTablaCompra} bordered={true} pagination={{ pageSize: 4, pagination: true, position: ["bottomRight"] }} size={'small'}></Table>
+      <Table className='tabla' locale={{ emptyText: 'No hay compras registradas' }} rowKey='codDetCompra' columns={columnas} dataSource={datosTablaCompra} bordered={true} pagination={{ pageSize: 8, pagination: true, position: ["bottomRight"] }} size={'middle'}></Table>
       <Footer/>
     </div>
   )

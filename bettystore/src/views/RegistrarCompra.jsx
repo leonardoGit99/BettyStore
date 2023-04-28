@@ -33,7 +33,7 @@ export default function RegistrarCompra() {
   const [seleccionado, setSeleccionado] = useState({});
 
   const peticionGet = async () => {
-    await axios.get("http://localhost/IndexConsultasSegundoSprint/indexConsultaSimple.php")
+    await axios.get("http://localhost/crudProductos/IndexConsultasSegundoSprint/indexConsultaSimple.php")
       .then(response => {
         setProductos(response.data);
         setDatosInventario(response.data);
@@ -173,11 +173,11 @@ export default function RegistrarCompra() {
     }
     //Petición Post botón registrar, para pasar datosInventario de tabla detalle de compras a tabla compras.
     // Envia los productos al servidor
-    await axios.post('url_del_servidor', comprasTotales)
+    await axios.post('http://localhost/crudproductos/IndexConsultasSegundoSprint/indexInsertarDetalleCompra.php/?insertarCompra=', comprasTotales)
       .then(response => {
         // Si la respuesta es exitosa, se limpia el detalle de compras
         setComprasTotales([]);
-        message.success('Compra realizada con éxito');
+        message.info(response.data);
       })
       .catch(error => {
         message.error('Hubo un error al procesar la compra');

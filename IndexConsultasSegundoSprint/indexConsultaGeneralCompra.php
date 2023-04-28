@@ -11,13 +11,13 @@ $conexionBD = new mysqli($servidor, $usuario, $contrasenia, $nombreBaseDatos);
 
 //Consulta todos los registros y devuelve el vector
 $vector = array(); 
-$sql = "SELECT codDetCompra,Producto_codProd,nomDetCompra,precioDetCompra,cantDetCompra,fechaDetCompra FROM detallecompra";
+$sql = "SELECT codDetCompra,Producto_codProducto,nomDetCompra,precioDetCompra,cantDetCompra,fechaDetCompra FROM detallecompra";
 $sqlCompra = mysqli_query($conexionBD, $sql);
 
 while($fila = mysqli_fetch_assoc($sqlCompra)) {
     $vector[] = array(
         "codDetCompra" => $fila['codDetCompra'],
-	"producto_codProd" => $fila['Producto_codProd'],
+	"producto_codProducto" => $fila['Producto_codProducto'],
         "nomDetCompra" => $fila['nomDetCompra'],
         "precioDetCompra" => $fila['precioDetCompra'],
 	"cantDetCompra" => $fila['cantDetCompra'],

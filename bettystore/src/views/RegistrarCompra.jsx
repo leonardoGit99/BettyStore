@@ -246,10 +246,9 @@ export default function RegistrarCompra() {
                     <Col lg={22} md={22} xs={23}>
 
                       {/* Buscador de inventario */}
-                      <Form.Item name="buscador" rules={[{ required: true, message: "Por favor, seleccione un producto del inventario" }]}>
+                      <Form.Item className="buscador" name="buscador" rules={[{ required: true, message: "Por favor, seleccione un producto del inventario" }]}>
                         <AutoComplete
                           /*style={{ width: 500 }}*/
-                          className="buscador"
                           options={productos.map((producto) => ({ value: producto.nomProd, cantidadProd: producto.cantidadProd, precioProd: producto.precioProd, codProd: producto.codProd }))}
                           onSelect={handleSelect}
                           placeholder="Busque un producto del inventario"

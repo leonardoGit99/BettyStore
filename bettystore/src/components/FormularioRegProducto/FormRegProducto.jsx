@@ -319,7 +319,9 @@ function FormRegProducto() {
                   },]}
 
                 >
-                  <Upload maxCount={1}
+                  <Upload 
+                  accept=".png, .jpeg, .jpg"
+                  maxCount={1}
                     customRequest={(info) => {
                       setFileList([info.file])
                       console.log(info.file)

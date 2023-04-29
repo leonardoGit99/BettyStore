@@ -120,6 +120,7 @@ function FormRegProducto() {
 
   }
 
+  
   return (
     <div className="formRegProducto">
       <Row>
@@ -329,8 +330,12 @@ function FormRegProducto() {
                     <Button
                       icon={<UploadOutlined />} >Examinar
                     </Button>
-                    <p className="nombreArchivoSubido">{fileList[0]?.name}</p>
+                                      
+                    {fileList[0] ?(
+                    <div className="nombreArchivoSubido" >{fileList[0]?.name}</div>
+                  ):(<span  style={{color: 'rgba(0,0,0,0.25)'}}> No se ha seleccionado ningún archivo</span>)}
                   </Upload>
+                 
                 </Item>
 
                 <Item

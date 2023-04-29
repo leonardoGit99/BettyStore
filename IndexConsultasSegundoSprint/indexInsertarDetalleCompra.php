@@ -33,7 +33,7 @@ if(isset($_GET["insertarCompra"])){
         try{
         
             mysqli_query($conexionBD, $sql);
-            echo json_encode("Compra exitosa") . PHP_EOL;
+            echo json_encode("Compra exitosa");
             //Instanciar la clase
             $objeto = new indexAumentarInventario();
             // Llamar al método aumentarInventario pasándole los parámetros de cantidad y codigo de producto
@@ -41,10 +41,15 @@ if(isset($_GET["insertarCompra"])){
 
         }catch (Exception $error){
             if(strpos($error->getMessage(), "PRIMARY") !== false){
-                echo json_encode("Error: El codigo de compra ".$codDetCompra." ya esta registrado") . PHP_EOL;
+                echo json_encode("Error: El codigo de compra ".$codDetCompra." ya esta registrado");
             }else{
-                //Otro error que pueda surgir **Mensaje en ingles**
-                echo json_encode("Error: ".$error->getMessage()) . PHP_EOL;
+                if(strpos($error->getMessage(), "gone away") !== false){
+                    echo json_encode("Error: Existe un error desconocido con la imagen"); 
+                }else{
+                    //Otro error que pueda surgir **Mensaje en ingles**
+                    echo json_encode("Error: ".$error->getMessage());
+                }
+                
             }
 
         }

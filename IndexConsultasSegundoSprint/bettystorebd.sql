@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-04-2023 a las 01:47:38
+-- Tiempo de generación: 28-04-2023 a las 04:25:00
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.2.0
 
@@ -78,7 +78,7 @@ CREATE TABLE `producto` (
 -- Indices de la tabla `detallecompra`
 --
 ALTER TABLE `detallecompra`
-  ADD PRIMARY KEY (`codDetCompra`,`Producto_codProducto`),
+  ADD PRIMARY KEY (`codDetCompra`) USING BTREE,
   ADD KEY `fk_DetalleCompra_Producto1_idx` (`Producto_codProducto`);
 
 --

@@ -17,10 +17,10 @@ $sqlCompra = mysqli_query($conexionBD, $sql);
 while($fila = mysqli_fetch_assoc($sqlCompra)) {
     $vector[] = array(
         "codDetCompra" => $fila['codDetCompra'],
-	"producto_codProducto" => $fila['Producto_codProducto'],
+	    "producto_codProducto" => $fila['Producto_codProducto'],
         "nomDetCompra" => $fila['nomDetCompra'],
         "precioDetCompra" => $fila['precioDetCompra'],
-	"cantDetCompra" => $fila['cantDetCompra'],
+	    "cantDetCompra" => $fila['cantDetCompra'],
         "fechaDetCompra" => $fila['fechaDetCompra']
     );
 }

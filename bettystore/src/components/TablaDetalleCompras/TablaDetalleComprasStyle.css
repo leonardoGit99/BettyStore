@@ -1,0 +1,29 @@
+.subtituloTablaDetalleCompras{
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+  }
+  
+  .tabla th {
+    background-color: #FFA500 !important;
+    border: 1px solid white !important;
+    color: white !important;
+    font-style: normal !important;
+    text-align: center !important;
+  
+  }
+  
+  .tabla tr:nth-child(even) td {
+    border: 1px solid silver !important;
+    text-align: center !important;
+    background-color: rgb(232, 228, 228) !important;
+  }
+  
+  .tabla tr:nth-child(odd) td {
+    border: 1px solid lightgrey !important;
+    text-align: center !important;
+    background-color: white !important;
+  }
+  
+  .tabla tr:hover td {
+    background-color: #dff6ef !important;
+  }

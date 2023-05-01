@@ -106,3 +106,81 @@
     width: 660px;
   }
 }
+
+.cardStyleInventario{
+  text-align: center;
+  background-color: #FFA500;/*#01c38e;*/
+  color: #fff;
+  font-weight: bold;
+  /*-webkit-text-fill-color: #132d46;*/
+}
+
+.cardStyleCompra{
+  text-align: center;
+  background-color: #01c38e;/*#01c38e;*/
+  color: #fff;
+  font-weight: bold;
+  /*-webkit-text-fill-color: #132d46;*/
+}
+
+.tituloHome{
+  text-align: center;
+}
+
+.img{
+  height: 15vw;
+}
+
+/*Todo esto era para hacer el boton de las cards responsivo comento por
+si sirve adelante*/
+/*
+@media only screen and (max-width: 540px) {
+  .botonCard{
+    font-size: small;
+    -webkit-text-fill-color: #02130f;
+    esto estaba comentado
+    //////////////////////
+    color: #132d46;
+    background-color: #1677ff;
+    padding: 6px;
+    border-radius: 5%;
+    -webkit-text-fill-color: #FFF;
+    //////////////////////
+  }
+}
+
+@media only screen and (max-width: 492px) {
+  .botonCard{
+    font-size: x-small;
+    -webkit-text-fill-color: #02130f;
+    esto estaba comentado
+    //////////////////////
+    color: #132d46;
+    background-color: #1677ff;
+    padding: 6px;
+    border-radius: 5%;
+    -webkit-text-fill-color: #FFF;
+    //////////////////////
+  }
+}
+
+@media only screen and (max-width: 361px) {
+  .botonCard{
+    font-size: 2vw;
+    -webkit-text-fill-color: #02130f;
+    esto estaba comentado
+    //////////////////////
+    color: #132d46;
+    background-color: #1677ff;
+    padding: 6px;
+    border-radius: 5%;
+    -webkit-text-fill-color: #FFF;
+    //////////////////////
+  }
+}
+*/
+
+
+
+
+

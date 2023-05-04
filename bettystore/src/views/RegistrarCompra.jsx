@@ -146,9 +146,25 @@ export default function RegistrarCompra() {
       message.error("El producto seleccionado no existe en inventario", 2.5);
     }
     else {
-      setComprasTotales([...comprasTotales, nuevoProducto]);
-      form.resetFields();
-      cerrarModal();
+
+      const datos = new FormData(); 
+      datos.append("codigoCompra", nuevoProducto.codigoCompra);
+
+      axios.post("http://localhost/IndexConsultasSegundoSprint/indexVerificarCodCompra.php/?verificarcodcompra=1", datos)
+      .then(response => {
+
+        if(response.data === "Disponible"){
+
+          setComprasTotales([...comprasTotales, nuevoProducto]);
+          form.resetFields();
+          cerrarModal();
+
+        }else{
+          message.error("El código de compra ya esta registrado");
+        }
+
+      })
+
     }
   };
 

@@ -197,7 +197,7 @@ export default function RegistrarCompra() {
       .then(response => {
         // Si la respuesta es exitosa, se limpia el detalle de compras
         setComprasTotales([]);
-        message.info("Compra exitosa!", 2.5);
+        message.info("¡Compra exitosa!", 2.5);
       })
       .catch(error => {
         message.error('Hubo un error al procesar la compra');

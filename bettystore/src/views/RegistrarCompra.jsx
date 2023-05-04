@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Form, Input, Button, Col, Row, DatePicker, Table, AutoComplete, message, Modal, Space } from "antd";
 import dayjs from "dayjs";
-import { ShoppingCartOutlined } from '@ant-design/icons'
+import { ShoppingCartOutlined, ShoppingOutlined } from '@ant-design/icons'
 import { DeleteOutlined, SearchOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import axios from "axios";
 import Footer from "../components/Footer/Footer";
@@ -355,7 +355,7 @@ export default function RegistrarCompra() {
         <Col lg={20} md={20} xs={24} className="componentsContainerDetCompras">
           <Col lg={2} md={2}></Col>
           <Col lg={20} md={20}>
-            <Button type="primary" onClick={mostrarModal}>Agregar Producto</Button>
+            <Button type="primary" onClick={mostrarModal} icon={<ShoppingOutlined />}>Agregar Producto</Button>
           </Col>
           <Col lg={2} md={2}></Col>
 

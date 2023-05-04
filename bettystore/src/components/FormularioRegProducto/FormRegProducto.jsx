@@ -31,6 +31,11 @@ function FormRegProducto() {
   //Borrar campos en caso de presionar boton cancelar
   const formRef = useRef(null);
   const borrarCampos = () => {
+    formRef.current?.resetFields();
+    setFileList([]);
+  }
+
+  const borrarCamposCancelar = () => {
     Modal.confirm({
       okText: 'Si',
       cancelText: 'No',
@@ -410,7 +415,7 @@ function FormRegProducto() {
               </Item>
 
               <Item>
-                <Button className="botonCancelar" htmlType="button" onClick={borrarCampos}>Cancelar</Button>
+                <Button className="botonCancelar" htmlType="button" onClick={borrarCamposCancelar}>Cancelar</Button>
               </Item>
             </Row>
           </Form>

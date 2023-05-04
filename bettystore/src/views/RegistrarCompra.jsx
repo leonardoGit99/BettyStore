@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Form, Input, Button, Col, Row, DatePicker, Table, AutoComplete, message, Modal, Space } from "antd";
 import dayjs from "dayjs";
-import { ShoppingCartOutlined } from '@ant-design/icons'
+import { ShoppingCartOutlined, ShoppingOutlined } from '@ant-design/icons'
 import { DeleteOutlined, SearchOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import axios from "axios";
 import Footer from "../components/Footer/Footer";
@@ -60,7 +60,7 @@ export default function RegistrarCompra() {
       setProductos(filtrado);
     } else {
       setProductos(filtrado);
-      message.info("No se encontraron productos.", 2);
+      message.warning("No se encontraron productos.", 2);
       borrarCampos();
     }
 
@@ -146,9 +146,25 @@ export default function RegistrarCompra() {
       message.error("El producto seleccionado no existe en inventario", 2.5);
     }
     else {
-      setComprasTotales([...comprasTotales, nuevoProducto]);
-      form.resetFields();
-      cerrarModal();
+
+      const datos = new FormData(); 
+      datos.append("codigoCompra", nuevoProducto.codigoCompra);
+
+      axios.post("http://localhost/IndexConsultasSegundoSprint/indexVerificarCodCompra.php/?verificarcodcompra=1", datos)
+      .then(response => {
+
+        if(response.data === "Disponible"){
+
+          setComprasTotales([...comprasTotales, nuevoProducto]);
+          form.resetFields();
+          cerrarModal();
+
+        }else{
+          message.error("El código de compra ya esta registrado");
+        }
+
+      })
+
     }
   };
 
@@ -181,7 +197,7 @@ export default function RegistrarCompra() {
       .then(response => {
         // Si la respuesta es exitosa, se limpia el detalle de compras
         setComprasTotales([]);
-        message.info("Compra exitosa!", 2.5);
+        message.info("¡Compra exitosa!", 2.5);
       })
       .catch(error => {
         message.error('Hubo un error al procesar la compra');
@@ -223,7 +239,7 @@ export default function RegistrarCompra() {
       <Row>
         <Col lg={2} md={2} xs={0}></Col>
         <Col lg={20} md={20} xs={24}>
-          <h1>Registrar Compra</h1>
+          <h2>Registrar Compra</h2>
         </Col>
         <Col lg={2} md={2}></Col>
       </Row>
@@ -359,7 +375,7 @@ export default function RegistrarCompra() {
         <Col lg={20} md={20} xs={24} className="componentsContainerDetCompras">
           <Col lg={2} md={2}></Col>
           <Col lg={20} md={20}>
-            <Button type="primary" onClick={mostrarModal}>Agregar Producto</Button>
+            <Button type="primary" onClick={mostrarModal} icon={<ShoppingOutlined />}>Agregar Producto</Button>
           </Col>
           <Col lg={2} md={2}></Col>
 

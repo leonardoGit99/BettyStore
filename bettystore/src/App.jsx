@@ -66,11 +66,11 @@ function App() {
         <Col span={24}>
           <Content className='App-content'>
             <Routes>
-              <Route path='/' element={<Home />} />
-              <Route path='/registrarProducto' element={<FormRegProducto datosTabla={datosTabla} setDatosTabla={setDatosTabla} producto={producto} setProducto={setProducto} />} />
-              <Route path='/mostrarInventario' element={<TablaInventario datosTabla={datosTabla} setDatosTabla={setDatosTabla} producto={producto} setProducto={setProducto} />} />
-              <Route path='/registrarCompra' element={<RegistrarCompra />} />
-              <Route path='/mostrarCompra' element={<MostrarCompra />} />
+              <Route exact path='/' element={<Home />} />
+              <Route exact path='/registrarProducto' element={<FormRegProducto datosTabla={datosTabla} setDatosTabla={setDatosTabla} producto={producto} setProducto={setProducto} />} />
+              <Route exact path='/mostrarInventario' element={<TablaInventario datosTabla={datosTabla} setDatosTabla={setDatosTabla} producto={producto} setProducto={setProducto} />} />
+              <Route exact path='/registrarCompra' element={<RegistrarCompra />} />
+              <Route exact path='/mostrarCompra' element={<MostrarCompra />} />
             </Routes>
           </Content>
         </Col>

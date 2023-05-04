@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Form, Input, Button, Col, Row, Select, DatePicker, Upload, message, Space } from "antd";
+import { Form, Input, Button, Col, Row, Select, DatePicker, Upload, message, Modal } from "antd";
 import dayjs from "dayjs";
 import { UploadOutlined } from '@ant-design/icons';
 import TextArea from "antd/es/input/TextArea";
@@ -31,9 +31,22 @@ function FormRegProducto() {
   //Borrar campos en caso de presionar boton cancelar
   const formRef = useRef(null);
   const borrarCampos = () => {
-    formRef.current?.resetFields();
-    setFileList([]);
+    Modal.confirm({
+      okText: 'Si',
+      cancelText: 'No',
+      okType: 'danger',
+      title: '¿Está seguro que desea cancelar el registro del producto?',
+      maskClosable: 'true',
+      onOk: () => {
+        formRef.current?.resetFields();
+        setFileList([]);
+      }
+
+    })
   }
+
+
+
 
   const [producto, setProducto] = useState({
     codProd: '',
@@ -120,7 +133,7 @@ function FormRegProducto() {
 
   }
 
-  
+
   return (
     <div className="formRegProducto">
       <Row>
@@ -319,9 +332,9 @@ function FormRegProducto() {
                   },]}
 
                 >
-                  <Upload 
-                  accept=".png, .jpeg, .jpg"
-                  maxCount={1}
+                  <Upload
+                    accept=".png, .jpeg, .jpg"
+                    maxCount={1}
                     customRequest={(info) => {
                       setFileList([info.file])
                       console.log(info.file)
@@ -332,12 +345,12 @@ function FormRegProducto() {
                     <Button
                       icon={<UploadOutlined />} >Examinar
                     </Button>
-                                      
-                    {fileList[0] ?(
-                    <div className="nombreArchivoSubido" >{fileList[0]?.name}</div>
-                  ):(<span  style={{color: 'rgba(0,0,0,0.25)'}}> No se ha seleccionado ningún archivo</span>)}
+
+                    {fileList[0] ? (
+                      <div className="nombreArchivoSubido" >{fileList[0]?.name}</div>
+                    ) : (<span style={{ color: 'rgba(0,0,0,0.25)' }}> No se ha seleccionado ningún archivo</span>)}
                   </Upload>
-                 
+
                 </Item>
 
                 <Item
@@ -406,7 +419,7 @@ function FormRegProducto() {
       </Row>
       <Row>
         <p></p>
-        <Footer/>
+        <Footer />
       </Row>
     </div>
   );

@@ -71,7 +71,6 @@ export default function RegistrarCompra() {
   }
 
 
-
   //Valor de fecha seleccionada
   const handleChangeDate = (value) => {
     const date = dayjs(value).format(dateFormatList[0]);
@@ -142,7 +141,11 @@ export default function RegistrarCompra() {
       message.error("Producto existente en el detalle de compras", 2.5);
     } else if (codigoDeCompraExistente) {
       message.error("Código de compra existente en el detalle de compras", 2.5);
-    } else {
+    }
+    if (nuevoProducto.nombre == undefined) {
+      message.error("El producto seleccionado no existe en inventario", 2.5);
+    }
+    else {
       setComprasTotales([...comprasTotales, nuevoProducto]);
       form.resetFields();
       cerrarModal();
@@ -196,6 +199,7 @@ export default function RegistrarCompra() {
   const cerrarModal = () => {
     setModalEsVisible(false);
     borrarCampos();
+    setSeleccionado("");
   }
 
   const layout = {
@@ -212,7 +216,7 @@ export default function RegistrarCompra() {
   const borrarCampos = () => {
     formRefRegComp.current?.resetFields();
   }
-  
+
 
   return (
     <div>
@@ -227,7 +231,7 @@ export default function RegistrarCompra() {
       {/*Fila para el Modal y el formulario de registro*/}
       <Row>
         <Modal
-          title= {<div className="tituloModalRegistrarCompra">Agrega un producto al detalle de compras</div>}
+          title={<div className="tituloModalRegistrarCompra">Agrega un producto al detalle de compras</div>}
           /*style={{textAlign:'center'}}*/
           open={modalEsVisible}
           onCancel={cerrarModal}
@@ -363,7 +367,7 @@ export default function RegistrarCompra() {
           <h2 className='subtituloTablaDetalleCompras'>Detalle de compra</h2>
           <Table className='tabla' rowKey="nombre" dataSource={comprasTotales} columns={columnasTablaDetalleCompras} locale={{ emptyText: 'No hay compras' }} bordered={true} pagination={{ pageSize: 4, pagination: true, position: ["bottomRight"] }} size={'small'} />
           {comprasTotales.length > 0 && (
-            <Button type="primary" onClick={confirmarCompra} icon={<CheckCircleOutlined/>}>
+            <Button type="primary" onClick={confirmarCompra} icon={<CheckCircleOutlined />}>
               Registrar
             </Button>
           )}

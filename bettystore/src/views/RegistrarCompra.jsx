@@ -219,7 +219,7 @@ export default function RegistrarCompra() {
       <Row>
         <Col lg={2} md={2} xs={0}></Col>
         <Col lg={20} md={20} xs={24}>
-          <h1>Registrar Compra</h1>
+          <h2>Registrar Compra</h2>
         </Col>
         <Col lg={2} md={2}></Col>
       </Row>

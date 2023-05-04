@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Form, Input, Button, Col, Row, DatePicker, Table, AutoComplete, message, Modal, Space } from "antd";
 import dayjs from "dayjs";
-import { ShoppingCartOutlined } from '@ant-design/icons'
+import { ShoppingCartOutlined, ShoppingOutlined } from '@ant-design/icons'
 import { DeleteOutlined, SearchOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import axios from "axios";
 import Footer from "../components/Footer/Footer";
@@ -60,7 +60,7 @@ export default function RegistrarCompra() {
       setProductos(filtrado);
     } else {
       setProductos(filtrado);
-      message.info("No se encontraron productos.", 2);
+      message.warning("No se encontraron productos.", 2);
       borrarCampos();
     }
 
@@ -69,7 +69,6 @@ export default function RegistrarCompra() {
   function filtrarOpciones(busqueda, producto) {
     return producto.nomProd.toLowerCase().indexOf(busqueda.toLowerCase()) !== -1;
   }
-
 
 
   //Valor de fecha seleccionada
@@ -142,10 +141,30 @@ export default function RegistrarCompra() {
       message.error("Producto existente en el detalle de compras", 2.5);
     } else if (codigoDeCompraExistente) {
       message.error("Código de compra existente en el detalle de compras", 2.5);
-    } else {
-      setComprasTotales([...comprasTotales, nuevoProducto]);
-      form.resetFields();
-      cerrarModal();
+    }
+    if (nuevoProducto.nombre == undefined) {
+      message.error("El producto seleccionado no existe en inventario", 2.5);
+    }
+    else {
+
+      const datos = new FormData(); 
+      datos.append("codigoCompra", nuevoProducto.codigoCompra);
+
+      axios.post("http://localhost/IndexConsultasSegundoSprint/indexVerificarCodCompra.php/?verificarcodcompra=1", datos)
+      .then(response => {
+
+        if(response.data === "Disponible"){
+
+          setComprasTotales([...comprasTotales, nuevoProducto]);
+          form.resetFields();
+          cerrarModal();
+
+        }else{
+          message.error("El código de compra ya esta registrado");
+        }
+
+      })
+
     }
   };
 
@@ -196,6 +215,7 @@ export default function RegistrarCompra() {
   const cerrarModal = () => {
     setModalEsVisible(false);
     borrarCampos();
+    setSeleccionado("");
   }
 
   const layout = {
@@ -212,14 +232,14 @@ export default function RegistrarCompra() {
   const borrarCampos = () => {
     formRefRegComp.current?.resetFields();
   }
-  
+
 
   return (
     <div>
       <Row>
         <Col lg={2} md={2} xs={0}></Col>
         <Col lg={20} md={20} xs={24}>
-          <h1>Registrar Compra</h1>
+          <h2>Registrar Compra</h2>
         </Col>
         <Col lg={2} md={2}></Col>
       </Row>
@@ -227,7 +247,7 @@ export default function RegistrarCompra() {
       {/*Fila para el Modal y el formulario de registro*/}
       <Row>
         <Modal
-          title= {<div className="tituloModalRegistrarCompra">Agrega un producto al detalle de compras</div>}
+          title={<div className="tituloModalRegistrarCompra">Agrega un producto al detalle de compras</div>}
           /*style={{textAlign:'center'}}*/
           open={modalEsVisible}
           onCancel={cerrarModal}
@@ -355,7 +375,7 @@ export default function RegistrarCompra() {
         <Col lg={20} md={20} xs={24} className="componentsContainerDetCompras">
           <Col lg={2} md={2}></Col>
           <Col lg={20} md={20}>
-            <Button type="primary" onClick={mostrarModal}>Agregar Producto</Button>
+            <Button type="primary" onClick={mostrarModal} icon={<ShoppingOutlined />}>Agregar Producto</Button>
           </Col>
           <Col lg={2} md={2}></Col>
 
@@ -363,7 +383,7 @@ export default function RegistrarCompra() {
           <h2 className='subtituloTablaDetalleCompras'>Detalle de compra</h2>
           <Table className='tabla' rowKey="nombre" dataSource={comprasTotales} columns={columnasTablaDetalleCompras} locale={{ emptyText: 'No hay compras' }} bordered={true} pagination={{ pageSize: 4, pagination: true, position: ["bottomRight"] }} size={'small'} />
           {comprasTotales.length > 0 && (
-            <Button type="primary" onClick={confirmarCompra} icon={<CheckCircleOutlined/>}>
+            <Button type="primary" onClick={confirmarCompra} icon={<CheckCircleOutlined />}>
               Registrar
             </Button>
           )}

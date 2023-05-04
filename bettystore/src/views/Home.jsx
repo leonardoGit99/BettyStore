@@ -20,6 +20,44 @@ function redireccionarMostrarCompra() {
     window.location.href = "/mostrarCompra";
 }
 
+const textoCardRegistrarProducto = (
+    <div align='center'>En esta sección podrá registrar un nuevo<br></br>
+    producto a través de un formulario que le <br></br>
+    permitirá llenar datos del mismo.</div>
+);
+
+const textoCardMostrarInventario= (
+    <div align='center'>En esta sección podrá ver el Inventario <br></br>
+    en una tabla con los productos que registró<br></br>
+    en el mismo, también le permitirá realizar<br></br> 
+    la eliminación de los mismos.
+    </div>
+);
+
+const textoCardRegistrarCompra = (
+    <div align='center'>En esta sección podrá registrar una compra;<br></br>
+    es decir, si desea incrementar la cantidad de un<br></br>
+    producto que ya está registrado en su Inventario<br></br> 
+    podrá hacerlo a través de un formulario, para<br></br>
+    insertar los productos a comprar en una tabla<br></br>
+    Detalle de Compra, una vez revisada la misma <br></br>
+    podrá confirmar y guardar en el registro de <br></br>
+    compras a través del botón registrar.</div>
+);
+
+const textoCardMostrarCompras = (
+    <div align='center'>En esta sección podrá ver las compras<br></br>
+    realizadas, mismas que fueron registradas <br></br>
+    anteriormente en la sección "Registrar<br></br>
+    Compra", así tendrá una tabla con las<br></br>
+    compras realizadas, su código de compra<br></br>
+    y producto, nombre, precio, cantidad<br></br>
+    y fecha de compra.
+    </div>
+);
+
+
+
 export default function Home() {
     return (
         <div>
@@ -52,7 +90,7 @@ export default function Home() {
                         //onClick={(<Link to="/registrarProducto">Registrar Producto</Link>)}
                         cover={<img className="img" alt='ImgRegProd' src='./assets/Inventario-1.jpg'></img>}
                     >
-                        <Popover title="En esta sección podrá registrar un producto." trigger="hover">
+                        <Popover content={textoCardRegistrarProducto} trigger="hover">
                             Registrar Producto
                             {/*<Button className="botonCard" href="/registrarProducto" block="true" type="primary">Registrar Producto</Button>*/}
                             {/*<Link className="botonCard" to="/registrarProducto">Registrar Producto</Link>*/}
@@ -70,7 +108,7 @@ export default function Home() {
                         cover={<img className="img" alt='ImgRegProd' src='./assets/Inventario-2.jpg'></img>}
                     //onClick={ window.location.href = '/registrarProducto'}
                     >
-                        <Popover title="En esta sección le mostrará el inventario." trigger="hover">
+                        <Popover content={textoCardMostrarInventario} trigger="hover">
                             Mostrar Inventario
                             {/*<Link className="botonCar" to="/registrarProducto">Mostrar Inventario</Link>*/}
                         </Popover>
@@ -89,7 +127,7 @@ export default function Home() {
                         onClick={() => redireccionarRegistrarCompra()}
                         cover={<img className="img" alt='ImgRegProd' src='./assets/Compras-1.jpg'></img>}
                     >
-                        <Popover title="En esta sección podrá registrar una compra." trigger="hover">
+                        <Popover content={textoCardRegistrarCompra} trigger="hover">
                             Registrar Compra
                             {/*<Link className="botonCar" to="/registrarProducto">Registrar Compra</Link>*/}
                         </Popover>
@@ -104,7 +142,7 @@ export default function Home() {
                         onClick={() => redireccionarMostrarCompra()}
                         cover={<img className="img" alt='ImgRegProd' src='./assets/Compras-2.jpg'></img>}
                     >
-                        <Popover title="En esta sección le mostrará las compras." trigger="hover">
+                        <Popover content={textoCardMostrarCompras} trigger="hover">
                             Mostrar Compras
                             {/*<Link className="botonCar" to="/registrarProducto">Mostrar Compra</Link>*/}
                         </Popover>

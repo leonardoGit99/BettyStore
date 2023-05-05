@@ -313,7 +313,7 @@ export default function RegistrarCompra() {
                     <Form.Item label="Cantidad" labelAlign="left" name="cantidad"
                       rules={[{
                         required: true,
-                        message: "Por favor, seleccione una cantidad",
+                        message: "Por favor, ingrese la cantidad.",
                       },
                       {
                         whitespace: true,

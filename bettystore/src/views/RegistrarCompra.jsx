@@ -136,9 +136,9 @@ export default function RegistrarCompra() {
       }
     }
     if (productoExistenteC1) {
-      message.error("Producto existente en el detalle de compras", 2.5);
+      message.error("Producto ya existente en el detalle de compras", 2.5);
     } else if (productoExistenteC2) {
-      message.error("Producto existente en el detalle de compras", 2.5);
+      message.error("Producto ya existente en el detalle de compras", 2.5);
     } else if (codigoDeCompraExistente) {
       message.error("Código de compra existente en el detalle de compras", 2.5);
     }

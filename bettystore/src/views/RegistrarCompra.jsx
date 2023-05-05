@@ -142,7 +142,7 @@ export default function RegistrarCompra() {
     } else if (codigoDeCompraExistente) {
       message.error("Código de compra existente en el detalle de compras", 2.5);
     }
-    if (nuevoProducto.nombre == undefined) {
+    else if (nuevoProducto.nombre == undefined) {
       message.error("El producto seleccionado no existe en inventario", 2.5);
     }
     else {

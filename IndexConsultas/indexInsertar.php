@@ -44,7 +44,9 @@ if(isset($_GET["insertar"])){
                     echo json_encode("Error: Existe un error desconocido con la imagen");
                 }else{
                 //Otro error que pueda surgir **Mensaje en ingles**
-                    echo json_encode("Error: ".$error->getMessage());
+                    if(strpos($error->getMessage(), "Got a packet bigger than") !== false){    
+                        echo json_encode("Error: Existe un error desconocido con la imagen");
+                    }
                 }
             }
             

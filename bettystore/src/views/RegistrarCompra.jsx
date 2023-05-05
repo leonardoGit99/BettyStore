@@ -200,7 +200,7 @@ export default function RegistrarCompra() {
         message.info("¡Compra exitosa!", 2.5);
       })
       .catch(error => {
-        message.error('Hubo un error al procesar la compra');
+        message.error('Lo sentimos, algo salió mal');
         console.log(error);
       });
   }

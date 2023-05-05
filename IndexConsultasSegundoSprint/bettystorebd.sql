@@ -102,13 +102,13 @@ ALTER TABLE `producto`
 -- Filtros para la tabla `detallecompra`
 --
 ALTER TABLE `detallecompra`
-  ADD CONSTRAINT `fk_DetalleCompra_Producto1` FOREIGN KEY (`Producto_codProducto`) REFERENCES `producto` (`codProd`);
+  ADD CONSTRAINT `fk_DetalleCompra_Producto1` FOREIGN KEY (`Producto_codProducto`) REFERENCES `producto` (`codProd`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `detalleventa`
 --
 ALTER TABLE `detalleventa`
-  ADD CONSTRAINT `fk_DetalleVenta_Producto1` FOREIGN KEY (`Producto_codProducto`) REFERENCES `producto` (`codProd`);
+  ADD CONSTRAINT `fk_DetalleVenta_Producto1` FOREIGN KEY (`Producto_codProducto`) REFERENCES `producto` (`codProd`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

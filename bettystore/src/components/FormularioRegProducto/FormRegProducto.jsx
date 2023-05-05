@@ -173,7 +173,7 @@ function FormRegProducto() {
                   },
                   {
                     validator: (_, value) =>
-                      value && value.match('^(?=.*[a-zA-Z])[a-zA-Z0-9 ]*(?:[0-9].{0,3}\b)?[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]*$')
+                      value && value.match('^(?=.*[a-zA-Z])[a-zA-Z0-9 ]*(?:[0-9].{0,3}\b)?[a-zA-Z0-9 !&-ñÑáéíóúÁÉÍÓÚ ]*$')
                         ? Promise.resolve()
                         : Promise.reject(new Error('Debe ingresar caracteres válidos')),
                   },/*

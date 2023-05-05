@@ -12,7 +12,7 @@ function TablaCompras() {
     { title: 'Código Compra', dataIndex: 'codDetCompra', key: 'CodDetCompra' },
     { title: 'Código Producto', dataIndex: 'producto_codProducto', key: 'producto_codProducto' },
     { title: 'Nombre', dataIndex: 'nomDetCompra', key: 'nomDetCompra', },
-    { title: 'Precio', dataIndex: 'precioDetCompra', key: 'precioDetCompra', },
+    { title: 'Precio (Bs.)', dataIndex: 'precioDetCompra', key: 'precioDetCompra', },
     { title: 'Cantidad', dataIndex: 'cantDetCompra', key: 'cantDetCompra', },
     { title: 'Fecha', dataIndex: 'fechaDetCompra', key: 'fechaDetCompra', },
   ];

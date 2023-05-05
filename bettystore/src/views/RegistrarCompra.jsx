@@ -247,7 +247,7 @@ export default function RegistrarCompra() {
       {/*Fila para el Modal y el formulario de registro*/}
       <Row>
         <Modal
-          title={<div className="tituloModalRegistrarCompra">Agrega un producto al detalle de compras</div>}
+          title={<div className="tituloModalRegistrarCompra">Por favor, agrega un producto al detalle de compra</div>}
           /*style={{textAlign:'center'}}*/
           open={modalEsVisible}
           onCancel={cerrarModal}

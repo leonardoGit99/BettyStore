@@ -299,7 +299,7 @@ export default function RegistrarCompra() {
                   </Col>
                   {/*<Col lg={1}></Col>*/}
                   <Col span={24}>
-                    <Form.Item label="Fecha" labelAlign="left" name="fecha"
+                    <Form.Item label="Fecha de Compra" labelAlign="left" name="fecha"
                       rules={[{ required: true, message: "Por favor, seleccione una fecha", }]}>
                       <DatePicker placeholder="DD/MM/AAAA"
                         disabledDate={disabledDate}

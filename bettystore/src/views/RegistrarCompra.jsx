@@ -60,7 +60,7 @@ export default function RegistrarCompra() {
       setProductos(filtrado);
     } else {
       setProductos(filtrado);
-      message.warning("No se encontraron productos.", 2);
+      message.warning("Producto no disponible", 2);
       borrarCampos();
     }
 
@@ -93,7 +93,7 @@ export default function RegistrarCompra() {
     { title: 'Código compra', dataIndex: 'codigoCompra', key: 'codigoCompra' },
     { title: 'Código producto', dataIndex: 'codProd', key: 'codProd' },
     { title: 'Nombre', dataIndex: 'nombre', key: 'nombre' },
-    { title: 'Precio', dataIndex: 'precio', key: 'precio' },
+    { title: 'Precio (Bs.)', dataIndex: 'precio', key: 'precio' },
     { title: 'Cantidad', dataIndex: 'cantidad', key: 'cantidad' },
     { title: 'Fecha', dataIndex: 'fecha', key: 'fecha' },
     {
@@ -136,9 +136,9 @@ export default function RegistrarCompra() {
       }
     }
     if (productoExistenteC1) {
-      message.error("Producto existente en el detalle de compras", 2.5);
+      message.error("Producto ya existente en el detalle de compras", 2.5);
     } else if (productoExistenteC2) {
-      message.error("Producto existente en el detalle de compras", 2.5);
+      message.error("Producto ya existente en el detalle de compras", 2.5);
     } else if (codigoDeCompraExistente) {
       message.error("Código de compra existente en el detalle de compras", 2.5);
     }
@@ -200,7 +200,7 @@ export default function RegistrarCompra() {
         message.info("¡Compra exitosa!", 2.5);
       })
       .catch(error => {
-        message.error('Hubo un error al procesar la compra');
+        message.error('Lo sentimos, algo salió mal');
         console.log(error);
       });
   }
@@ -247,7 +247,7 @@ export default function RegistrarCompra() {
       {/*Fila para el Modal y el formulario de registro*/}
       <Row>
         <Modal
-          title={<div className="tituloModalRegistrarCompra">Agrega un producto al detalle de compras</div>}
+          title={<div className="tituloModalRegistrarCompra">Por favor, agrega un producto al detalle de compra</div>}
           /*style={{textAlign:'center'}}*/
           open={modalEsVisible}
           onCancel={cerrarModal}
@@ -299,7 +299,7 @@ export default function RegistrarCompra() {
                   </Col>
                   {/*<Col lg={1}></Col>*/}
                   <Col span={24}>
-                    <Form.Item label="Fecha" labelAlign="left" name="fecha"
+                    <Form.Item label="Fecha de Compra" labelAlign="left" name="fecha"
                       rules={[{ required: true, message: "Por favor, seleccione una fecha", }]}>
                       <DatePicker placeholder="DD/MM/AAAA"
                         disabledDate={disabledDate}
@@ -313,7 +313,7 @@ export default function RegistrarCompra() {
                     <Form.Item label="Cantidad" labelAlign="left" name="cantidad"
                       rules={[{
                         required: true,
-                        message: "Por favor, seleccione una cantidad",
+                        message: "Por favor, ingrese la cantidad.",
                       },
                       {
                         whitespace: true,
@@ -335,7 +335,7 @@ export default function RegistrarCompra() {
                     <Form.Item label="Código Compra" labelAlign="left" name="codigoCompra"
                       rules={[{
                         required: true,
-                        message: "Por favor, ingrese un codigo",
+                        message: "Por favor, ingrese un código",
                       },
                       {
                         whitespace: true,

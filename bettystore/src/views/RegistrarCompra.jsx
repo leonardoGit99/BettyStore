@@ -93,7 +93,7 @@ export default function RegistrarCompra() {
     { title: 'Código compra', dataIndex: 'codigoCompra', key: 'codigoCompra' },
     { title: 'Código producto', dataIndex: 'codProd', key: 'codProd' },
     { title: 'Nombre', dataIndex: 'nombre', key: 'nombre' },
-    { title: 'Precio', dataIndex: 'precio', key: 'precio' },
+    { title: 'Precio (Bs.)', dataIndex: 'precio', key: 'precio' },
     { title: 'Cantidad', dataIndex: 'cantidad', key: 'cantidad' },
     { title: 'Fecha', dataIndex: 'fecha', key: 'fecha' },
     {

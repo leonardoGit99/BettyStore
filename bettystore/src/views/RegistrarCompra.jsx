@@ -335,7 +335,7 @@ export default function RegistrarCompra() {
                     <Form.Item label="Código Compra" labelAlign="left" name="codigoCompra"
                       rules={[{
                         required: true,
-                        message: "Por favor, ingrese un codigo",
+                        message: "Por favor, ingrese un código",
                       },
                       {
                         whitespace: true,

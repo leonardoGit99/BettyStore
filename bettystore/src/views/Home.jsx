@@ -19,7 +19,7 @@ function redireccionarRegistrarCompra() {
 function redireccionarMostrarCompra() {
     window.location.href = "/mostrarCompra";
 }
-
+//Textos para cards
 const textoCardRegistrarProducto = (
     <div align='center'>En esta sección podrá registrar un nuevo<br></br>
     producto a través de un formulario que le <br></br>

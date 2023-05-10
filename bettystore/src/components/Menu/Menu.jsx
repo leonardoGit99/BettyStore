@@ -5,7 +5,7 @@ import { Menu } from "antd"
 import './Menu.css'
 import { HomeOutlined } from '@ant-design/icons'
 import { DatabaseOutlined } from '@ant-design/icons'
-import { ShoppingCartOutlined } from '@ant-design/icons'
+import { ShoppingCartOutlined, DollarCircleOutlined} from '@ant-design/icons'
 
 
 const items = [
@@ -20,6 +20,12 @@ const items = [
     key: 5, label: ('Compra'), icon: <ShoppingCartOutlined />, children: [
       { key: "/registrarCompra", label: (<Link to="/registrarCompra">Registrar Compra</Link>) },
       { key: "/mostrarCompra", label: (<Link to="/mostrarCompra">Mostrar Compra</Link>) }
+    ]
+  },
+  {
+    key: 8, label: ('Venta'), icon: <DollarCircleOutlined/>, children: [
+      { key: "/registrarVenta", label: (<Link to="/registrarVenta">Registrar Venta</Link>) },
+      { key: "/mostrarVenta", label: (<Link to="/mostrarVenta">Mostrar Venta</Link>) }
     ]
   },
 ]

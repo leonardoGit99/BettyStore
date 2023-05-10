@@ -180,7 +180,23 @@ si sirve adelante*/
 }
 */
 
+@media only screen and (max-width: 319px) {
+  .textoCard{
+    font-size: smaller;
+  }
+}
 
+@media only screen and (max-width: 258px) {
+  .textoCard{
+    font-size: x-small;
+  }
+}
+
+@media only screen and (max-width: 230px) {
+  .textoCard{
+    font-size: xx-small;
+  }
+}
 
 
 

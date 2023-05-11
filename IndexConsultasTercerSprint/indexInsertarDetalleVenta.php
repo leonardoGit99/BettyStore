@@ -35,7 +35,7 @@ if(isset($_GET["insertarVenta"])){
             mysqli_query($conexionBD, $sql);
             echo json_encode("¡Venta exitosa!");
             //Instanciar la clase
-            $objeto = new indexAumentarInventario();
+            $objeto = new indexDisminuirInventario();
             // Llamar al método disminuirInventario pasándole los parámetros de cantidad y codigo de producto
             $objeto->disminuirInventario($cantDetVenta, $producto_codProd);
 

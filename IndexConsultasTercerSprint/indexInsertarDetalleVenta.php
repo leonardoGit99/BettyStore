@@ -25,10 +25,10 @@ if(isset($_GET["insertarVenta"])){
         $nomDetVenta=$ventaTotal["nomDetVenta"];
         $cantDetVenta=$ventaTotal["cantDetVenta"];
         $precioDetVenta=$ventaTotal["precioDetVenta"];
-        $fechaDetVenta=$ventaTotal["fechaDeVenta"];
-        $producto_codProd=$ventaTotal["Producto_codProducto"];
+        $fechaDetVenta=$ventaTotal["fechaDetVenta"];
+        $producto_codProd=$ventaTotal["codProd"];
     
-        $sql = "INSERT INTO detalleventa (codDetVenta, nomDetVenta, cantDetVenta, precioDetVenta, fechaDeVenta, Producto_codProducto) VALUES ('".$codDetVenta."', '".$nomDetVenta."', '".$cantDetVenta."', '".$precioDetVenta."', '".$fechaDetVenta."', '".$producto_codProd."')";
+        $sql = "INSERT INTO detalleventa (codDetVenta, nomDetVenta, cantDetVenta, precioDetVenta, fechaDetVenta, Producto_codProducto) VALUES ('".$codDetVenta."', '".$nomDetVenta."', '".$cantDetVenta."', '".$precioDetVenta."', '".$fechaDetVenta."', '".$producto_codProd."')";
 
         try{
         
@@ -37,7 +37,7 @@ if(isset($_GET["insertarVenta"])){
             //Instanciar la clase
             $objeto = new indexAumentarInventario();
             // Llamar al método disminuirInventario pasándole los parámetros de cantidad y codigo de producto
-            $objeto->aumentarInventario($cantDetVenta, $producto_codProd);
+            $objeto->disminuirInventario($cantDetVenta, $producto_codProd);
 
         }catch (Exception $error){
             if(strpos($error->getMessage(), "PRIMARY") !== false){

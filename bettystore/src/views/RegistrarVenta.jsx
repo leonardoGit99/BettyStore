@@ -93,6 +93,14 @@ export default function RegistrarVenta() {
     { title: 'Precio (Bs.)', dataIndex: 'precio', key: 'precio' },
     { title: 'Cantidad', dataIndex: 'cantidad', key: 'cantidad' },
     { title: 'Fecha de venta', dataIndex: 'fecha', key: 'fecha' },
+    {
+      title: 'Opciones',
+      dataIndex: 'opciones',
+      key: 'opciones',
+      render: (_, fila) => (
+        <Button type="primary" danger onClick={() => eliminarProductoDetalleVentas(fila.nombre)} icon={<DeleteOutlined />} />
+      ),
+    },
   ];
 
   //FUNCIONES PARA INSERTAR DATOS EN TABLA DETALLE DE VENTAS
@@ -137,6 +145,11 @@ export default function RegistrarVenta() {
 
     setVentasTotales([...ventasTotales, nuevoProducto]);
     cerrarModal();
+  };
+
+  const eliminarProductoDetalleVentas = (key) => {
+    const productoAEliminarDelDetalleVenta = ventasTotales.filter((product) => product.nombre !== key);
+    setVentasTotales(productoAEliminarDelDetalleVenta);
   };
 
 

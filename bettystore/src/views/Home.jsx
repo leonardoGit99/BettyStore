@@ -78,7 +78,7 @@ export default function Home() {
 
             <Row>
 
-                <Row gutter={{ xs: 12, sm: 24, md: 24, lg: 24, xl: 46 }}>
+                <Row gutter={{ xs: 12, sm: 24, md: 24, lg: 24, xl: 44 }}>
                     <Col span={2}></Col>
                     <Col lg={5} span={10}>
                         <p></p>

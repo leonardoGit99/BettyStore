@@ -105,6 +105,35 @@ export default function RegistrarVenta() {
       cantidad: producto.cantidad,
       fecha: producto.fecha.format(dateFormatList[0]),
     };
+    // Control de producto existente en detalle de ventas
+    let productoExistenteC1 = false;
+    let productoExistenteC2 = false;
+    let codigoDeVentaExistente = false;
+    for (let i = 0; i < ventasTotales.length; i++) {
+      //Nombre del producto y el codigo de venta ya esta en tabla detalle de ventas                    
+      if ((ventasTotales[i].codProd === nuevoProducto.codProd && ventasTotales[i].codigoVenta === nuevoProducto.codigoVenta)) {
+        productoExistenteC1 = true;
+        break;
+        // Nombre de producto ya esta en tabla detalle de ventas y codigo de ventas es diferente al del detalle de ventas
+      } else if ((ventasTotales[i].codProd === nuevoProducto.codProd && ventasTotales[i].codigoVenta !== nuevoProducto.codigoVenta)) {
+        productoExistenteC2 = true;
+        break;
+        // Nombre diferente al detalle de ventas y codigo de ventas que ya esta en el detalle de ventas
+      } else if ((ventasTotales[i].codProd !== nuevoProducto.codProd && ventasTotales[i].codigoVenta === nuevoProducto.codigoVenta)) {
+        codigoDeVentaExistente = true;
+        break;
+      }
+    }
+    if (productoExistenteC1) {
+      message.error("Producto ya existente en el detalle de ventas", 2.5);
+    } else if (productoExistenteC2) {
+      message.error("Producto ya existente en el detalle de ventas", 2.5);
+    } else if (codigoDeVentaExistente) {
+      message.error("Código de venta existente en el detalle de ventas", 2.5);
+    }
+    else if (nuevoProducto.nombre == undefined) {
+      message.error("El producto seleccionado no existe en inventario", 2.5);
+    }
 
     setVentasTotales([...ventasTotales, nuevoProducto]);
     cerrarModal();

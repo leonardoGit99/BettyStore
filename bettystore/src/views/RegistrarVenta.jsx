@@ -120,7 +120,35 @@ export default function RegistrarVenta() {
             <Col lg={0} md={0} xs={1}></Col>
             {/*Columna para todo el formulario*/}
             <Col lg={24} md={24} xs={22}>
-              <p>Formulario</p>
+              <Form {...layout} form={form} ref={formRefRegVent} layout="horizontal">
+                <Row>
+                  <Col lg={0} md={0} xs={1}></Col>
+                  <Col lg={22} md={22} xs={23}>
+
+                    {/* Buscador de inventario */}
+                    <p>Barra de Busqueda</p>
+                  </Col>
+                  <Col lg={0}></Col>
+                </Row>
+                <Col span={24}>
+                 <p>Producto Seleccionado</p>
+                </Col>
+                {/*<Col lg={1}></Col>*/}
+                <Col span={24}>
+                  <p>Fecha calendario</p>
+                </Col>
+
+                <Col span={24}>
+                  <p>Cantidad</p>
+                </Col>
+
+                <Col span={24}>
+                  <p>Codigo de Venta</p>
+                </Col>
+                <Col span={24}>
+                  <p>Boton Agregar</p>
+                </Col>
+              </Form>
             </Col>
             <Col xs={1}></Col>
           </Row>

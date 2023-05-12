@@ -153,6 +153,7 @@ export default function RegistrarVenta() {
           if (response.data === "Disponible") {
 
             setVentasTotales([...ventasTotales, nuevoProducto]);
+            form.resetFields();
             cerrarModal();
 
           } else {

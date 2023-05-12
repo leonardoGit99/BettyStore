@@ -115,66 +115,85 @@ export default function RegistrarVenta() {
 
       <Row>
 
-        <Col lg={24} md={24} xs={24} className="componentsContainer">
-          <Row>
-            <Col lg={0} md={0} xs={1}></Col>
-            {/*Columna para todo el formulario*/}
-            <Col lg={24} md={24} xs={22}>
-              <Form {...layout} form={form} ref={formRefRegVent} layout="horizontal">
-                <Row>
-                  <Col lg={0} md={0} xs={1}></Col>
-                  <Col lg={22} md={22} xs={23}>
+          <Col lg={24} md={24} xs={24} className="componentsContainer">
+            <Row>
+              <Col lg={0} md={0} xs={1}></Col>
+              {/*Columna para todo el formulario*/}
+              <Col lg={24} md={24} xs={22}>
+                <Form {...layout} form={form} ref={formRefRegVent} layout="horizontal">
+                  <Row>
+                    <Col lg={0} md={0} xs={1}></Col>
+                    <Col lg={22} md={22} xs={23}>
 
-                    {/* Buscador de inventario */}
-                    <Form.Item className="buscador" name="buscador">
-                      <AutoComplete
-                        /*style={{ width: 500 }}*/
-                        options={productos.map((producto) => ({ value: producto.nomProd, cantidadProd: producto.cantidadProd, precioProd: producto.precioProd, codProd: producto.codProd }))}
-                        onSelect={handleSelect}
-                        placeholder="Busque un producto del inventario"
-                        onSearch={handleSearch}
+                      {/* Buscador de inventario */}
+                      <Form.Item className="buscador" name="buscador">
+                        <AutoComplete
+                          /*style={{ width: 500 }}*/
+                          options={productos.map((producto) => ({ value: producto.nomProd, cantidadProd: producto.cantidadProd, precioProd: producto.precioProd, codProd: producto.codProd }))}
+                          onSelect={handleSelect}
+                          placeholder="Busque un producto del inventario"
+                          onSearch={handleSearch}
+                        >
+                          <Input
+                            size="large"
+
+                          />
+                        </AutoComplete>
+                      </Form.Item>
+                    </Col>
+                    <Col lg={0}></Col>
+                  </Row>
+                  <Col span={24}>
+                    <Form.Item label="Producto Seleccionado: " labelAlign="left" name="buscador" >
+                      <Input
+                        style={{ color: "#676767" }}
+                        disabled
+                        placeholder="Ningun producto seleccionado"
+                        value={seleccionado.value}
                       >
-                        <Input
-                          size="large"
 
-                        />
-                      </AutoComplete>
+                      </Input>
                     </Form.Item>
                   </Col>
-                  <Col lg={0}></Col>
-                </Row>
-                <Col span={24}>
-                  <Form.Item label="Producto Seleccionado: " labelAlign="left" name="buscador" >
-                    <Input
-                      style={{ color: "#676767" }}
-                      disabled
-                      placeholder="Ningun producto seleccionado"
-                      value={seleccionado.value}
+                  {/*<Col lg={1}></Col>*/}
+                  <Col span={24}>
+                    <Form.Item label="Fecha de Venta" labelAlign="left" name="fecha"
                     >
+                      <DatePicker placeholder="DD/MM/AAAA"
+                        disabledDate={disabledDate}
+                        locale={{ lang: { locale: 'es', ok: 'Aceptar', cancel: 'Cancelar' } }}
+                        format={dateFormatList}
+                        onChange={handleChangeDate} />
+                    </Form.Item>
+                  </Col>
 
-                    </Input>
-                  </Form.Item>
-                </Col>
-                {/*<Col lg={1}></Col>*/}
-                <Col span={24}>
-                  <p>Fecha calendario</p>
-                </Col>
+                  <Col span={24}>
+                    <Form.Item label="Cantidad" labelAlign="left" name="cantidad"
+                    >
+                      <Input showCount
+                        maxLength={4} />
+                    </Form.Item>
+                  </Col>
 
-                <Col span={24}>
-                  <p>Cantidad</p>
-                </Col>
-
-                <Col span={24}>
-                  <p>Codigo de Venta</p>
-                </Col>
-                <Col span={24}>
-                  <p>Boton Agregar</p>
-                </Col>
-              </Form>
-            </Col>
-            <Col xs={1}></Col>
-          </Row>
-        </Col>
+                  <Col span={24}>
+                    <Form.Item label="Código Venta" labelAlign="left" name="codigoVenta"
+                    >
+                      <Input showCount
+                        maxLength={4} />
+                    </Form.Item>
+                  </Col>
+                  <Col span={24}>
+                    <Form.Item>
+                      <Button type="primary" htmlType="submit">
+                        Agregar
+                      </Button>
+                    </Form.Item>
+                  </Col>
+                </Form>
+              </Col>
+              <Col xs={1}></Col>
+            </Row>
+          </Col>
 
       </Row>
 
@@ -183,7 +202,7 @@ export default function RegistrarVenta() {
         <Col lg={20} md={20} xs={24} className="componentsContainerDetCompras">
           <Col lg={2} md={2}></Col>
           <Col lg={20} md={20}>
-            {/* Boton Agregar Producto */}
+              {/* Boton Agregar Producto */}
           </Col>
           <Col lg={2} md={2}></Col>
 

@@ -5,7 +5,7 @@ import './TablaVentasStyle.css';
 import Footer from '../Footer/Footer';
 
 function TablaVentas() {
-
+//Comentario para resolver conflictos
   const [datosTablaVenta, setDatosTablaVenta] = useState([]);
 
   const columnas = [

@@ -269,7 +269,7 @@ export default function RegistrarVenta() {
                         >
                           <Input
                             size="large"
-                            
+                            suffix={<SearchOutlined />}
                           />
                         </AutoComplete>
                       </Form.Item>
@@ -364,7 +364,7 @@ export default function RegistrarVenta() {
         <Col lg={20} md={20} xs={24} className="componentsContainerDetCompras">
           <Col lg={2} md={2}></Col>
           <Col lg={20} md={20}>
-            <Button type="primary" onClick={mostrarModal}>Agregar Producto</Button>
+            <Button type="primary" onClick={mostrarModal} icon={<ShoppingOutlined />}>Agregar Producto</Button>
           </Col>
           <Col lg={2} md={2}></Col>
 
@@ -372,7 +372,7 @@ export default function RegistrarVenta() {
           <h2 className='subtituloTablaDetalleCompras'>Detalle de venta</h2>
           <Table className='tabla' rowKey="nombre" dataSource={ventasTotales} columns={columnasTablaDetalleVentas} locale={{ emptyText: 'No hay ventas' }} bordered={true} pagination={{ pageSize: 3, pagination: true, position: ["bottomRight"] }} size={'small'} />
           {ventasTotales.length > 0 && (
-            <Button type="primary" onClick={confirmarVenta}>
+            <Button type="primary" onClick={confirmarVenta} icon={<CheckCircleOutlined />}>
               Registrar
             </Button>
           )}

@@ -95,6 +95,20 @@ export default function RegistrarVenta() {
     { title: 'Fecha de venta', dataIndex: 'fecha', key: 'fecha' },
   ];
 
+  //FUNCIONES PARA INSERTAR DATOS EN TABLA DETALLE DE VENTAS
+  const agregarAlDetalleDeVentas = (producto) => {
+    const nuevoProducto = {
+      codigoVenta: producto.codigoVenta,
+      codProd: seleccionado.codProd,
+      nombre: seleccionado.value,
+      precio: seleccionado.precioProd,
+      cantidad: producto.cantidad,
+      fecha: producto.fecha.format(dateFormatList[0]),
+    };
+
+    setVentasTotales([...ventasTotales, nuevoProducto]);
+    cerrarModal();
+  };
 
 
   //Modal
@@ -150,7 +164,7 @@ export default function RegistrarVenta() {
               <Col lg={0} md={0} xs={1}></Col>
               {/*Columna para todo el formulario*/}
               <Col lg={24} md={24} xs={22}>
-                <Form {...layout} form={form} ref={formRefRegVent} layout="horizontal">
+                <Form {...layout} form={form} ref={formRefRegVent} onFinish={agregarAlDetalleDeVentas} layout="horizontal">
                   <Row>
                     <Col lg={0} md={0} xs={1}></Col>
                     <Col lg={22} md={22} xs={23}>

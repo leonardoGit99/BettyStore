@@ -156,7 +156,7 @@ export default function RegistrarVenta() {
                     <Col lg={22} md={22} xs={23}>
 
                       {/* Buscador de inventario */}
-                      <Form.Item className="buscador" name="buscador">
+                      <Form.Item className="buscador" name="buscador" rules={[{ required: true, message: "Por favor, seleccione un producto del inventario" }]}>
                         <AutoComplete
                           /*style={{ width: 500 }}*/
                           options={productos.map((producto) => ({ value: producto.nomProd, cantidadProd: producto.cantidadProd, precioProd: producto.precioProd, codProd: producto.codProd }))}
@@ -174,7 +174,7 @@ export default function RegistrarVenta() {
                     <Col lg={0}></Col>
                   </Row>
                   <Col span={24}>
-                    <Form.Item label="Producto Seleccionado: " labelAlign="left" name="buscador" >
+                    <Form.Item label="Producto Seleccionado: " labelAlign="left" name="buscador" rules={[{ required: true, message: "Por favor, seleccione un producto del inventario" }]}>
                       <Input
                         style={{ color: "#676767" }}
                         disabled
@@ -188,7 +188,7 @@ export default function RegistrarVenta() {
                   {/*<Col lg={1}></Col>*/}
                   <Col span={24}>
                     <Form.Item label="Fecha de Venta" labelAlign="left" name="fecha"
-                    >
+                      rules={[{ required: true, message: "Por favor, seleccione una fecha", }]}>
                       <DatePicker placeholder="DD/MM/AAAA"
                         disabledDate={disabledDate}
                         locale={{ lang: { locale: 'es', ok: 'Aceptar', cancel: 'Cancelar' } }}
@@ -199,7 +199,21 @@ export default function RegistrarVenta() {
 
                   <Col span={24}>
                     <Form.Item label="Cantidad" labelAlign="left" name="cantidad"
-                    >
+                      rules={[{
+                        required: true,
+                        message: "Por favor, ingrese la cantidad.",
+                      },
+                      {
+                        whitespace: true,
+                        message: 'No puede dejar en blanco este campo',
+                      },
+                      {
+                        validator: (_, value) =>
+                          value && value.match('^0*[1-9][0-9]*$')
+                            ? Promise.resolve()
+                            : Promise.reject(new Error('Debe ingresar solo números y un valor mayor a cero')),
+                      },
+                      ]}>
                       <Input showCount
                         maxLength={4} />
                     </Form.Item>
@@ -207,6 +221,21 @@ export default function RegistrarVenta() {
 
                   <Col span={24}>
                     <Form.Item label="Código Venta" labelAlign="left" name="codigoVenta"
+                      rules={[{
+                        required: true,
+                        message: "Por favor, ingrese el código de venta",
+                      },
+                      {
+                        whitespace: true,
+                        message: 'No puede dejar en blanco este campo',
+                      },
+                      {
+                        validator: (_, value) =>
+                          value && value.match('^0*[1-9][0-9]*$')
+                            ? Promise.resolve()
+                            : Promise.reject(new Error('Debe ingresar solo números y un valor mayor a cero')),
+                      },
+                      ]}
                     >
                       <Input showCount
                         maxLength={4} />

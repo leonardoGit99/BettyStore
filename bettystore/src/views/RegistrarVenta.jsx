@@ -61,7 +61,7 @@ export default function RegistrarVenta() {
     } else {
       setProductos(filtrado);
       message.warning("Producto no disponible", 2);
-
+      borrarCampos();
     }
 
   }

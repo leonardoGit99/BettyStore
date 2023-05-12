@@ -85,6 +85,20 @@ export default function RegistrarVenta() {
   const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY'];
 
 
+
+
+
+  //Modal
+  const [modalEsVisible, setModalEsVisible] = useState(false);
+
+  const mostrarModal = () => {
+    setModalEsVisible(true);
+  }
+
+  const cerrarModal = () => {
+    setModalEsVisible(false);
+  }
+
   const layout = {
     //etiquetas del formulario
     labelCol: {
@@ -114,7 +128,14 @@ export default function RegistrarVenta() {
       </Row>
 
       <Row>
-
+        <Modal
+          title={<div className="tituloModalRegistrarCompra">Por favor, agrega un producto al detalle de venta</div>}
+          open={modalEsVisible}
+          onCancel={cerrarModal}
+          footer={null}
+          width={600}
+          destroyOnClose='true'
+        >
           <Col lg={24} md={24} xs={24} className="componentsContainer">
             <Row>
               <Col lg={0} md={0} xs={1}></Col>
@@ -194,7 +215,7 @@ export default function RegistrarVenta() {
               <Col xs={1}></Col>
             </Row>
           </Col>
-
+        </Modal>
       </Row>
 
       <Row>
@@ -202,7 +223,7 @@ export default function RegistrarVenta() {
         <Col lg={20} md={20} xs={24} className="componentsContainerDetCompras">
           <Col lg={2} md={2}></Col>
           <Col lg={20} md={20}>
-              {/* Boton Agregar Producto */}
+            <Button type="primary" onClick={mostrarModal}>Agregar Producto</Button>
           </Col>
           <Col lg={2} md={2}></Col>
 

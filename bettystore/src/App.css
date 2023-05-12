@@ -251,6 +251,11 @@
   height: 15vw;
 }
 
+@media only screen and (max-width: 991px) {
+  .img{
+    height: 25vw;
+  }
+}
 /*Todo esto era para hacer el boton de las cards responsivo comento por
 si sirve adelante*/
 /*

@@ -2,42 +2,44 @@
   text-align: center;
 }
 
-.App-container{
+.App-container {
   width: 100%;
 }
 
-.App-header{
-  color:#FFF;
+.App-header {
+  color: #FFF;
   padding-left: 2%;
   padding-right: 2%;
   /*margin-left: 0px;*/
   /*background-color: #FFF;*/
 }
 
-.App-footer{
+.App-footer {
   text-align: center;
-  background-color: #132d46;/*#1a0427;*/
+  background-color: #132d46;
+  /*#1a0427;*/
   color: #FFF;
-  position:fixed;
+  position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
 }
 
-.App-content{
+.App-content {
   padding: 20px;
   height: 80vh;
   /*width: 85vw;*/
   margin-left: 0px;
-  background-color: #f8f8f8;/*#F5F5DC;*/
+  background-color: #f8f8f8;
+  /*#F5F5DC;*/
 }
 
 @media only screen and (max-width: 500px) {
-  .App-footer{
+  .App-footer {
     text-align: center;
     background-color: #132d46;
     color: #FFF;
-    position:fixed;
+    position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
@@ -46,30 +48,34 @@
   }
 }
 
-.r1{
+.r1 {
   background-color: aqua;
 }
 
-.r2{
-  background-color: #01c38e;/*#feaf5f;*//*#001529;*/ /*orange;*/
+.r2 {
+  background-color: #01c38e;
+  /*#feaf5f;*/
+  /*#001529;*/
+  /*orange;*/
 }
 
-.homeEnDesarrollo{
+.homeEnDesarrollo {
   width: 35vw;
   height: auto;
   margin-left: 30vw;
 }
 
-.componentsContainer{
+.componentsContainer {
   border: 2px outset #01c38e;
   border-radius: 15px;
   padding-top: 2vw;
-  /*padding-bottom: 2vw;*//**/
+  /*padding-bottom: 2vw;*/
+  /**/
   padding-left: 2vw;
   padding-right: 2vw;
 }
 
-.componentsContainerDetCompras{
+.componentsContainerDetCompraVenta {
   border: 2px outset #01c38e;
   border-radius: 15px;
   padding-top: 2vw;
@@ -78,56 +84,170 @@
   padding-right: 2vw;
 }
 
-.subtituloTablaDetalleCompras{
+.subtituloTablaDetalleCompraVenta {
   text-align: center;
 }
 
-.tituloModalRegistrarCompra{
+.tituloModalRegistrarCompraVenta {
   text-align: center;
 }
-/*.buscador{
+
+/*.barraBusquedaInvParaComprasVentas{
   width: 32vw;
 }*/
 
 @media only screen and (min-width: 575px) {
-  .buscador{
+  .barraBusquedaInvParaComprasVentas {
     width: 94vw;
   }
 }
 
 @media only screen and (min-width: 638px) {
-  .buscador{
+  .barraBusquedaInvParaComprasVentas {
     width: 650px;
   }
 }
 
 @media only screen and (min-width: 664px) {
-  .buscador{
+  .barraBusquedaInvParaComprasVentas {
     width: 660px;
   }
 }
 
-.cardStyleInventario{
+/* Selectores para las tabla detalle de compras y tabla detalle de ventas */
+.tablaDetalleCompraVenta th {
+  background-color: #FFA500 !important;
+  border: 1px solid white !important;
+  color: white !important;
+  font-style: normal !important;
+  text-align: center !important;
+
+}
+
+.tablaDetalleCompraVenta tr:nth-child(even) td {
+  border: 1px solid silver !important;
+  text-align: center !important;
+  background-color: rgb(232, 228, 228) !important;
+}
+
+.tablaDetalleCompraVenta tr:nth-child(odd) td {
+  border: 1px solid lightgrey !important;
+  text-align: center !important;
+  background-color: white !important;
+}
+
+.tablaDetalleCompraVenta tr:hover td {
+  background-color: #dff6ef !important;
+}
+
+/*TABLA*/
+/*Reduciendo pantalla maximizada*/
+@media only screen and (max-width: 1260px) {
+  .tablaDetalleCompraVenta {
+    /*min-width: 800px;*/
+    overflow-x: auto;
+    max-height: 600px;
+    max-width: 1120px;
+    /*700px;*/
+  }
+}
+
+@media only screen and (max-width: 800px
+
+  /*800px*/
+) {
+  .tablaDetalleCompraVenta {
+    /*min-width: 800px;*/
+    overflow-x: auto;
+    max-height: 500px;
+    max-width: 800px;
+    /*700px;*/
+  }
+}
+
+
+@media only screen and (max-width: 800px
+
+  /*800px*/
+) and (max-height:400px) {
+  .tablaDetalleCompraVenta {
+    /*min-width: 800px;*/
+    overflow-x: auto;
+    max-height: 150px;
+    max-width: 800px;
+    /*700px;*/
+  }
+}
+
+
+/*Tablet Ipad hechado horizontal*/
+@media only screen and (max-width: 1080px) {
+  .tablaDetalleCompraVenta {
+    /*min-width: 800px;*/
+    overflow-x: auto;
+    max-height: 500px;
+    max-width: 1000px;
+    /*700px;*/
+  }
+}
+
+/*Tablet Ipad vertical parado*/
+@media only screen and (max-width: 811px) and (max-height:1080px) {
+  .tablaDetalleCompraVenta {
+    /*min-width: 800px;*/
+    overflow-x: auto;
+    max-height: 750px;
+    max-width: 800px;
+    /*700px;*/
+  }
+}
+
+/*Galaxy s10 parado (vertical)*/
+@media only screen and (max-width: 360px) {
+  .tablaDetalleCompraVenta {
+    /*min-width: 800px;*/
+    overflow-x: auto;
+    max-height: 490px;
+    max-width: 800px;
+    /*700px;*/
+  }
+}
+
+/*Galaxy s10 hechado (horizontal)*/
+@media only screen and (max-width: 761px) and (max-height:361px) {
+  .tablaDetalleCompraVenta {
+    /*min-width: 800px;*/
+    overflow-x: auto;
+    max-height: 160px;
+    max-width: 800px;
+    /*700px;*/
+  }
+}
+
+
+.cardStyleInventario {
   text-align: center;
-  background-color: #FFA500;/*#01c38e;*/
+  background-color: #FFA500;
+  /*#01c38e;*/
   color: #fff;
   font-weight: bold;
   /*-webkit-text-fill-color: #132d46;*/
 }
 
-.cardStyleCompra{
+.cardStyleCompra {
   text-align: center;
-  background-color: #01c38e;/*#01c38e;*/
+  background-color: #01c38e;
+  /*#01c38e;*/
   color: #fff;
   font-weight: bold;
   /*-webkit-text-fill-color: #132d46;*/
 }
 
-.tituloHome{
+.tituloHome {
   text-align: center;
 }
 
-.img{
+.img {
   height: 15vw;
 }
 
@@ -181,22 +301,19 @@ si sirve adelante*/
 */
 
 @media only screen and (max-width: 319px) {
-  .textoCard{
+  .textoCard {
     font-size: smaller;
   }
 }
 
 @media only screen and (max-width: 258px) {
-  .textoCard{
+  .textoCard {
     font-size: x-small;
   }
 }
 
 @media only screen and (max-width: 230px) {
-  .textoCard{
+  .textoCard {
     font-size: xx-small;
   }
 }
-
-
-

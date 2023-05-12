@@ -247,7 +247,7 @@ export default function RegistrarCompra() {
       {/*Fila para el Modal y el formulario de registro*/}
       <Row>
         <Modal
-          title={<div className="tituloModalRegistrarCompra">Por favor, agrega un producto al detalle de compra</div>}
+          title={<div className="tituloModalRegistrarCompraVenta">Por favor, agrega un producto al detalle de compra</div>}
           /*style={{textAlign:'center'}}*/
           open={modalEsVisible}
           onCancel={cerrarModal}
@@ -268,7 +268,7 @@ export default function RegistrarCompra() {
                     <Col lg={22} md={22} xs={23}>
 
                       {/* Buscador de inventario */}
-                      <Form.Item className="buscador" name="buscador" rules={[{ required: true, message: "Por favor, seleccione un producto del inventario" }]}>
+                      <Form.Item className="barraBusquedaInvParaComprasVentas" name="buscador" rules={[{ required: true, message: "Por favor, seleccione un producto del inventario" }]}>
                         <AutoComplete
                           /*style={{ width: 500 }}*/
                           options={productos.map((producto) => ({ value: producto.nomProd, cantidadProd: producto.cantidadProd, precioProd: producto.precioProd, codProd: producto.codProd }))}
@@ -372,7 +372,7 @@ export default function RegistrarCompra() {
       <Row>
         {/*<Layout></Layout>*/}
         <Col lg={2} md={2}></Col>
-        <Col lg={20} md={20} xs={24} className="componentsContainerDetCompras">
+        <Col lg={20} md={20} xs={24} className="componentsContainerDetCompraVenta">
           <Col lg={2} md={2}></Col>
           <Col lg={20} md={20}>
             <Button type="primary" onClick={mostrarModal} icon={<ShoppingOutlined />}>Agregar Producto</Button>
@@ -380,8 +380,8 @@ export default function RegistrarCompra() {
           <Col lg={2} md={2}></Col>
 
           {/* Tabla detalle de compras */}
-          <h2 className='subtituloTablaDetalleCompras'>Detalle de compra</h2>
-          <Table className='tabla' rowKey="nombre" dataSource={comprasTotales} columns={columnasTablaDetalleCompras} locale={{ emptyText: 'No hay compras' }} bordered={true} pagination={{ pageSize: 3, pagination: true, position: ["bottomRight"] }} size={'small'} />
+          <h2 className='subtituloTablaDetalleCompraVenta'>Detalle de compra</h2>
+          <Table className='tablaDetalleCompraVenta' rowKey="nombre" dataSource={comprasTotales} columns={columnasTablaDetalleCompras} locale={{ emptyText: 'No hay compras' }} bordered={true} pagination={{ pageSize: 3, pagination: true, position: ["bottomRight"] }} size={'small'} />
           {comprasTotales.length > 0 && (
             <Button type="primary" onClick={confirmarCompra} icon={<CheckCircleOutlined />}>
               Registrar

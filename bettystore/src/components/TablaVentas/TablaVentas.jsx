@@ -38,7 +38,7 @@ function TablaVentas() {
   return (
     <div>
       <h2 className='subtituloTablaVentas'>Ventas registradas</h2>
-      <Table className='tablaVentas' locale={{ emptyText: 'No hay ventas registradas' }} rowKey='codDetVenta' columns={columnas} dataSource={datosTablaVenta} bordered={true} pagination={{ pageSize: 7, pagination: true, position: ["bottomRight"] }} size={'middle'}></Table>
+      <Table className='tablasInvComprVentRegistradas' locale={{ emptyText: 'No hay ventas registradas' }} rowKey='codDetVenta' columns={columnas} dataSource={datosTablaVenta} bordered={true} pagination={{ pageSize: 7, pagination: true, position: ["bottomRight"] }} size={'middle'}></Table>
       <Footer />
     </div>
   )

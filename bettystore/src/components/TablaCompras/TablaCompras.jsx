@@ -39,7 +39,7 @@ function TablaCompras() {
   return (
     <div>
       <h2 className='subtituloTabla'>Compras registradas</h2>
-      <Table className='tabla' locale={{ emptyText: 'No hay compras registradas' }} rowKey='codDetCompra' columns={columnas} dataSource={datosTablaCompra} bordered={true} pagination={{ pageSize: 7, pagination: true, position: ["bottomRight"] }} size={'middle'}></Table>
+      <Table className='tablasInvComprVentRegistradas' locale={{ emptyText: 'No hay compras registradas' }} rowKey='codDetCompra' columns={columnas} dataSource={datosTablaCompra} bordered={true} pagination={{ pageSize: 7, pagination: true, position: ["bottomRight"] }} size={'middle'}></Table>
       <Footer/>
     </div>
   )

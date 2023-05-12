@@ -126,12 +126,34 @@ export default function RegistrarVenta() {
                   <Col lg={22} md={22} xs={23}>
 
                     {/* Buscador de inventario */}
-                    <p>Barra de Busqueda</p>
+                    <Form.Item className="buscador" name="buscador">
+                      <AutoComplete
+                        /*style={{ width: 500 }}*/
+                        options={productos.map((producto) => ({ value: producto.nomProd, cantidadProd: producto.cantidadProd, precioProd: producto.precioProd, codProd: producto.codProd }))}
+                        onSelect={handleSelect}
+                        placeholder="Busque un producto del inventario"
+                        onSearch={handleSearch}
+                      >
+                        <Input
+                          size="large"
+
+                        />
+                      </AutoComplete>
+                    </Form.Item>
                   </Col>
                   <Col lg={0}></Col>
                 </Row>
                 <Col span={24}>
-                 <p>Producto Seleccionado</p>
+                  <Form.Item label="Producto Seleccionado: " labelAlign="left" name="buscador" >
+                    <Input
+                      style={{ color: "#676767" }}
+                      disabled
+                      placeholder="Ningun producto seleccionado"
+                      value={seleccionado.value}
+                    >
+
+                    </Input>
+                  </Form.Item>
                 </Col>
                 {/*<Col lg={1}></Col>*/}
                 <Col span={24}>

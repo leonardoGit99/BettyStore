@@ -142,9 +142,26 @@ export default function RegistrarVenta() {
     else if (nuevoProducto.nombre == undefined) {
       message.error("El producto seleccionado no existe en inventario", 2.5);
     }
+    else {
 
-    setVentasTotales([...ventasTotales, nuevoProducto]);
-    cerrarModal();
+      const datos = new FormData();
+      datos.append("codigoVenta", nuevoProducto.codigoVenta);
+
+      axios.post("http://localhost/IndexConsultasSegundoSprint/indexVerificarCodCompra.php/?verificarcodcompra=1", datos)
+        .then(response => {
+
+          if (response.data === "Disponible") {
+
+            setVentasTotales([...ventasTotales, nuevoProducto]);
+            cerrarModal();
+
+          } else {
+            message.error("El código de venta ya esta registrado");
+          }
+
+        })
+
+    }
   };
 
   const eliminarProductoDetalleVentas = (key) => {
@@ -252,7 +269,7 @@ export default function RegistrarVenta() {
                         >
                           <Input
                             size="large"
-
+                            
                           />
                         </AutoComplete>
                       </Form.Item>

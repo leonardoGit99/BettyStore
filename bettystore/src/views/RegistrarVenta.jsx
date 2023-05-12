@@ -61,6 +61,7 @@ export default function RegistrarVenta() {
     } else {
       setProductos(filtrado);
       message.warning("Producto no disponible", 2);
+
     }
 
   }
@@ -210,6 +211,8 @@ export default function RegistrarVenta() {
 
   const cerrarModal = () => {
     setModalEsVisible(false);
+    borrarCampos();
+    setSeleccionado("");
   }
 
   const layout = {

@@ -11,7 +11,8 @@ dayjs.locale('es');
 
 export default function RegistrarVenta() {
   const [form] = Form.useForm();
-
+  const [ventasTotales, setVentasTotales] = useState([]);
+  console.log(ventasTotales);
 
   //COMPONENTE BUSCADOR
 
@@ -84,7 +85,15 @@ export default function RegistrarVenta() {
 
   const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY'];
 
-
+  //COMPONENTE TABLA DETALLE DE VENTAS
+  const columnasTablaDetalleVentas = [
+    { title: 'Código de venta', dataIndex: 'codigoVenta', key: 'codigoVenta' },
+    { title: 'Código de producto', dataIndex: 'codProd', key: 'codProd' },
+    { title: 'Nombre', dataIndex: 'nombre', key: 'nombre' },
+    { title: 'Precio (Bs.)', dataIndex: 'precio', key: 'precio' },
+    { title: 'Cantidad', dataIndex: 'cantidad', key: 'cantidad' },
+    { title: 'Fecha de venta', dataIndex: 'fecha', key: 'fecha' },
+  ];
 
 
 
@@ -229,10 +238,12 @@ export default function RegistrarVenta() {
 
           {/* Tabla detalle de ventas */}
           <h2 className='subtituloTablaDetalleCompras'>Detalle de venta</h2>
-          <p>TablaDetalleVentas</p>
-          <Button type="primary">
-            Registrar
-          </Button>
+          <Table className='tabla' rowKey="nombre" dataSource={ventasTotales} columns={columnasTablaDetalleVentas} locale={{ emptyText: 'No hay ventas' }} bordered={true} pagination={{ pageSize: 3, pagination: true, position: ["bottomRight"] }} size={'small'} />
+          {ventasTotales.length > 0 && (
+            <Button type="primary">
+              Registrar
+            </Button>
+          )}
         </Col>
         <Col lg={2} md={2}></Col>
       </Row>

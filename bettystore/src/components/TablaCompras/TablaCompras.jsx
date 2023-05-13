@@ -10,7 +10,6 @@ function TablaCompras() {
 
   const columnas = [
     { title: 'Código Compra', dataIndex: 'codDetCompra', key: 'CodDetCompra' },
-    { title: 'Código Producto', dataIndex: 'producto_codProducto', key: 'producto_codProducto' },
     { title: 'Nombre', dataIndex: 'nomDetCompra', key: 'nomDetCompra', },
     { title: 'Precio (Bs.)', dataIndex: 'precioDetCompra', key: 'precioDetCompra', },
     { title: 'Cantidad', dataIndex: 'cantDetCompra', key: 'cantDetCompra', },

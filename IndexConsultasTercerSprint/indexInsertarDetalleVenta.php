@@ -21,11 +21,11 @@ if(isset($_GET["insertarVenta"])){
     // Insertar los datos en la tabla detalleVenta
     foreach ($ventasTotales as $ventaTotal) {
         
-        $codDetVenta=$ventaTotal["codDetVenta"];
-        $nomDetVenta=$ventaTotal["nomDetVenta"];
-        $cantDetVenta=$ventaTotal["cantDetVenta"];
-        $precioDetVenta=$ventaTotal["precioDetVenta"];
-        $fechaDetVenta=$ventaTotal["fechaDetVenta"];
+        $codDetVenta=$ventaTotal["codigoVenta"];
+        $nomDetVenta=$ventaTotal["nombre"];
+        $cantDetVenta=$ventaTotal["cantidad"];
+        $precioDetVenta=$ventaTotal["precio"];
+        $fechaDetVenta=$ventaTotal["fecha"];
         $producto_codProd=$ventaTotal["codProd"];
     
         $sql = "INSERT INTO detalleventa (codDetVenta, nomDetVenta, cantDetVenta, precioDetVenta, fechaDetVenta, Producto_codProducto) VALUES ('".$codDetVenta."', '".$nomDetVenta."', '".$cantDetVenta."', '".$precioDetVenta."', '".$fechaDetVenta."', '".$producto_codProd."')";

@@ -104,6 +104,12 @@ export default function RegistrarVenta() {
     },
   ];
 
+  //Funcion para convertir la cantidad que esta en formato de cadena a un numero entero.
+  const convertirCantStringAInt = (cantidadString) =>{
+    const cantidadInt = parseInt(cantidadString, 10);
+    return cantidadInt;
+  }
+
   //FUNCIONES PARA INSERTAR DATOS EN TABLA DETALLE DE VENTAS
   const agregarAlDetalleDeVentas = (producto) => {
     const nuevoProducto = {
@@ -140,9 +146,14 @@ export default function RegistrarVenta() {
     } else if (codigoDeVentaExistente) {
       message.error("Código de venta existente en el detalle de ventas", 2.5);
     }
-    else if (nuevoProducto.nombre == undefined) {
+    else if (nuevoProducto.nombre === undefined) {
       message.error("El producto seleccionado no existe en inventario", 2.5);
     }
+    else if(convertirCantStringAInt(nuevoProducto.cantidad) > convertirCantStringAInt(seleccionado.cantidadProd)  ){
+      message.error("Cantidad del producto '" + seleccionado.value + "' no disponible para la venta", 2.5);
+    }
+    else{
+    /*
     else {
 
       const datos = new FormData();
@@ -163,6 +174,13 @@ export default function RegistrarVenta() {
 
         })
 
+    }
+    */
+    /*Borrar estas tres lineas y descomentar peticion post*/
+    setVentasTotales([...ventasTotales, nuevoProducto]);
+    message.info("Quedan " + (seleccionado.cantidadProd-nuevoProducto.cantidad)  + " (unidades) del producto " + seleccionado.value );
+    form.resetFields();
+    cerrarModal();
     }
   };
 
@@ -190,11 +208,12 @@ export default function RegistrarVenta() {
     }
     //Petición Post botón registrar, para pasar datosInventario de tabla detalle de venta a tabla ventas.
     // Envia los productos al servidor
-    await axios.post('http://localhost/IndexConsultasSegundoSprint/indexInsertarDetalleCompra.php/?insertarCompra=', ventasTotales)
+    await axios.post('http://localhost/IndexConsultasTercerSprint/indexInsertarDetalleVenta.php/?insertarVenta=', ventasTotales)
       .then(response => {
         // Si la respuesta es exitosa, se limpia el detalle de ventas
         setVentasTotales([]);
         message.info("¡Venta exitosa!", 2.5);
+        peticionGet();
       })
       .catch(error => {
         message.error('Lo sentimos, algo salió mal');

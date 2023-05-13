@@ -20,7 +20,7 @@ function TablaVentas() {
   //  Peticion Get de la API usando axios.
 
   const peticionGet = async () => {
-    await axios.get("http://localhost/IndexConsultasSegundoSprint/indexConsultaGeneralCompra.php")
+    await axios.get("http://localhost/IndexConsultasTercerSprint/indexConsultaGeneralVenta.php")
       .then(response => {
         setDatosTablaVenta(response.data);
         console.log(response.data);

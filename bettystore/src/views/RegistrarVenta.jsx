@@ -105,7 +105,7 @@ export default function RegistrarVenta() {
   ];
 
   //Funcion para convertir la cantidad que esta en formato de cadena a un numero entero.
-  const convertirCantStringAInt = (cantidadString) =>{
+  const convertirCantStringAInt = (cantidadString) => {
     const cantidadInt = parseInt(cantidadString, 10);
     return cantidadInt;
   }
@@ -149,38 +149,39 @@ export default function RegistrarVenta() {
     else if (nuevoProducto.nombre === undefined) {
       message.error("El producto seleccionado no existe en inventario", 2.5);
     }
-    else if(convertirCantStringAInt(nuevoProducto.cantidad) > convertirCantStringAInt(seleccionado.cantidadProd)  ){
-      message.error("Cantidad del producto '" + seleccionado.value + "' no disponible para la venta", 2.5);
+    else if (convertirCantStringAInt(nuevoProducto.cantidad) > convertirCantStringAInt(seleccionado.cantidadProd)) {
+      message.error(
+        <span>
+          Tiene <span className="textoEnNegritaAdvertencias">{seleccionado.cantidadProd} (u)</span> disponibles del producto '<span className="textoEnNegritaAdvertencias">{seleccionado.value}</span>' en stock
+        </span>,
+        3
+      );
     }
-    else{
-    /*
     else {
-
       const datos = new FormData();
       datos.append("codigoVenta", nuevoProducto.codigoVenta);
 
-      axios.post("http://localhost/IndexConsultasSegundoSprint/indexVerificarCodCompra.php/?verificarcodcompra=1", datos)
+      axios.post("http://localhost/IndexConsultasTercerSprint/indexVerificarCodVenta.php/?verificarcodventa=1", datos)
         .then(response => {
 
           if (response.data === "Disponible") {
 
             setVentasTotales([...ventasTotales, nuevoProducto]);
+            message.info(
+              <span>
+                Quedaron <span className="textoEnNegritaAdvertencias">{(seleccionado.cantidadProd - nuevoProducto.cantidad)} (u)</span> del producto '<span className="textoEnNegritaAdvertencias">{seleccionado.value}</span>' en stock
+              </span>,
+              2.5
+            );
             form.resetFields();
             cerrarModal();
 
           } else {
-            message.error("El código de venta ya esta registrado");
+            message.error("El código de venta ya está registrado");
           }
 
         })
 
-    }
-    */
-    /*Borrar estas tres lineas y descomentar peticion post*/
-    setVentasTotales([...ventasTotales, nuevoProducto]);
-    message.info("Quedan " + (seleccionado.cantidadProd-nuevoProducto.cantidad)  + " (unidades) del producto " + seleccionado.value );
-    form.resetFields();
-    cerrarModal();
     }
   };
 

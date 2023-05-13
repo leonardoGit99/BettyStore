@@ -322,3 +322,7 @@ si sirve adelante*/
     font-size: xx-small;
   }
 }
+
+.textoEnNegritaAdvertencias{
+  font-weight: bold;
+}

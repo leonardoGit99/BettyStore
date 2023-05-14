@@ -342,7 +342,7 @@ export default function RegistrarVenta() {
                       },
                       ]}>
                       <Input showCount
-                        maxLength={4} />
+                        maxLength={4} placeholder="Ingrese la cantidad a vender del producto"/>
                     </Form.Item>
                   </Col>
 
@@ -365,7 +365,7 @@ export default function RegistrarVenta() {
                       ]}
                     >
                       <Input showCount
-                        maxLength={4} />
+                        maxLength={4} placeholder="Ingrese el código de venta"/>
                     </Form.Item>
                   </Col>
                   <Col span={24}>

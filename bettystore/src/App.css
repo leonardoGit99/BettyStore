@@ -243,17 +243,26 @@
   /*-webkit-text-fill-color: #132d46;*/
 }
 
+.cardStyleVenta {
+  text-align: center;
+  background-color: #1677ff;
+  /*#01c38e;*/
+  color: #fff;
+  font-weight: bold;
+  /*-webkit-text-fill-color: #132d46;*/
+}
+
 .tituloHome {
   text-align: center;
 }
 
 .img {
-  height: 15vw;
+  height: 12vw;
 }
 
 @media only screen and (max-width: 991px) {
   .img{
-    height: 25vw;
+    height: 28vw;
   }
 }
 /*Todo esto era para hacer el boton de las cards responsivo comento por
@@ -304,6 +313,11 @@ si sirve adelante*/
   }
 }
 */
+@media only screen and (min-width: 1116px) and (max-width: 1269px){
+  .textoCard {
+    font-size: large;
+  }
+}
 
 @media only screen and (max-width: 319px) {
   .textoCard {

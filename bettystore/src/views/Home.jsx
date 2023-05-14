@@ -1,5 +1,5 @@
 //import { Link } from "react-router-dom"
-import { Row, Col, Card, Popover } from 'antd'
+import { Row, Col, Card, Popover} from 'antd'
 //import SignIn from '../components/SignIn'
 import Footer from "../components/Footer/Footer";
 
@@ -18,6 +18,14 @@ function redireccionarRegistrarCompra() {
 
 function redireccionarMostrarCompra() {
     window.location.href = "/mostrarCompra";
+}
+
+function redireccionarRegistrarVenta() {
+    window.location.href = "/registrarVenta";
+}
+
+function redireccionarMostrarVenta() {
+    window.location.href = "/mostrarVenta";
 }
 
 const textoCardRegistrarProducto = (
@@ -56,31 +64,44 @@ const textoCardMostrarCompras = (
     </div>
 );
 
+const textoCardRegistrarVenta = (
+    <div align='center'>En esta sección podrá registrar una venta;<br></br>
+        al momento de entregar un producto al cliente se<br></br>
+        reducirá la cantidad del producto esto al confirmar<br></br>
+        la venta (Registrar); sin embargo previamente podrá<br></br>
+        insertar los productos a un detalle de venta, antes<br></br>
+        de registrar la misma, por si el cliente desea añadir<br></br>
+        o cambiar los productos que desea.</div>
 
+        
+);
+
+const textoCardMostrarVentas = (
+    <div align='center'>En esta sección podrá ver las ventas<br></br>
+        realizadas, mismas que fueron registradas <br></br>
+        anteriormente en la sección "Registrar<br></br>
+        Venta", así tendrá una tabla con las<br></br>
+        compras realizadas, su código de compra<br></br>
+        y producto, nombre, precio, cantidad<br></br>
+        y fecha de compra.</div>
+);
 
 export default function Home() {
     return (
         <div>
             <Row>
-                <Col span={8}></Col>
-                <Col span={8}>
+                <Col lg={8} xs={5}></Col>
+                <Col lg={8} xs={14}>
                     <div>
                         <h1 lg={24} md={24} xs={24} className='tituloHome'>BettyStore</h1>
-                        {/*<h2>Página en construcción :)</h2>
-                    <img className='homeEnDesarrollo' src='./assets/homePageEnDesarrollo.jpg'></img>*/}
                     </div>
                 </Col>
-                <Col span={8}></Col>
-                {/*<Col span={6}>
-                <SignIn/>
-            </Col>*/}
+                <Col lg={8} xs={5}></Col>
             </Row>
-
             <Row>
-
-                <Row gutter={{ xs: 12, sm: 24, md: 24, lg: 24, xl: 44 }}>
-                    <Col span={2}></Col>
-                    <Col lg={5} span={10}>
+                <Row gutter={{ xs: 12, sm: 24, md: 24, lg: 38, xl: 40 }}>
+                    <Col lg={0} md={2} xs={2}></Col>
+                    <Col lg={4} span={10}>
                         <p></p>
                         <Card
                             className='cardStyleInventario'
@@ -89,17 +110,14 @@ export default function Home() {
                             //Este on click intentando que a todo el card se le pueda dar click 
                             onClick={() => redireccionarRegistrarProducto()}
                             hoverable
-                            //onClick={(<Link to="/registrarProducto">Registrar Producto</Link>)}
                             cover={<img className="img" alt='ImgRegProd' src='./assets/Inventario-1.jpg'></img>}
                         >
                             <Popover className='textoCard' content={textoCardRegistrarProducto} trigger="hover">
                                 Registrar Producto
-                                {/*<Button className="botonCard" href="/registrarProducto" block="true" type="primary">Registrar Producto</Button>*/}
-                                {/*<Link className="botonCard" to="/registrarProducto">Registrar Producto</Link>*/}
                             </Popover>
                         </Card>
                     </Col>
-                    <Col lg={5} span={10}>
+                    <Col lg={4} span={10}>
                         <p></p>
                         <Card
                             className='cardStyleInventario'
@@ -108,11 +126,10 @@ export default function Home() {
                             hoverable
                             onClick={() => redireccionarMostrarInventario()}
                             cover={<img className="img" alt='ImgRegProd' src='./assets/Inventario-2.jpg'></img>}
-                        //onClick={ window.location.href = '/registrarProducto'}
+                            //onClick={ window.location.href = '/registrarProducto'}
                         >
                             <Popover className='textoCard' content={textoCardMostrarInventario} trigger="hover">
                                 Mostrar Inventario
-                                {/*<Link className="botonCar" to="/registrarProducto">Mostrar Inventario</Link>*/}
                             </Popover>
                         </Card>
                     </Col>
@@ -120,7 +137,7 @@ export default function Home() {
                     <Col lg={0} span={2}></Col>
                     <Col lg={0} span={2}></Col>
 
-                    <Col lg={5} span={10}>
+                    <Col lg={4} span={10}>
                         <p></p>
                         <Card className='cardStyleCompra'
                             title="Compra"
@@ -131,11 +148,10 @@ export default function Home() {
                         >
                             <Popover className='textoCard' content={textoCardRegistrarCompra} trigger="hover">
                                 Registrar Compra
-                                {/*<Link className="botonCar" to="/registrarProducto">Registrar Compra</Link>*/}
                             </Popover>
                         </Card>
                     </Col>
-                    <Col lg={5} span={10}>
+                    <Col lg={4} span={10}>
                         <p></p>
                         <Card className='cardStyleCompra'
                             title="Compra"
@@ -146,18 +162,45 @@ export default function Home() {
                         >
                             <Popover className='textoCard' content={textoCardMostrarCompras} trigger="hover">
                                 Mostrar Compras
-                                {/*<Link className="botonCar" to="/registrarProducto">Mostrar Compra</Link>*/}
                             </Popover>
                         </Card>
                     </Col>
-                    <Col span={2}></Col>
+
+                    <Col lg={0} span={2}></Col>
+                    <Col lg={0} span={2}></Col>
+
+                    <Col lg={4} span={10}>
+                        <p></p>
+                        <Card className='cardStyleVenta'
+                            title="Venta"
+                            bordered={false}
+                            hoverable
+                            onClick={() => redireccionarRegistrarVenta()}
+                            cover={<img className="img" alt='ImgRegProd' src='./assets/Ventas-1.png'></img>}
+                        >
+                            <Popover className='textoCard' content={textoCardRegistrarVenta} trigger="hover">
+                                Registrar Venta
+                            </Popover>
+                        </Card>
+                    </Col>
+                    <Col lg={4} span={10}>
+                        <p></p>
+                        <Card className='cardStyleVenta'
+                            title="Venta"
+                            bordered={false}
+                            hoverable
+                            onClick={() => redireccionarMostrarVenta()}
+                            cover={<img className="img" alt='ImgRegProd' src='./assets/Ventas-2.png'></img>}
+                        >
+                            <Popover className='textoCard' content={textoCardMostrarVentas} trigger="hover">
+                                Mostrar Ventas
+                            </Popover>
+                        </Card>
+                    </Col>
+                    <Col span={0}></Col>
                 </Row>
 
             </Row>
-            {/*<Row>
-                <Col span={24}><p></p></Col>
-            </Row>*/}
-
             <Row>
                 <p></p>
             </Row>

@@ -327,7 +327,7 @@ export default function RegistrarCompra() {
                       },
                       ]}>
                       <Input showCount
-                        maxLength={4} placeholder="Ingrese la cantidad a comprar del producto"/>
+                        maxLength={4} placeholder="Ingrese la cantidad a comprar"/>
                     </Form.Item>
                   </Col>
 

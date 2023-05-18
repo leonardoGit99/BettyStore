@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Row, Col, Form, Input, Button, message, Typography } from 'antd';
 import { LoginOutlined, UserOutlined} from '@ant-design/icons'
 import { useNavigate } from "react-router-dom";
-import "./LoginFormStyle.css"
+//import "./LoginFormStyle.css"
 
 const LoginForm = ({ handleLogin }) => {
   const [username, setUsername] = useState('');

@@ -1,0 +1,48 @@
+.App-menu {
+    /*height: 100%;*/
+    width: 98.9vw;
+    /* padding-left: 1vw; */
+    background-color: #01c38e;
+    /*#e0bef4;/*#fca80b;/*#feaf5f;*/
+    color: #001529;
+}
+
+@media only screen and (max-width: 1060px) {
+    .App-menu {
+        height: 140%;
+    }
+}
+
+/* Cambiar color en items de menu */
+.ant-menu-item-selected {
+    background-color: #1677ff !important;
+}
+
+.ant-menu-item-active {
+    background-color: #1677ff !important;
+}
+
+.ant-menu-submenu-active {
+    background-color: #1677ff !important;
+}
+
+.ant-menu-item-open {
+    background-color: #1677ff !important;
+}
+
+.ant-menu-submenu-open {
+    background-color: #1677ff !important;
+}
+
+.ant-menu-submenu-selected {
+    background-color: #1677ff !important;
+}
+
+.ant-menu-item-selected {
+    background-color: #1677ff !important;
+}
+
+/* Fondo del desplegable de los submenus */
+.ant-menu-submenu>.ant-menu {
+    background-color: #01c38fd5 !important;
+}

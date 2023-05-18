@@ -1,5 +1,5 @@
 import './App.css';
-import { Space, Layout, Col, Row } from 'antd'
+import { Space, Layout, Col, Row, message } from 'antd'
 import Home from './views/Home';
 //import Inventario from './views/RegistrarProducto';
 
@@ -7,15 +7,15 @@ import Menu from './components/Menu/Menu';
 import AppHeader from './components/AppHeader/AppHeader';
 import { useContext, useState } from 'react';
 import { ThemeContext } from './contexts/ThemeContext';
-import { Routes, Route } from 'react-router-dom';
-import RegistrarProducto from './views/RegistrarProducto';
-import MostrarInventario from './views/MostrarInventario';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import TablaInventario from './components/TablaInventario/TablaInventario';
 import FormRegProducto from './components/FormularioRegProducto/FormRegProducto';
 import MostrarCompra from './views/MostrarCompra';
 import RegistrarCompra from './views/RegistrarCompra';
 import RegistrarVenta from './views/RegistrarVenta';
 import MostrarVenta from './views/MostrarVenta';
+import LoginForm from './components/LoginForm/LoginForm';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 //import Footer from './components/Footer/Footer';
 
 const { Header, Sider, Content } = Layout
@@ -41,13 +41,32 @@ function App() {
 
   const { contextTheme } = useContext(ThemeContext)
   //const {contextTheme} = useContext(ThemeContext)
+
+  const [user, setUser] = useState(null);
+
+  const handleLogin = (userData) => {
+    setUser(userData);
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    message.info("Sesión Cerrada");
+  };
+
+  const isAdmin = user && user.role === 'admin';
+  const isVendedor = user && user.role === 'vendedor';
+
   return (
+
     <Space direction='vertical' className='App-container'>
       {/*<Layout className='p2'>*/}
       <Content>
-        <Header className='App-header' style={{ color: contextTheme.color, background: contextTheme.background }}> <AppHeader /> </Header>
+        <Header className='App-header' style={{ color: contextTheme.color, background: contextTheme.background }}> <AppHeader />
+          <button style={{ marginLeft: "1300px" }} onClick={handleLogout}> Cerrar Sesion</button>
+        </Header>
         {/*<Layout className='p1'>*/}
         <Row className='r2'>
+
           <Col span={24}>
             <Sider
             /*breakpoint="lg"
@@ -59,33 +78,68 @@ function App() {
               console.log(collapsed, type);
             }}*/
             >
+
               <Menu />
             </Sider>
           </Col>
         </Row>
+
       </Content>
       <Row>
         <Col span={24}>
           <Content className='App-content'>
             <Routes>
-              <Route exact path='/' element={<Home />} />
-              <Route exact path='/registrarProducto' element={<FormRegProducto datosTabla={datosTabla} setDatosTabla={setDatosTabla} producto={producto} setProducto={setProducto} />} />
-              <Route exact path='/mostrarInventario' element={<TablaInventario datosTabla={datosTabla} setDatosTabla={setDatosTabla} producto={producto} setProducto={setProducto} />} />
-              <Route exact path='/registrarCompra' element={<RegistrarCompra />} />
-              <Route exact path='/mostrarCompra' element={<MostrarCompra />} />
-              <Route exact path='/registrarVenta' element={<RegistrarVenta />} />
-              <Route exact path='/mostrarVenta' element={<MostrarVenta />} />
+              <>
+
+                <Route exact path="/" element={<Navigate to="/login" replace />} />
+                <Route exact path="/login" element={<LoginForm handleLogin={handleLogin} />} />
+
+                <>
+
+                  <Route exact path="/home" element={
+                    <ProtectedRoute isAllowed={user ? true : false}>
+                      <Home />
+                    </ProtectedRoute>
+                  } />
+
+                  <>
+                    <Route element={<ProtectedRoute isAllowed={isAdmin} />}>
+                      <Route exact path="/registrarProducto" element={<FormRegProducto datosTabla={datosTabla} setDatosTabla={setDatosTabla} producto={producto} setProducto={setProducto} />} />
+                      <Route exact path="/mostrarInventario" element={<TablaInventario datosTabla={datosTabla} setDatosTabla={setDatosTabla} producto={producto} setProducto={setProducto} />} />
+                      <Route exact path="/registrarCompra" element={<RegistrarCompra />} />
+                      <Route exact path="/mostrarCompra" element={<MostrarCompra />} />
+                      <Route path="*" element={<Navigate to="/home" replace />} />
+                    </Route>
+
+                  </>
+
+                  <>
+                    <Route element={<ProtectedRoute isAllowed={isVendedor} />}>
+                      <Route exact path="/registrarVenta" element={<RegistrarVenta />} />
+                      <Route exact path="/mostrarVenta" element={<MostrarVenta />} />
+                      <Route path="*" element={<Navigate to="/home" replace />} />
+                    </Route>
+
+                  </>
+
+                </>
+
+                <Route path="*" element={<Navigate to="/login" replace />} />
+
+              </>
+
             </Routes>
           </Content>
         </Col>
       </Row>
       {/*</Layout>*/}
       {/*<Row span={24}>*/}
-        {/*<Footer/>*/}
-        {/*<Footer className='App-footer'><small>UMSS &copy; - Sistema creado por Team Digital Warriors - Todos los derechos reservados</small> {displayYear()}</Footer>*/}
+      {/*<Footer/>*/}
+      {/*<Footer className='App-footer'><small>UMSS &copy; - Sistema creado por Team Digital Warriors - Todos los derechos reservados</small> {displayYear()}</Footer>*/}
       {/*</Row>*/}
       {/*</Layout>*/}
     </Space>
+
   )
 }
 

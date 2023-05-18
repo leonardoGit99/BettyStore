@@ -1,92 +1,95 @@
 //import { Link } from "react-router-dom"
-import { Row, Col, Card, Popover} from 'antd'
+import { Row, Col, Card, Popover } from 'antd'
+import { useNavigate } from "react-router-dom";
 //import SignIn from '../components/SignIn'
 import Footer from "../components/Footer/Footer";
 
 
-function redireccionarRegistrarProducto() {
-    window.location.href = "/registrarProducto";
-}
-
-function redireccionarMostrarInventario() {
-    window.location.href = "/mostrarInventario";
-}
-
-function redireccionarRegistrarCompra() {
-    window.location.href = "/registrarCompra";
-}
-
-function redireccionarMostrarCompra() {
-    window.location.href = "/mostrarCompra";
-}
-
-function redireccionarRegistrarVenta() {
-    window.location.href = "/registrarVenta";
-}
-
-function redireccionarMostrarVenta() {
-    window.location.href = "/mostrarVenta";
-}
-
-const textoCardRegistrarProducto = (
-    <div align='center'>En esta sección podrá registrar un nuevo<br></br>
-        producto a través de un formulario que le <br></br>
-        permitirá llenar datos del mismo.</div>
-);
-
-const textoCardMostrarInventario = (
-    <div align='center'>En esta sección podrá ver el Inventario <br></br>
-        en una tabla con los productos que registró<br></br>
-        en el mismo, también le permitirá realizar<br></br>
-        la eliminación de los mismos.
-    </div>
-);
-
-const textoCardRegistrarCompra = (
-    <div align='center'>En esta sección podrá registrar una compra;<br></br>
-        es decir, si desea incrementar la cantidad de un<br></br>
-        producto que ya está registrado en su Inventario<br></br>
-        podrá hacerlo a través de un formulario, para<br></br>
-        insertar los productos a comprar en una tabla<br></br>
-        Detalle de Compra, una vez revisada la misma <br></br>
-        podrá confirmar y guardar en el registro de <br></br>
-        compras a través del botón registrar.</div>
-);
-
-const textoCardMostrarCompras = (
-    <div align='center'>En esta sección podrá ver las compras<br></br>
-        realizadas, mismas que fueron registradas <br></br>
-        anteriormente en la sección "Registrar<br></br>
-        Compra", así tendrá una tabla con las<br></br>
-        compras realizadas, su código de compra<br></br>
-        y producto, nombre, precio, cantidad<br></br>
-        y fecha de compra.
-    </div>
-);
-
-const textoCardRegistrarVenta = (
-    <div align='center'>En esta sección podrá registrar una venta;<br></br>
-        al momento de entregar un producto al cliente se<br></br>
-        reducirá la cantidad del producto esto al confirmar<br></br>
-        la venta (Registrar); sin embargo previamente podrá<br></br>
-        insertar los productos a un detalle de venta, antes<br></br>
-        de registrar la misma, por si el cliente desea añadir<br></br>
-        o cambiar los productos que desea.</div>
-
-        
-);
-
-const textoCardMostrarVentas = (
-    <div align='center'>En esta sección podrá ver las ventas<br></br>
-        realizadas, mismas que fueron registradas <br></br>
-        anteriormente en la sección "Registrar<br></br>
-        Venta", así tendrá una tabla con las<br></br>
-        compras realizadas, su código de compra<br></br>
-        y producto, nombre, precio, cantidad<br></br>
-        y fecha de compra.</div>
-);
-
 export default function Home() {
+    const navigate = useNavigate();
+
+    function redireccionarRegistrarProducto() {
+        navigate("/registrarProducto");
+    }
+
+    function redireccionarMostrarInventario() {
+        navigate("/mostrarInventario");
+    }
+
+    function redireccionarRegistrarCompra() {
+        navigate("/registrarCompra");
+    }
+
+    function redireccionarMostrarCompra() {
+        navigate("/mostrarCompra");
+
+    }
+
+    function redireccionarRegistrarVenta() {
+        navigate("/registrarVenta");
+    }
+
+    function redireccionarMostrarVenta() {
+        navigate("/mostrarVenta");
+    }
+
+    const textoCardRegistrarProducto = (
+        <div align='center'>En esta sección podrá registrar un nuevo<br></br>
+            producto a través de un formulario que le <br></br>
+            permitirá llenar datos del mismo.</div>
+    );
+
+    const textoCardMostrarInventario = (
+        <div align='center'>En esta sección podrá ver el Inventario <br></br>
+            en una tabla con los productos que registró<br></br>
+            en el mismo, también le permitirá realizar<br></br>
+            la eliminación de los mismos.
+        </div>
+    );
+
+    const textoCardRegistrarCompra = (
+        <div align='center'>En esta sección podrá registrar una compra;<br></br>
+            es decir, si desea incrementar la cantidad de un<br></br>
+            producto que ya está registrado en su Inventario<br></br>
+            podrá hacerlo a través de un formulario, para<br></br>
+            insertar los productos a comprar en una tabla<br></br>
+            Detalle de Compra, una vez revisada la misma <br></br>
+            podrá confirmar y guardar en el registro de <br></br>
+            compras a través del botón registrar.</div>
+    );
+
+    const textoCardMostrarCompras = (
+        <div align='center'>En esta sección podrá ver las compras<br></br>
+            realizadas, mismas que fueron registradas <br></br>
+            anteriormente en la sección "Registrar<br></br>
+            Compra", así tendrá una tabla con las<br></br>
+            compras realizadas, su código de compra<br></br>
+            y producto, nombre, precio, cantidad<br></br>
+            y fecha de compra.
+        </div>
+    );
+
+    const textoCardRegistrarVenta = (
+        <div align='center'>En esta sección podrá registrar una venta;<br></br>
+            al momento de entregar un producto al cliente se<br></br>
+            reducirá la cantidad del producto esto al confirmar<br></br>
+            la venta (Registrar); sin embargo previamente podrá<br></br>
+            insertar los productos a un detalle de venta, antes<br></br>
+            de registrar la misma, por si el cliente desea añadir<br></br>
+            o cambiar los productos que desea.</div>
+
+
+    );
+
+    const textoCardMostrarVentas = (
+        <div align='center'>En esta sección podrá ver las ventas<br></br>
+            realizadas, mismas que fueron registradas <br></br>
+            anteriormente en la sección "Registrar<br></br>
+            Venta", así tendrá una tabla con las<br></br>
+            compras realizadas, su código de compra<br></br>
+            y producto, nombre, precio, cantidad<br></br>
+            y fecha de compra.</div>
+    );
     return (
         <div>
             <Row>
@@ -126,7 +129,7 @@ export default function Home() {
                             hoverable
                             onClick={() => redireccionarMostrarInventario()}
                             cover={<img className="img" alt='ImgRegProd' src='./assets/Inventario-2.jpg'></img>}
-                            //onClick={ window.location.href = '/registrarProducto'}
+                        //onClick={ window.location.href = '/registrarProducto'}
                         >
                             <Popover className='textoCard' content={textoCardMostrarInventario} trigger="hover">
                                 Mostrar Inventario

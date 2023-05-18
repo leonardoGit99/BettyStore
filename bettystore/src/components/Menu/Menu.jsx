@@ -9,7 +9,7 @@ import { ShoppingCartOutlined, DollarCircleOutlined} from '@ant-design/icons'
 
 
 const items = [
-  { key: "/", label: (<Link to="/">Home</Link>), icon: <HomeOutlined /> },
+  { key: "/home", label: (<Link to="/home">Home</Link>), icon: <HomeOutlined /> },
   {
     key: 2, label: ('Inventario'), icon: <DatabaseOutlined />, children: [
       { key: "/registrarProducto", label: (<Link to="/registrarProducto">Registrar Producto</Link>) },

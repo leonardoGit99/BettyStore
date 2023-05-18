@@ -1,0 +1,81 @@
+/*Css Inicio de Sesion*/
+
+.imgIni {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.App-image-iniSesion {
+  width: 300px;
+  height: auto;
+}
+
+.log-container {
+  position: relative;
+}
+
+.tit-1 {
+  font-size: 40px;
+}
+
+.tit-2 {
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.40);
+}
+
+.container-img-form {
+  position: relative;
+
+}
+
+
+@media (max-width:991px) {
+  .container-form-Inises {
+    background-color: rgba(255, 255, 255, 0.33);
+    box-shadow: 0px 8px 32px 0 rbga(0, 0, 255, 0.3);
+    backdrop-filter: blur(3px);
+    border: 2px outset #01c38e;
+    border-radius: 15px;
+    position: relative;
+    z-index: 1;
+
+  }
+
+  .App-image-iniSesion {
+    width: 250px;
+  }
+
+  .container-img-form {
+
+    background-color: transparent;
+
+  }
+
+  .imgIni {
+    position: absolute;
+    object-fit: cover;
+    object-position: center;
+    z-index: -1;
+    height: 100vh;
+  }
+}
+
+@media (max-width:575px) {
+  .App-image-iniSesion {
+    width: 200px;
+  }
+
+
+}
+
+@media (max-width:280px) {
+  .App-image-iniSesion {
+    width: 180px;
+  }
+
+  .tit-1 {
+    font-size: 35px !important;
+
+  }
+}

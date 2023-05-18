@@ -1,5 +1,5 @@
 import './App.css';
-import { Space, Layout, Col, Row, message } from 'antd'
+import { Space, Layout, Col, Row, message, Button } from 'antd'
 import Home from './views/Home';
 //import Inventario from './views/RegistrarProducto';
 
@@ -58,42 +58,45 @@ function App() {
 
   return (
 
-    <Space direction='vertical' className='App-container'>
-      {/*<Layout className='p2'>*/}
-      <Content>
-        <Header className='App-header' style={{ color: contextTheme.color, background: contextTheme.background }}> <AppHeader />
-          <button style={{ marginLeft: "1300px" }} onClick={handleLogout}> Cerrar Sesion</button>
-        </Header>
-        {/*<Layout className='p1'>*/}
-        <Row className='r2'>
+    <Space direction='vertical' className='App-container' >
+      <Routes>
+        <Route exact path="/" element={<Navigate to="/login" replace />} />
+        <Route exact path="/login" element={<LoginForm handleLogin={handleLogin} />} />
+        <Route path='/*' element={<AppLayout />} />
+      </Routes>
+    </Space>
+  );
 
+  function AppLayout() {
+    return (
+      <>
+        {/*<Layout className='p2'>*/}
+        <Content>
+          <Header className='App-header' style={{ color: contextTheme.color, background: contextTheme.background }}> <AppHeader />
+            <Button style={{ marginLeft: "1300px", position: 'fixed' }} onClick={handleLogout}> Cerrar Sesion</Button>
+          </Header>
+          {/*<Layout className='p1'>*/}
+          <Row className='r2'>
+            <Col span={24}>
+              <Sider
+              /*breakpoint="lg"
+              collapsedWidth="0"
+              onBreakpoint={(broken) => {
+                console.log(broken);
+              }}
+              onCollapse={(collapsed, type) => {
+                console.log(collapsed, type);
+              }}*/
+              >
+                <Menu />
+              </Sider>
+            </Col>
+          </Row>
+        </Content>
+        <Row>
           <Col span={24}>
-            <Sider
-            /*breakpoint="lg"
-            collapsedWidth="0"
-            onBreakpoint={(broken) => {
-              console.log(broken);
-            }}
-            onCollapse={(collapsed, type) => {
-              console.log(collapsed, type);
-            }}*/
-            >
-
-              <Menu />
-            </Sider>
-          </Col>
-        </Row>
-
-      </Content>
-      <Row>
-        <Col span={24}>
-          <Content className='App-content'>
-            <Routes>
-              <>
-
-                <Route exact path="/" element={<Navigate to="/login" replace />} />
-                <Route exact path="/login" element={<LoginForm handleLogin={handleLogin} />} />
-
+            <Content className='App-content'>
+              <Routes>
                 <>
 
                   <Route exact path="/home" element={
@@ -126,21 +129,13 @@ function App() {
 
                 <Route path="*" element={<Navigate to="/login" replace />} />
 
-              </>
-
-            </Routes>
-          </Content>
-        </Col>
-      </Row>
-      {/*</Layout>*/}
-      {/*<Row span={24}>*/}
-      {/*<Footer/>*/}
-      {/*<Footer className='App-footer'><small>UMSS &copy; - Sistema creado por Team Digital Warriors - Todos los derechos reservados</small> {displayYear()}</Footer>*/}
-      {/*</Row>*/}
-      {/*</Layout>*/}
-    </Space>
-
-  )
+              </Routes>
+            </Content>
+          </Col>
+        </Row>
+      </>
+    );
+  }
 }
 
 export default App;

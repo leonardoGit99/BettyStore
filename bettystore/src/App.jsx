@@ -29,19 +29,6 @@ function displayYear() {
 }
 
 function App() {
-  const [datosTabla, setDatosTabla] = useState([]);
-
-  //Los nombres dentro el useState deben coincidir con los de la API (corregir el envio de parametros en el return)
-  const [producto, setProducto] = useState({
-    codProd: '',
-    nomProd: '',
-    categoriaProd: '',
-    descripcionProd: '',
-    precioProd: '',
-    cantidadProd: '',
-    fechaProd: '',
-    imagenProd: '',
-  })
 
   const { contextTheme } = useContext(ThemeContext)
   //const {contextTheme} = useContext(ThemeContext)
@@ -66,12 +53,12 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Navigate to="/login" replace />} />
         <Route exact path="/login" element={<LoginForm handleLogin={handleLogin} />} />
-        <Route path='/*' element={<AppLayout />} />
+        <Route path='/*' element={<AfterLogin />} />
       </Routes>
     </Space>
   );
 
-  function AppLayout() {
+  function AfterLogin() {
     return (
       <>
         {/*<Layout className='p2'>*/}
@@ -113,8 +100,8 @@ function App() {
                   <>
                     <Route element={<ProtectedRoute isAllowed={isAdmin} />}>
                       <Route exact path="/homeAdmin" element={<HomeAdmin />} />
-                      <Route exact path="/registrarProducto" element={<FormRegProducto datosTabla={datosTabla} setDatosTabla={setDatosTabla} producto={producto} setProducto={setProducto} />} />
-                      <Route exact path="/mostrarInventario" element={<TablaInventario datosTabla={datosTabla} setDatosTabla={setDatosTabla} producto={producto} setProducto={setProducto} />} />
+                      <Route exact path="/registrarProducto" element={<FormRegProducto />} />
+                      <Route exact path="/mostrarInventario" element={<TablaInventario />} />
                       <Route exact path="/registrarCompra" element={<RegistrarCompra />} />
                       <Route exact path="/mostrarCompra" element={<MostrarCompra />} />
                       <Route path="*" element={<Navigate to="/home" replace />} />

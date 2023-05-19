@@ -7,9 +7,10 @@ import './TablaInventarioStyle.css';
 import Footer from '../Footer/Footer';
 
 
-function TablaInventario(props) {
+function TablaInventario() {
 
   // const [data, setData] = useState([]);
+  const [datosTabla, setDatosTabla] = useState([]);
 
   const columnas = [
     {
@@ -47,7 +48,7 @@ function TablaInventario(props) {
   const peticionGet = async () => {
     await axios.get("http://localhost/crudProductos/indexConsultaGeneral.php")
       .then(response => {
-        props.setDatosTabla(response.data);
+        setDatosTabla(response.data);
         // console.log(response.data);
       }).catch(error => {
         console.log(error);
@@ -93,7 +94,7 @@ function TablaInventario(props) {
         <Col lg={20}>
           <h2 className='subtituloTabla'>Productos Registrados en Inventario</h2>
           {/* TablaDinamica */}
-          <Table className='tabla' locale={{emptyText: 'No hay productos registrados'}} rowKey='id' columns={columnas} dataSource={props.datosTabla} bordered={true} pagination={{ pageSize: 4, pagination: true, position: ["bottomRight"] }} size={'small'} />
+          <Table className='tabla' locale={{emptyText: 'No hay productos registrados'}} rowKey='id' columns={columnas} dataSource={datosTabla} bordered={true} pagination={{ pageSize: 4, pagination: true, position: ["bottomRight"] }} size={'small'} />
 
           {/* TablaEstatica */}
           {/* <Table className='tabla'columns={columnas} dataSource={data} bordered={true} pagination={{pageSize: 5, pagination: true, position: ["bottomRight"]}}  size={'small'}/> */}

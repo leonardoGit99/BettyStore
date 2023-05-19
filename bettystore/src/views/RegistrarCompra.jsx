@@ -90,7 +90,7 @@ export default function RegistrarCompra() {
   //COMPONENTE TABLA DETALLE DE COMPRAS
   //Tabla detalle de compras pruebas
   const columnasTablaDetalleCompras = [
-    { title: 'Código compra', dataIndex: 'codigoCompra', key: 'codigoCompra' },
+    { title: 'Código de compra', dataIndex: 'codigoCompra', key: 'codigoCompra' },
     { title: 'Código de producto', dataIndex: 'codProd', key: 'codProd' },
     { title: 'Nombre', dataIndex: 'nombre', key: 'nombre' },
     { title: 'Precio (Bs.)', dataIndex: 'precio', key: 'precio' },

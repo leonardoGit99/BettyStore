@@ -95,7 +95,7 @@ export default function RegistrarCompra() {
     { title: 'Nombre', dataIndex: 'nombre', key: 'nombre' },
     { title: 'Precio (Bs.)', dataIndex: 'precio', key: 'precio' },
     { title: 'Cantidad', dataIndex: 'cantidad', key: 'cantidad' },
-    { title: 'Fecha', dataIndex: 'fecha', key: 'fecha' },
+    { title: 'Fecha de compra', dataIndex: 'fecha', key: 'fecha' },
     {
       title: 'Opciones',
       dataIndex: 'opciones',

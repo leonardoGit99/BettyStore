@@ -290,7 +290,7 @@ export default function RegistrarCompra() {
                       <Input
                         style={{ color: "#676767" }}
                         disabled
-                        placeholder="Ningun producto seleccionado"
+                        placeholder="Ningún producto seleccionado"
                         value={seleccionado.value}
                       >
 

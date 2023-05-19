@@ -52,8 +52,8 @@ function App() {
     setUser(userData);
   };
 
-  const handleLogout = () => {
-    setUser(null);
+  const handleLogout = (handleLogout) => {
+    setUser(handleLogout);
     message.info("Sesión Cerrada");
   };
 
@@ -76,8 +76,8 @@ function App() {
       <>
         {/*<Layout className='p2'>*/}
         <Content>
-          <Header className='App-header' style={{ color: contextTheme.color, background: contextTheme.background }}> <AppHeader />
-            <Button style={{ marginLeft: "1300px", position: 'fixed' }} onClick={handleLogout}> Cerrar Sesion</Button>
+          <Header className='App-header' style={{ color: contextTheme.color, background: contextTheme.background }}> <AppHeader user={user} handleLogout={handleLogout} />
+            {/* <Button style={{ marginLeft: "1300px", position: 'fixed' }} onClick={handleLogout}> Cerrar Sesion</Button> */}
           </Header>
           {/*<Layout className='p1'>*/}
           <Row className='r2'>
@@ -92,7 +92,7 @@ function App() {
                 console.log(collapsed, type);
               }}*/
               >
-                {isAdmin? <MenuAdmin/>: <MenuVendedor/>}
+                {isAdmin ? <MenuAdmin /> : <MenuVendedor />}
                 {/* <Menu /> */}
               </Sider>
             </Col>
@@ -103,7 +103,7 @@ function App() {
             <Content className='App-content'>
               <Routes>
                 <>
-                
+
                   <Route exact path="/home" element={
                     <ProtectedRoute isAllowed={user ? true : false}>
                       <Home />

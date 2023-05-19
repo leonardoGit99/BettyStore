@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Row, Col, Form, Input, Button, message, Typography } from 'antd';
-import { LoginOutlined, UserOutlined} from '@ant-design/icons'
+import { LoginOutlined, UserOutlined } from '@ant-design/icons'
 import { useNavigate } from "react-router-dom";
 import "./LoginFormStyle.css"
 
@@ -13,6 +13,26 @@ const LoginForm = ({ handleLogin }) => {
     //    e.preventDefault();
     // Aquí debes implementar la lógica de autenticación con PHP y JWT.
     // Puedes hacer una llamada a la API de backend para verificar las credenciales del usuario.
+    /*const handleSubmit = async (e) => {
+      e.preventDefault();
+  
+      try {
+        const response = await axios.post('URL_DE_TU_API', { username, password });
+        const { data } = response;
+  
+        // Verifica si la respuesta de la API es exitosa y contiene el token de acceso
+        if (response.status === 200 && data.token) {
+          const user = { username, role: data.role };
+          handleLogin(user);
+        } else {
+          message.error('Credenciales inválidas');
+        }
+      } catch (error) {
+        console.error(error);
+        message.error('Error al iniciar sesión');
+      }
+    };*/
+
 
     // Ejemplo de autenticación ficticia
     if (username === "admin" && password === 'admin123') {
@@ -80,6 +100,7 @@ const LoginForm = ({ handleLogin }) => {
                     rules={[{ required: true, message: 'Por favor ingresa tu usuario' }]}
                   >
                     <Input
+                      autoComplete='off'
                       suffix={<UserOutlined />}
                       placeholder="Ingrese su usuario"
                       value={username}
@@ -118,20 +139,20 @@ const LoginForm = ({ handleLogin }) => {
       </Col>
     </Row>
   );
-/*  return (
-    <Form onFinish={handleSubmit}>
-      <Form.Item label="Usuario">
-        <Input value={username} onChange={(e) => setUsername(e.target.value)} />
-      </Form.Item>
-      <Form.Item label="Contraseña">
-        <Input.Password value={password} onChange={(e) => setPassword(e.target.value)} />
-      </Form.Item>
-      <Form.Item>
-        <Button type="primary" htmlType="submit">Iniciar sesión</Button>
-      </Form.Item>
-    </Form>
-  );
-  */
+  /*  return (
+      <Form onFinish={handleSubmit}>
+        <Form.Item label="Usuario">
+          <Input value={username} onChange={(e) => setUsername(e.target.value)} />
+        </Form.Item>
+        <Form.Item label="Contraseña">
+          <Input.Password value={password} onChange={(e) => setPassword(e.target.value)} />
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit">Iniciar sesión</Button>
+        </Form.Item>
+      </Form>
+    );
+    */
 };
 
 export default LoginForm;

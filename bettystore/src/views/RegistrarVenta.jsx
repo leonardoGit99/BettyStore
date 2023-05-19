@@ -362,6 +362,12 @@ export default function RegistrarVenta() {
                             ? Promise.resolve()
                             : Promise.reject(new Error('Debe ingresar solo números y un valor mayor a cero')),
                       },
+                      {
+                        validator: (_, value) =>
+                          value && value.length >= 4  
+                            ? Promise.resolve()
+                            : Promise.reject(new Error('Por favor, ingrese un código que tenga 4 dígitos')),
+                      },
                       ]}
                     >
                       <Input showCount

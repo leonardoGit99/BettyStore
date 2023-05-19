@@ -18,6 +18,8 @@ import LoginForm from './components/LoginForm/LoginForm';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import HomeVendedor from './views/HomeVendedor';
 import HomeAdmin from './views/HomeAdmin';
+import MenuAdmin from './components/MenuAdmin/MenuAdmin';
+import MenuVendedor from './components/MenuVendedor/MenuVendedor';
 //import Footer from './components/Footer/Footer';
 
 const { Header, Sider, Content } = Layout
@@ -90,7 +92,8 @@ function App() {
                 console.log(collapsed, type);
               }}*/
               >
-                <Menu />
+                {isAdmin? <MenuAdmin/>: <MenuVendedor/>}
+                {/* <Menu /> */}
               </Sider>
             </Col>
           </Row>
@@ -100,7 +103,7 @@ function App() {
             <Content className='App-content'>
               <Routes>
                 <>
-
+                
                   <Route exact path="/home" element={
                     <ProtectedRoute isAllowed={user ? true : false}>
                       <Home />

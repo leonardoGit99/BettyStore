@@ -144,6 +144,8 @@ export default function RegistrarCompra() {
     }
     else if (nuevoProducto.nombre == undefined) {
       message.error("El producto seleccionado no existe en inventario", 2.5);
+    }else if(nuevoProducto.codigoCompra.length<4){
+      message.info("Por favor, ingrese un código que tenga 4 dígitos");
     }
     else {
 
@@ -343,9 +345,15 @@ export default function RegistrarCompra() {
                       },
                       {
                         validator: (_, value) =>
-                          value && value.match('^0*[1-9][0-9]*$')
+                          value && value.match('^0*[1-9][0-9]*$') 
                             ? Promise.resolve()
                             : Promise.reject(new Error('Debe ingresar solo números y un valor mayor a cero')),
+                      },
+                      {
+                        validator: (_, value) =>
+                          value && value.length >= 4  
+                            ? Promise.resolve()
+                            : Promise.reject(new Error('Por favor, ingrese un código que tenga 4 dígitos')),
                       },
                       ]}
                     >

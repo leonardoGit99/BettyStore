@@ -378,7 +378,7 @@ function FormRegProducto() {
                   },
                   {
                     min: 4,
-                    message: 'Código inválido'
+                    message: 'Por favor, ingrese un código que tenga 4 dígitos'
                   },
                   ]}
                 >

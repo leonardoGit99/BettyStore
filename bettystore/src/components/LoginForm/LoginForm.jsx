@@ -18,12 +18,12 @@ const LoginForm = ({ handleLogin }) => {
     if (username === "admin" && password === 'admin123') {
       const user = { username: e.username, role: 'admin' };
       handleLogin(user);
-      navigate("/home");
+      navigate("/homeAdmin");
       message.info('Inicio de sesion como Administrador');
     } else if (username === 'vendedor' && password === 'vendedor123') {
       const user = { username: e.username, role: 'vendedor' };
       handleLogin(user);
-      navigate("/home");
+      navigate("/homeVendedor");
       message.info('Inicio de sesion como Vendedor');
     } else {
       message.error('Credenciales inválidas');

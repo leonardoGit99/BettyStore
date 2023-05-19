@@ -16,6 +16,8 @@ import RegistrarVenta from './views/RegistrarVenta';
 import MostrarVenta from './views/MostrarVenta';
 import LoginForm from './components/LoginForm/LoginForm';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import HomeVendedor from './views/HomeVendedor';
+import HomeAdmin from './views/HomeAdmin';
 //import Footer from './components/Footer/Footer';
 
 const { Header, Sider, Content } = Layout
@@ -107,6 +109,7 @@ function App() {
 
                   <>
                     <Route element={<ProtectedRoute isAllowed={isAdmin} />}>
+                      <Route exact path="/homeAdmin" element={<HomeAdmin />} />
                       <Route exact path="/registrarProducto" element={<FormRegProducto datosTabla={datosTabla} setDatosTabla={setDatosTabla} producto={producto} setProducto={setProducto} />} />
                       <Route exact path="/mostrarInventario" element={<TablaInventario datosTabla={datosTabla} setDatosTabla={setDatosTabla} producto={producto} setProducto={setProducto} />} />
                       <Route exact path="/registrarCompra" element={<RegistrarCompra />} />
@@ -118,9 +121,10 @@ function App() {
 
                   <>
                     <Route element={<ProtectedRoute isAllowed={isVendedor} />}>
+                      <Route exact path="/homeVendedor" element={<HomeVendedor />} />
                       <Route exact path="/registrarVenta" element={<RegistrarVenta />} />
                       <Route exact path="/mostrarVenta" element={<MostrarVenta />} />
-                      <Route path="*" element={<Navigate to="/home" replace />} />
+                      <Route path="*" element={<Navigate to="/homeVendedor" replace />} />
                     </Route>
 
                   </>

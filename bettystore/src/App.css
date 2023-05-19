@@ -256,12 +256,38 @@
   text-align: center;
 }
 
+@media only screen and (max-width: 240px) {
+  .tituloHome{
+    font-size: medium;
+  }
+}
+
 .img {
   height: 12vw;
 }
 
 @media only screen and (max-width: 991px) {
   .img{
+    height: 28vw;
+  }
+}
+
+.imgHomeAdmin {
+  height: 16vw;
+}
+
+@media only screen and (max-width: 991px) {
+  .imgHomeAdmin{
+    height: 28vw;
+  }
+}
+
+.imgVendedor{
+  height: 16vw;
+}
+
+@media only screen and (max-width: 991px) {
+  .imgVendedor{
     height: 28vw;
   }
 }
@@ -313,9 +339,15 @@ si sirve adelante*/
   }
 }
 */
-@media only screen and (min-width: 1116px) and (max-width: 1269px){
+@media only screen and (min-width: 1269px){
   .textoCard {
     font-size: large;
+  }
+}
+
+@media only screen and (min-width: 1116px) and (max-width: 1269px){
+  .textoCard {
+    font-size: medium;
   }
 }
 

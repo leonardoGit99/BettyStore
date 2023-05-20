@@ -4,7 +4,6 @@ import dayjs from "dayjs";
 import { UploadOutlined } from '@ant-design/icons';
 import TextArea from "antd/es/input/TextArea";
 import axios from "axios";
-import TablaInventario from "../TablaInventario/TablaInventario";
 import './FormRegProductoStyle.css';
 import Footer from "../Footer/Footer";
 

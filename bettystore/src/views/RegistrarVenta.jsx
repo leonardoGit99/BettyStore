@@ -32,6 +32,8 @@ export default function RegistrarVenta() {
 
   const [seleccionado, setSeleccionado] = useState({});
 
+  const [productoNodisponible, setProductoNoDisponible] = useState({});
+
   const peticionGet = async () => {
     await axios.get("http://localhost/IndexConsultasSegundoSprint/indexConsultaSimple.php")
       .then(response => {
@@ -58,10 +60,13 @@ export default function RegistrarVenta() {
 
     if (filtrado.length >= 1) {
       setProductos(filtrado);
+      setProductoNoDisponible("Producto disponible");
     } else {
+
       setProductos(filtrado);
-      message.warning("Producto no disponible", 2);
-      borrarCampos();
+      setProductoNoDisponible("Producto no disponible");
+      /* message.warning("Producto no disponible", 2);
+        borrarCampos();*/
     }
 
   }
@@ -283,7 +288,14 @@ export default function RegistrarVenta() {
                     <Col lg={22} md={22} xs={23}>
 
                       {/* Buscador de inventario */}
-                      <Form.Item className="barraBusquedaInvParaComprasVentas" name="buscador" rules={[{ required: true, message: "Por favor, seleccione un producto del inventario" }]}>
+                      <Form.Item className="barraBusquedaInvParaComprasVentas" name="buscador" rules={[{ required: true, message: "Por favor, seleccione un producto del inventario" }
+                        , {
+                        validator: () =>
+                          productoNodisponible === "Producto no disponible"
+                            ? Promise.reject(new Error('Producto no disponible'))
+                            : Promise.resolve(),
+                      },
+                      ]}>
                         <AutoComplete
                           /*style={{ width: 500 }}*/
                           options={productos.map((producto) => ({ value: producto.nomProd, cantidadProd: producto.cantidadProd, precioProd: producto.precioProd, codProd: producto.codProd }))}
@@ -342,7 +354,7 @@ export default function RegistrarVenta() {
                       },
                       ]}>
                       <Input showCount
-                        maxLength={4} placeholder="Ingrese la cantidad a vender"/>
+                        maxLength={4} placeholder="Ingrese la cantidad a vender" />
                     </Form.Item>
                   </Col>
 
@@ -364,14 +376,14 @@ export default function RegistrarVenta() {
                       },
                       {
                         validator: (_, value) =>
-                          value && value.length >= 4  
+                          value && value.length >= 4
                             ? Promise.resolve()
                             : Promise.reject(new Error('Por favor, ingrese un código que tenga 4 dígitos')),
                       },
                       ]}
                     >
                       <Input showCount
-                        maxLength={4} placeholder="Ingrese el código de venta"/>
+                        maxLength={4} placeholder="Ingrese el código de venta" />
                     </Form.Item>
                   </Col>
                   <Col span={24}>

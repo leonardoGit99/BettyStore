@@ -13,10 +13,10 @@ const { Item } = Form;
 //  Darle forma o alinear los labels del formulario
 const layout = {
   labelCol: {
-    span: 4
+    span: 4, md:8
   },
   wrapperCol: {
-    span: 20
+    span: 20, md:16
   }
 };
 
@@ -141,19 +141,19 @@ function FormRegProducto() {
   return (
     <div className="formRegProducto">
       <Row>
-        <Col lg={2}></Col>
-        <Col lg={20}>
+        <Col span={2}></Col>
+        <Col span={20}>
           <h2 className="tituloRegistrar">Registrar Producto</h2>
         </Col>
-        <Col lg={2}></Col>
+        <Col span={2}></Col>
       </Row>
       <Row>
-        <Col lg={2}></Col>
-        <Col lg={20}>
+        <Col lg={2} md={1}></Col>
+        <Col lg={20} md={22} xs={24}>
           <Form {...layout} ref={formRef} className="containerForm" onFinish={peticionPost}>
 
             <Row>
-              <Col lg={11} xs={24}>
+              <Col lg={11} md={11} xs={24}>
                 <Item
                   label="Nombre"
                   name="nomProd"
@@ -319,9 +319,9 @@ function FormRegProducto() {
                   />
                 </Item>
               </Col>
-              <Col lg={1}></Col>
+              <Col lg={0}></Col>
 
-              <Col lg={11} xs={24} className="c2">
+              <Col lg={11} md={12} xs={24} className="c2">
                 <Item
                   label="Imagen"
                   name="imagenProd"
@@ -419,7 +419,7 @@ function FormRegProducto() {
             </Row>
           </Form>
         </Col>
-        <Col lg={2}></Col>
+        <Col lg={2} md={1}></Col>
       </Row>
       <Row>
         <p></p>

@@ -29,7 +29,8 @@ if(isset($_GET["login"])){
         $user = $result->fetch_assoc();
         $payload = array(
             'id' => $user['idvendedor'],
-            'usuario' => $user['usuariovendedor']
+            'usuario' => $user['usuariovendedor'],
+            'role' => "Vendedor"
         );
         $key = '1234Auy';
         $jwt = JWT::encode($payload, $key, 'HS256');

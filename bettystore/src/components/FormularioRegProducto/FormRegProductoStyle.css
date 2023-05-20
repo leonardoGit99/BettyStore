@@ -12,7 +12,6 @@
   overflow: hidden; /* Oculta el texto que excede el ancho máximo */
   text-overflow: ellipsis; /* Agrega puntos suspensivos para indicar que se ha truncado el texto */
   color: black;
-  cursor: pointer;
 }
 
 .botonRegistrar {

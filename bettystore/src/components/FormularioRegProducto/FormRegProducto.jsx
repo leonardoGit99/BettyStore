@@ -352,8 +352,8 @@ function FormRegProducto() {
                     </Button>
 
                     {fileList[0] ? (
-                      <div className="nombreArchivoSubido" >{fileList[0]?.name}</div>
-                    ) : (<span style={{ color: 'rgba(0,0,0,0.25)' }}> No se ha seleccionado ningún archivo</span>)}
+                      <div className="nombreArchivoSubido" onClick={(ClicEnNomArch) => { ClicEnNomArch.stopPropagation() }}>{fileList[0]?.name}</div>
+                    ) : (<span style={{ color: 'rgba(0,0,0,0.25)' }} onClick={(ClicEnPlaceHolder) => { ClicEnPlaceHolder.stopPropagation() }}> No se ha seleccionado ningún archivo</span>)}
                   </Upload>
 
                 </Item>

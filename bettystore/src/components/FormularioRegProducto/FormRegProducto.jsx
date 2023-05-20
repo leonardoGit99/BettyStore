@@ -14,10 +14,10 @@ const { Item } = Form;
 //  Darle forma o alinear los labels del formulario
 const layout = {
   labelCol: {
-    span: 4
+    span: 4, md:8
   },
   wrapperCol: {
-    span: 20
+    span: 20, md:16
   }
 };
 
@@ -114,7 +114,7 @@ function FormRegProducto() {
     console.log(datos.get('fechaProd'));
     console.log(datos.get('imagenProd'));
 
-    await axios.post("http://localhost/crudProductos/indexInsertar.php/?insertar=1", datos)
+    await axios.post("http://localhost:8012/crudProductos/indexInsertar.php/?insertar=1", datos)
       .then(response => {
         message.info(response.data, 2);
         borrarCampos();
@@ -142,19 +142,19 @@ function FormRegProducto() {
   return (
     <div className="formRegProducto">
       <Row>
-        <Col lg={2}></Col>
-        <Col lg={20}>
+        <Col span={2}></Col>
+        <Col span={20}>
           <h2 className="tituloRegistrar">Registrar Producto</h2>
         </Col>
-        <Col lg={2}></Col>
+        <Col span={2}></Col>
       </Row>
       <Row>
-        <Col lg={2}></Col>
-        <Col lg={20}>
+        <Col lg={2} md={1} ></Col>
+        <Col lg={20} md={22} xs={24}>
           <Form {...layout} ref={formRef} className="containerForm" onFinish={peticionPost}>
 
             <Row>
-              <Col lg={11} xs={24}>
+              <Col lg={11} md={11} xs={24}>
                 <Item
                   label="Nombre"
                   name="nomProd"
@@ -320,9 +320,10 @@ function FormRegProducto() {
                   />
                 </Item>
               </Col>
-              <Col lg={1}></Col>
 
-              <Col lg={11} xs={24} className="c2">
+              <Col lg={0} ></Col>
+
+              <Col lg={11} md={12} xs={24} className="c2">
                 <Item
                   label="Imagen"
                   name="imagenProd"
@@ -352,8 +353,8 @@ function FormRegProducto() {
                     </Button>
 
                     {fileList[0] ? (
-                      <div className="nombreArchivoSubido" onClick={(ClicEnNomArch) => { ClicEnNomArch.stopPropagation() }}>{fileList[0]?.name}</div>
-                    ) : (<span style={{ color: 'rgba(0,0,0,0.25)' }} onClick={(ClicEnPlaceHolder) => { ClicEnPlaceHolder.stopPropagation() }}> No se ha seleccionado ningún archivo</span>)}
+                      <div className="nombreArchivoSubido" >{fileList[0]?.name}</div>
+                    ) : (<span style={{ color: 'rgba(0,0,0,0.25)' }}> No se ha seleccionado ningún archivo</span>)}
                   </Upload>
 
                 </Item>
@@ -378,7 +379,7 @@ function FormRegProducto() {
                   },
                   {
                     min: 4,
-                    message: 'Por favor, ingrese un código que tenga 4 dígitos'
+                    message: 'Código inválido'
                   },
                   ]}
                 >
@@ -420,7 +421,7 @@ function FormRegProducto() {
             </Row>
           </Form>
         </Col>
-        <Col lg={2}></Col>
+        <Col lg={2} md={1} ></Col>
       </Row>
       <Row>
         <p></p>

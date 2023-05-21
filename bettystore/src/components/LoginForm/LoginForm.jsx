@@ -2,11 +2,15 @@ import React, { useState } from 'react';
 import { Row, Col, Form, Input, Button, message, Typography } from 'antd';
 import { LoginOutlined, UserOutlined } from '@ant-design/icons'
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+
 import "./LoginFormStyle.css"
+import { useEffect } from 'react';
 
 const LoginForm = ({ handleLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [token, setToken] = useState();
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -34,7 +38,52 @@ const LoginForm = ({ handleLogin }) => {
     };*/
 
 
-    // Ejemplo de autenticación ficticia
+    const datos = new FormData();
+    datos.append("usuario", username);
+    datos.append("contrasenia", password);
+
+    console.log(datos.get("usuario"));
+    console.log(datos.get("contrasenia"));
+    
+
+      if (e.username === "betty2023admin") {
+        axios.post('http://localhost/IndexConsultasTercerSprint/indexLoginAdministrador.php/?login=1', datos)
+          .then(response => {
+            console.log(response);
+            setToken(response.data);
+            console.log(token);
+            localStorage.setItem('token', token);
+            const user = { username: e.username, role: 'admin', token: token};
+            handleLogin(user);
+            message.info('Inicio de sesion como Administrador');
+            navigate("/homeAdmin");
+          }).catch(error => {
+            console.log(error);
+            message.error('Credenciales inválidas');
+          })
+  
+      } else if (e.username === "daril2023vendedor") {
+        axios.post("http://localhost/IndexConsultasTercerSprint/indexLoginVendedor.php/?login=1", datos)
+          .then(response => {
+            console.log(response);
+            const tokenToString = JSON.stringify(response.data);
+            setToken(tokenToString);
+            console.log(token);
+            localStorage.setItem('token', token);
+            const user = { username: e.username, role: 'vendedor', token: token};
+            handleLogin(user);
+            message.info('Inicio de sesion como Vendedor');
+            navigate("/homeVendedor");
+          }).catch(error => {
+            console.log(error);
+            message.error('Credenciales inválidas');
+          })
+      } else {
+        message.error('Credenciales inválidas');
+      }
+    
+    
+ /*   // Ejemplo de autenticación ficticia
     if (username === "admin" && password === 'admin123') {
       const user = { username: e.username, role: 'admin' };
       handleLogin(user);
@@ -48,7 +97,9 @@ const LoginForm = ({ handleLogin }) => {
     } else {
       message.error('Credenciales inválidas');
     }
+*/
   };
+  
   const layout = {
     labelCol: {
       span: 8
@@ -64,7 +115,7 @@ const LoginForm = ({ handleLogin }) => {
       {/*Imagen de la columna izquierda*/}
       <Col lg={16} xs={24} sm={24} className="container-img-form">
 
-        <img className="imgIni" alt='ImgIniSes' src='./assets/ImagenInicioSesion.png'></img>
+        <img className="imgIni" alt='ImgIniSes' src='./assets/laptopShop.png'></img>
 
       </Col>
       {/*Formulario de Inicio de Sesion*/}

@@ -5,7 +5,7 @@ import Home from './views/Home';
 
 import Menu from './components/Menu/Menu';
 import AppHeader from './components/AppHeader/AppHeader';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { ThemeContext } from './contexts/ThemeContext';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import TablaInventario from './components/TablaInventario/TablaInventario';
@@ -34,6 +34,14 @@ function App() {
   //const {contextTheme} = useContext(ThemeContext)
 
   const [user, setUser] = useState(null);
+  const [sToken, setSToken] = useState(null);
+  useEffect(() => {
+    // Al cargar la página, intentamos recuperar el token JWT del almacenamiento local
+    const storedToken = localStorage.getItem('token');
+    if (storedToken) {
+      setSToken({storedToken});
+    }
+  }, []);
 
   const handleLogin = (userData) => {
     setUser(userData);
@@ -41,11 +49,12 @@ function App() {
 
   const handleLogout = (handleLogout) => {
     setUser(handleLogout);
+    localStorage.removeItem('token');
     message.info("Sesión Cerrada");
   };
 
-  const isAdmin = user && user.role === 'admin';
-  const isVendedor = user && user.role === 'vendedor';
+  const isAdmin = sToken || (user && user.role) === 'admin';
+  const isVendedor = sToken || (user && user.role) === 'vendedor';
 
   return (
 
@@ -92,7 +101,7 @@ function App() {
                 <>
 
                   <Route exact path="/home" element={
-                    <ProtectedRoute isAllowed={user ? true : false}>
+                    <ProtectedRoute isAllowed={ sToken || user ? true : false}>
                       <Home />
                     </ProtectedRoute>
                   } />

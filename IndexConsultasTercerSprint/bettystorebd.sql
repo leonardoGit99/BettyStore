@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-04-2023 a las 04:25:00
+-- Tiempo de generación: 21-05-2023 a las 00:10:25
 -- Versión del servidor: 10.4.27-MariaDB
--- Versión de PHP: 8.2.0
+-- Versión de PHP: 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -22,6 +22,25 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `bettystorebd` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `bettystorebd`;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `administrador`
+--
+
+CREATE TABLE `administrador` (
+  `idadministrador` int(11) NOT NULL,
+  `usuarioadministrador` varchar(20) NOT NULL,
+  `contraseniaadministrador` blob DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `administrador`
+--
+
+INSERT INTO `administrador` (`idadministrador`, `usuarioadministrador`, `contraseniaadministrador`) VALUES
+(1, 'betty2023admin', AES_ENCRYPT('AdminBetty1#','1234'));
 
 -- --------------------------------------------------------
 
@@ -70,9 +89,34 @@ CREATE TABLE `producto` (
   `imagenProd` mediumblob DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `vendedor`
+--
+
+CREATE TABLE `vendedor` (
+  `idvendedor` int(11) NOT NULL,
+  `usuariovendedor` varchar(20) NOT NULL,
+  `contraseniavendedor` blob DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `vendedor`
+--
+
+INSERT INTO `vendedor` (`idvendedor`, `usuariovendedor`, `contraseniavendedor`) VALUES
+(2, 'daril2023vendedor', AES_ENCRYPT('VendDaril2&/','1234'));
+
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `administrador`
+--
+ALTER TABLE `administrador`
+  ADD PRIMARY KEY (`idadministrador`);
 
 --
 -- Indices de la tabla `detallecompra`
@@ -102,14 +146,18 @@ ALTER TABLE `producto`
 -- Filtros para la tabla `detallecompra`
 --
 ALTER TABLE `detallecompra`
-  ADD CONSTRAINT `fk_DetalleCompra_Producto1` FOREIGN KEY (`Producto_codProducto`) REFERENCES `producto` (`codProd`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_DetalleCompra_Producto1` FOREIGN KEY (`Producto_codProducto`) REFERENCES `producto` (`codProd`) ON DELETE SET NULL;
 
 --
 -- Filtros para la tabla `detalleventa`
 --
 ALTER TABLE `detalleventa`
-  ADD CONSTRAINT `fk_DetalleVenta_Producto1` FOREIGN KEY (`Producto_codProducto`) REFERENCES `producto` (`codProd`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_DetalleVenta_Producto1` FOREIGN KEY (`Producto_codProducto`) REFERENCES `producto` (`codProd`) ON DELETE SET NULL;
 COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

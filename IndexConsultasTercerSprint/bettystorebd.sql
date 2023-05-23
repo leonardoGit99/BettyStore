@@ -54,7 +54,7 @@ CREATE TABLE `detallecompra` (
   `cantDetCompra` int(11) DEFAULT NULL,
   `precioDetCompra` double DEFAULT NULL,
   `fechaDetCompra` varchar(15) DEFAULT NULL,
-  `Producto_codProducto` bigint(20) NOT NULL
+  `Producto_codProducto` bigint(20) NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -69,7 +69,7 @@ CREATE TABLE `detalleventa` (
   `cantDetVenta` int(11) DEFAULT NULL,
   `precioDetVenta` double DEFAULT NULL,
   `fechaDetVenta` varchar(15) DEFAULT NULL,
-  `Producto_codProducto` bigint(20) NOT NULL
+  `Producto_codProducto` bigint(20)  NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -79,7 +79,7 @@ CREATE TABLE `detalleventa` (
 --
 
 CREATE TABLE `producto` (
-  `codProd` bigint(20) NOT NULL,
+  `codProd` bigint(20) NULL,
   `nomProd` varchar(100) DEFAULT NULL,
   `categoriaProd` varchar(100) DEFAULT NULL,
   `descripcionProd` varchar(200) DEFAULT NULL,
@@ -122,14 +122,15 @@ ALTER TABLE `administrador`
 -- Indices de la tabla `detallecompra`
 --
 ALTER TABLE `detallecompra`
-  ADD PRIMARY KEY (`codDetCompra`) USING BTREE,
+  ADD PRIMARY KEY (`codDetCompra`),
   ADD KEY `fk_DetalleCompra_Producto1_idx` (`Producto_codProducto`);
+
 
 --
 -- Indices de la tabla `detalleventa`
 --
 ALTER TABLE `detalleventa`
-  ADD PRIMARY KEY (`codDetVenta`,`Producto_codProducto`),
+  ADD PRIMARY KEY (`codDetVenta`),
   ADD KEY `fk_DetalleVenta_Producto1_idx` (`Producto_codProducto`);
 
 --
@@ -154,10 +155,6 @@ ALTER TABLE `detallecompra`
 ALTER TABLE `detalleventa`
   ADD CONSTRAINT `fk_DetalleVenta_Producto1` FOREIGN KEY (`Producto_codProducto`) REFERENCES `producto` (`codProd`) ON DELETE SET NULL;
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

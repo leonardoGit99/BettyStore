@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer/Footer";
 
 
-export default function Home() {
+export default function HomeAdmin() {
     const navigate = useNavigate();
 
     function redireccionarRegistrarProducto() {

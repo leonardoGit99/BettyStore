@@ -1,105 +1,62 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col, Form, Input, Button, message, Typography } from 'antd';
 import { LoginOutlined, UserOutlined } from '@ant-design/icons'
 import { useNavigate } from "react-router-dom";
+import { useLocalStorage } from '../customHooks/useLocalStorage';
 import axios from 'axios';
-
 import "./LoginFormStyle.css"
-import { useEffect } from 'react';
 
 const LoginForm = ({ handleLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [token, setToken] = useState();
   const navigate = useNavigate();
-
+  
   const handleSubmit = (e) => {
-    //    e.preventDefault();
-    // Aquí debes implementar la lógica de autenticación con PHP y JWT.
-    // Puedes hacer una llamada a la API de backend para verificar las credenciales del usuario.
-    /*const handleSubmit = async (e) => {
-      e.preventDefault();
-  
-      try {
-        const response = await axios.post('URL_DE_TU_API', { username, password });
-        const { data } = response;
-  
-        // Verifica si la respuesta de la API es exitosa y contiene el token de acceso
-        if (response.status === 200 && data.token) {
-          const user = { username, role: data.role };
-          handleLogin(user);
-        } else {
-          message.error('Credenciales inválidas');
-        }
-      } catch (error) {
-        console.error(error);
-        message.error('Error al iniciar sesión');
-      }
-    };*/
-
-
     const datos = new FormData();
     datos.append("usuario", username);
     datos.append("contrasenia", password);
 
     console.log(datos.get("usuario"));
     console.log(datos.get("contrasenia"));
-    
 
-      if (e.username === "betty2023admin") {
-        axios.post('http://localhost/IndexConsultasTercerSprint/indexLoginAdministrador.php/?login=1', datos)
-          .then(response => {
-            console.log(response);
-            setToken(response.data);
-            console.log(token);
-            localStorage.setItem('token', token);
-            const user = { username: e.username, role: 'admin', token: token};
-            handleLogin(user);
-            message.info('Inicio de sesion como Administrador');
-            navigate("/homeAdmin");
-          }).catch(error => {
-            console.log(error);
-            message.error('Credenciales inválidas');
-          })
-  
-      } else if (e.username === "daril2023vendedor") {
+    axios.post('http://localhost/IndexConsultasTercerSprint/indexLoginAdministrador.php/?login=1', datos)
+      .then(response => {
+        console.log(response);
+        setToken(response.data.token);
+      }).catch(error => {
+        console.log(error);
         axios.post("http://localhost/IndexConsultasTercerSprint/indexLoginVendedor.php/?login=1", datos)
           .then(response => {
             console.log(response);
-            const tokenToString = JSON.stringify(response.data);
-            setToken(tokenToString);
-            console.log(token);
-            localStorage.setItem('token', token);
-            const user = { username: e.username, role: 'vendedor', token: token};
-            handleLogin(user);
-            message.info('Inicio de sesion como Vendedor');
-            navigate("/homeVendedor");
+            setToken(response.data.token);
           }).catch(error => {
             console.log(error);
-            message.error('Credenciales inválidas');
+            message.error('Credenciales invalidos');
           })
-      } else {
-        message.error('Credenciales inválidas');
       }
-    
-    
- /*   // Ejemplo de autenticación ficticia
-    if (username === "admin" && password === 'admin123') {
-      const user = { username: e.username, role: 'admin' };
-      handleLogin(user);
-      navigate("/homeAdmin");
-      message.info('Inicio de sesion como Administrador');
-    } else if (username === 'vendedor' && password === 'vendedor123') {
-      const user = { username: e.username, role: 'vendedor' };
-      handleLogin(user);
-      navigate("/homeVendedor");
-      message.info('Inicio de sesion como Vendedor');
-    } else {
-      message.error('Credenciales inválidas');
-    }
-*/
+      )
   };
-  
+
+  useEffect(() => {
+    if (token) {
+      console.log(token);
+      var valoresToken = JSON.parse(atob(token.split('.')[1]));
+      console.log(valoresToken);
+      console.log(valoresToken.usuario);
+      console.log(valoresToken.role);
+      const user = { username: valoresToken.usuario, role: valoresToken.role, token: token};
+      handleLogin(user);
+      if (valoresToken.role === 'Administrador') {
+        message.info('Inicio de sesion como Administrador');
+      } else if (valoresToken.role === 'Vendedor') {
+        message.info('Inicio de sesion como Vendedor');
+      }
+    }
+  }, [token]);
+
+
+
   const layout = {
     labelCol: {
       span: 8

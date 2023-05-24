@@ -15,7 +15,7 @@ export default function AppHeader({ props, user, handleLogout }) {
 
     function enviarCerrarSesionAApp() {
         handleLogout(null);
-    }
+    } 
 
     return (
         <div className="App-container-header">
@@ -25,7 +25,7 @@ export default function AppHeader({ props, user, handleLogout }) {
                 <Popover placement="bottomRight"
                     trigger={'click'}
                     arrow={false}
-                    content={<a onClick={enviarCerrarSesionAApp} ><LogoutOutlined /> Cerrar Sesión</a>} >
+                    content={<a onClick={enviarCerrarSesionAApp} ><LogoutOutlined /> Cerrar Sesión</a>}>
                     <span className="ocultar-nombre">{user ? user.username : null}</span><UserOutlined style={{ fontSize: '24px', cursor: "pointer" }} /></Popover>
             </span>
             {/*<Button className="App-context-button" shape="circle" onClick={onClickSwithButton} icon={<BgColorsOutlined />}></Button>*/}

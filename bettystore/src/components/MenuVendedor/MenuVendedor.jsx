@@ -41,7 +41,8 @@ export default function MenuVendedor(props) {
       theme={contextTheme.name}
       items={items}
       onClick={(e) => setPestaniaSeleccionada(e.key)}
-      selectedKeys={[pestaniaSeleccionada]}
+      defaultSelectedKeys={['/homeAdmin']}
+      defaultActiveFirst={['/homeAdmin']}
       mode='horizontal'
     />
   )

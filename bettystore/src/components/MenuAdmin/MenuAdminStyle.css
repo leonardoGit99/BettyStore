@@ -46,3 +46,11 @@
 .ant-menu-submenu>.ant-menu {
     background-color: #01c38fd5 !important;
 }
+
+.inventario-label {
+    cursor: pointer;
+}
+
+.compras-label {
+    cursor: pointer;
+}

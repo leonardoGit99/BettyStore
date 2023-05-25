@@ -10,7 +10,7 @@ import {  DollarCircleOutlined } from '@ant-design/icons'
 const items = [
   { key: "/homeVendedor", label: (<Link to="/homeVendedor">Home</Link>), icon: <HomeOutlined /> },
   {
-    key: 2, label: ('Venta'), icon: <DollarCircleOutlined />, children: [
+    key: 2, label: ('Venta'), icon: <DollarCircleOutlined />,className:"ventas-label", children: [
       { key: "/registrarVenta", label: (<Link to="/registrarVenta">Registrar Venta</Link>) },
       { key: "/mostrarVenta", label: (<Link to="/mostrarVenta">Mostrar Venta</Link>) }
     ]

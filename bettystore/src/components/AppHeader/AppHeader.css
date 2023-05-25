@@ -28,6 +28,9 @@
     /*background-color: black;*/
 }
 
+.user-Name{
+    display: none;
+}
 
 @media only screen and (max-width: 904px) {
     .App-image-content {
@@ -72,5 +75,9 @@
     .ocultar-nombre {
         display: none;
         cursor: pointer;
+    }
+    
+    .user-Name{
+        display: block;
     }
 }

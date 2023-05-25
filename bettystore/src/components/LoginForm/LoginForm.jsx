@@ -48,9 +48,9 @@ const LoginForm = ({ handleLogin }) => {
       const user = { username: valoresToken.usuario, role: valoresToken.role, token: token};
       handleLogin(user);
       if (valoresToken.role === 'Administrador') {
-        message.info('Inicio de sesion como Administrador');
+        message.info('Inicio de sesión como Administrador');
       } else if (valoresToken.role === 'Vendedor') {
-        message.info('Inicio de sesion como Vendedor');
+        message.info('Inicio de sesión como Vendedor');
       }
     }
   }, [token]);

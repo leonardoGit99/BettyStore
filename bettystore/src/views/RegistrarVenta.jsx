@@ -406,7 +406,7 @@ export default function RegistrarVenta() {
         <Col lg={20} md={20} xs={24} className="componentsContainerDetCompraVenta">
           <Col lg={2} md={2}></Col>
           <Col lg={20} md={20}>
-            <Button type="primary" onClick={mostrarModal} icon={<ShoppingOutlined />}>Agregar Producto</Button>
+            <Button type="primary" onClick={mostrarModal} icon={<ShoppingOutlined />}>Agregar Venta</Button>
           </Col>
           <Col lg={2} md={2}></Col>
 

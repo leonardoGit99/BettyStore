@@ -15,7 +15,7 @@ export default function AppHeader({ props, user, handleLogout }) {
 
     function enviarCerrarSesionAApp() {
         handleLogout(null);
-    }
+    } 
 
     return (
       <div className="App-container-header">

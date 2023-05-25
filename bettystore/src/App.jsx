@@ -32,37 +32,90 @@ function App() {
 
   const { contextTheme } = useContext(ThemeContext)
   //const {contextTheme} = useContext(ThemeContext)
-
   const [user, setUser] = useState(null);
-  const [sToken, setSToken] = useState(null);
+  const [sToken, setSToken] = useState('');
+
+  // Definir el tiempo de inactividad en milisegundos (por ejemplo, 15 minutos)
+  var tiempoInactividad = 2 * 60 * 1000; // 2 minutos
+
+  var tiempoCierreSesion; // Variable para almacenar el temporizador de cierre de sesión
+
   useEffect(() => {
     // Al cargar la página, intentamos recuperar el token JWT del almacenamiento local
+    const storedU = localStorage.getItem('usuario');
+    const storedR = localStorage.getItem('role');
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
-      setSToken({storedToken});
+      //setSToken(JSON.parse(storedToken));
+      const user = { username: JSON.parse(storedU), role: JSON.parse(storedR), token: JSON.parse(storedToken) };
+      setUser(user);
     }
   }, []);
 
+
   const handleLogin = (userData) => {
     setUser(userData);
+    localStorage.setItem('usuario', JSON.stringify(userData.username));
+    localStorage.setItem('role', JSON.stringify(userData.role));
+    localStorage.setItem('token', JSON.stringify(userData.token));
   };
+
+useEffect(()=>{
+function iniciarTemporizadorDeCierreDeSesion() {
+    // Reiniciar el temporizador cada vez que ocurra un evento relevante
+    clearTimeout(tiempoCierreSesion);
+
+    // Iniciar el temporizador nuevamente
+    tiempoCierreSesion = setTimeout(cerrarSesionPorInactividad, tiempoInactividad);
+  }
+
+  function cerrarSesionPorInactividad() {
+    // Eliminar los datos de la sesión y realizar cualquier otra acción necesaria
+    if(localStorage.getItem('token')){
+      setUser(null);
+      localStorage.removeItem('usuario');
+      localStorage.removeItem('role');
+      localStorage.removeItem('token'); 
+      message.info("Sesion cerrada por inactividad");  
+    }   
+  }
+
+  // Eventos  para reiniciar el temporizador
+  window.addEventListener('mousemove', iniciarTemporizadorDeCierreDeSesion);
+  window.addEventListener('keydown', iniciarTemporizadorDeCierreDeSesion);
+  window.addEventListener('click', iniciarTemporizadorDeCierreDeSesion);
+
+  // Iniciar el temporizador al cargar la página
+  iniciarTemporizadorDeCierreDeSesion();
+},[]);
+  
 
   const handleLogout = (handleLogout) => {
     setUser(handleLogout);
+    localStorage.removeItem('usuario');
+    localStorage.removeItem('role');
     localStorage.removeItem('token');
     message.info("Sesión Cerrada");
   };
 
-  const isAdmin = sToken || (user && user.role) === 'admin';
-  const isVendedor = sToken || (user && user.role) === 'vendedor';
+
+  var isAdmin = user && user.token && user.role === 'Administrador';
+  var isVendedor = user && user.token && user.role === 'Vendedor';
 
   return (
 
     <Space direction='vertical' className='App-container' >
       <Routes>
-        <Route exact path="/" element={<Navigate to="/login" replace />} />
-        <Route exact path="/login" element={<LoginForm handleLogin={handleLogin} />} />
-        <Route path='/*' element={<AfterLogin />} />
+        {isAdmin || isVendedor ?
+          <Route exact path='/*' element={<AfterLogin />} />
+          :
+          <>
+            <Route exact path="/*" element={<Navigate to="/login" replace />} />
+            <Route exact path="/login" element={<LoginForm handleLogin={handleLogin} />} />
+          </>
+        }
+
+
       </Routes>
     </Space>
   );
@@ -98,39 +151,30 @@ function App() {
           <Col span={24}>
             <Content className='App-content'>
               <Routes>
-                <>
-
-                  <Route exact path="/home" element={
-                    <ProtectedRoute isAllowed={ sToken || user ? true : false}>
+                {/* <Route exact path="/home" element={
+                    <ProtectedRoute isAllowed={user ? true : false}>
                       <Home />
                     </ProtectedRoute>
-                  } />
+                  } /> */}
+                {isAdmin ?
+                  <Route element={<ProtectedRoute isAllowed={isAdmin} />}>
+                    <Route exact path="/homeAdmin" element={<HomeAdmin />} />
+                    <Route exact path="/registrarProducto" element={<FormRegProducto />} />
+                    <Route exact path="/mostrarInventario" element={<TablaInventario />} />
+                    <Route exact path="/registrarCompra" element={<RegistrarCompra />} />
+                    <Route exact path="/mostrarCompra" element={<MostrarCompra />} />
+                    <Route exact path="/*" element={<Navigate to="/homeAdmin" replace />} />
+                  </Route>
+                  :
+                  <Route element={<ProtectedRoute isAllowed={isVendedor} />}>
+                    <Route exact path="/homeVendedor" element={<HomeVendedor />} />
+                    <Route exact path="/registrarVenta" element={<RegistrarVenta />} />
+                    <Route exact path="/mostrarVenta" element={<MostrarVenta />} />
+                    <Route exact path="/*" element={<Navigate to="/homeVendedor" replace />} />
+                  </Route>
+                }
 
-                  <>
-                    <Route element={<ProtectedRoute isAllowed={isAdmin} />}>
-                      <Route exact path="/homeAdmin" element={<HomeAdmin />} />
-                      <Route exact path="/registrarProducto" element={<FormRegProducto />} />
-                      <Route exact path="/mostrarInventario" element={<TablaInventario />} />
-                      <Route exact path="/registrarCompra" element={<RegistrarCompra />} />
-                      <Route exact path="/mostrarCompra" element={<MostrarCompra />} />
-                      <Route path="*" element={<Navigate to="/home" replace />} />
-                    </Route>
-
-                  </>
-
-                  <>
-                    <Route element={<ProtectedRoute isAllowed={isVendedor} />}>
-                      <Route exact path="/homeVendedor" element={<HomeVendedor />} />
-                      <Route exact path="/registrarVenta" element={<RegistrarVenta />} />
-                      <Route exact path="/mostrarVenta" element={<MostrarVenta />} />
-                      <Route path="*" element={<Navigate to="/homeVendedor" replace />} />
-                    </Route>
-
-                  </>
-
-                </>
-
-                <Route path="*" element={<Navigate to="/login" replace />} />
+                <Route exact path="*" element={<Navigate to="/login" replace />} />
 
               </Routes>
             </Content>

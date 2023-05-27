@@ -49,8 +49,41 @@
 
 .inventario-label {
     cursor: pointer;
+    /*margin-left: 8px;*/
 }
 
 .compras-label {
     cursor: pointer;
+   /* margin-left: 8px;*/
 }
+
+/*.ant-menu-submenu-title{
+    padding-left: 0%;
+    padding-right: 0%;
+    width: max-content;
+}
+
+.ant-menu-title-content{
+    box-sizing: 100px;
+}
+.ant-menu-overflow-item ant-menu-submenu ant-menu-submenu-horizontal inventario-label{
+    padding-inline: 0px;
+    visibility: hidden;
+    padding: 0%;
+}*/
+
+/*.menu-admin .ant-menu-overflow-item.ant-menu-submenu.ant-menu-submenu-horizontal.inventario-label,
+.menu-admin .ant-menu-submenu-title {
+  width: 100px;  
+}*/
+
+.ant-menu-overflow-item.ant-menu-submenu.ant-menu-submenu-horizontal.inventario-label{
+ padding: 0% !important;
+ padding-left: 10px !important;
+}
+
+.ant-menu-overflow-item.ant-menu-submenu.ant-menu-submenu-horizontal.compras-label{
+ padding: 0% !important;
+ padding-left: 10px !important;
+}
+

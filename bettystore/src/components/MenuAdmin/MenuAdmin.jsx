@@ -9,13 +9,13 @@ import {HomeOutlined, DatabaseOutlined, ShoppingCartOutlined} from '@ant-design/
 const items = [
   { key: "/homeAdmin", label: (<Link to="/homeAdmin">Home</Link>), icon: <HomeOutlined /> },
   {
-    key: 2, label: ('Inventario'), icon: <DatabaseOutlined />,className:"inventario-label", children: [
+    key: 2, label: ('Inventario' + String.fromCharCode(160) + String.fromCharCode(160) + String.fromCharCode(160)), icon: <DatabaseOutlined />,className:"inventario-label", children: [
       { key: "/registrarProducto", label: (<Link to="/registrarProducto">Registrar Producto</Link>) },
       { key: "/mostrarInventario", label: (<Link to="/mostrarInventario">Mostrar Inventario</Link>) }
     ]
   },
   {
-    key: 3, label: ('Compra'), icon: <ShoppingCartOutlined />,className:"compras-label", children: [
+    key: 3, label: ('Compra' + String.fromCharCode(160) + String.fromCharCode(160) + String.fromCharCode(160)), icon: <ShoppingCartOutlined />,className:"compras-label", children: [
       { key: "/registrarCompra", label: (<Link to="/registrarCompra">Registrar Compra</Link>) },
       { key: "/mostrarCompra", label: (<Link to="/mostrarCompra">Mostrar Compra</Link>) }
     ]

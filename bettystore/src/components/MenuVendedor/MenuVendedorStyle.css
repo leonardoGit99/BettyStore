@@ -50,3 +50,8 @@
 .ventas-label {
     cursor: pointer;
 }
+
+.ant-menu-overflow-item.ant-menu-submenu.ant-menu-submenu-horizontal.ventas-label {
+    padding: 0% !important;
+    padding-left: 10px !important;
+}

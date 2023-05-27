@@ -167,7 +167,7 @@ export default function RegistrarCompra() {
           cerrarModal();
 
         }else{
-          message.error("El código de compra ya esta registrado");
+          message.error("El código de compra ya está registrado");
         }
 
       })

@@ -32,7 +32,7 @@ const LoginForm = ({ handleLogin }) => {
             setToken(response.data.token);
           }).catch(error => {
             console.log(error);
-            message.error('Credenciales invalidos');
+            message.error('Credenciales incorrectos');
           })
       }
       )

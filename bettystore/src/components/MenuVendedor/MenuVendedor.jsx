@@ -28,7 +28,7 @@ export default function MenuVendedor(props) {
 
   // Obtener la key seleccionada del almacenamiento local del navegador
   const [pestaniaSeleccionada, setPestaniaSeleccionada] = useState(localStorage.getItem('pestaniaSeleccionada') || rutaActual);
-
+  localStorage.setItem('pestaniaSeleccionada', pestaniaSeleccionada);
   // Actualizar la key seleccionada en el almacenamiento local del navegador
   useEffect(() => {
     localStorage.setItem('pestaniaSeleccionada', pestaniaSeleccionada);
@@ -41,8 +41,7 @@ export default function MenuVendedor(props) {
       theme={contextTheme.name}
       items={items}
       onClick={(e) => setPestaniaSeleccionada(e.key)}
-      defaultSelectedKeys={['/homeAdmin']}
-      defaultActiveFirst={['/homeAdmin']}
+      defaultSelectedKeys={[pestaniaSeleccionada]}
       mode='horizontal'
     />
   )

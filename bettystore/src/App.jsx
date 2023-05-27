@@ -7,7 +7,7 @@ import Menu from './components/Menu/Menu';
 import AppHeader from './components/AppHeader/AppHeader';
 import { useContext, useState, useEffect } from 'react';
 import { ThemeContext } from './contexts/ThemeContext';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import TablaInventario from './components/TablaInventario/TablaInventario';
 import FormRegProducto from './components/FormularioRegProducto/FormRegProducto';
 import MostrarCompra from './views/MostrarCompra';
@@ -34,6 +34,7 @@ function App() {
   //const {contextTheme} = useContext(ThemeContext)
   const [user, setUser] = useState(null);
   const [sToken, setSToken] = useState('');
+  const navigate = useNavigate();
 
   // Definir el tiempo de inactividad en milisegundos (por ejemplo, 15 minutos)
   var tiempoInactividad = 2 * 60 * 1000; // 2 minutos
@@ -60,41 +61,42 @@ function App() {
     localStorage.setItem('token', JSON.stringify(userData.token));
   };
 
-useEffect(()=>{
-function iniciarTemporizadorDeCierreDeSesion() {
-    // Reiniciar el temporizador cada vez que ocurra un evento relevante
-    clearTimeout(tiempoCierreSesion);
+  useEffect(() => {
+    function iniciarTemporizadorDeCierreDeSesion() {
+      // Reiniciar el temporizador cada vez que ocurra un evento relevante
+      clearTimeout(tiempoCierreSesion);
 
-    // Iniciar el temporizador nuevamente
-    tiempoCierreSesion = setTimeout(cerrarSesionPorInactividad, tiempoInactividad);
-  }
+      // Iniciar el temporizador nuevamente
+      tiempoCierreSesion = setTimeout(cerrarSesionPorInactividad, tiempoInactividad);
+    }
 
-  function cerrarSesionPorInactividad() {
-    // Eliminar los datos de la sesión y realizar cualquier otra acción necesaria
-    if(localStorage.getItem('token')){
-      setUser(null);
-      localStorage.removeItem('usuario');
-      localStorage.removeItem('role');
-      localStorage.removeItem('token'); 
-      message.info("Sesion cerrada por inactividad");  
-    }   
-  }
+    function cerrarSesionPorInactividad() {
+      // Eliminar los datos de la sesión y realizar cualquier otra acción necesaria
+      if (localStorage.getItem('token')) {
+        setUser(null);
+        localStorage.removeItem('usuario');
+        localStorage.removeItem('role');
+        localStorage.removeItem('token');
+        message.info("Sesion cerrada por inactividad");
+      }
+    }
 
-  // Eventos  para reiniciar el temporizador
-  window.addEventListener('mousemove', iniciarTemporizadorDeCierreDeSesion);
-  window.addEventListener('keydown', iniciarTemporizadorDeCierreDeSesion);
-  window.addEventListener('click', iniciarTemporizadorDeCierreDeSesion);
+    // Eventos  para reiniciar el temporizador
+    window.addEventListener('mousemove', iniciarTemporizadorDeCierreDeSesion);
+    window.addEventListener('keydown', iniciarTemporizadorDeCierreDeSesion);
+    window.addEventListener('click', iniciarTemporizadorDeCierreDeSesion);
 
-  // Iniciar el temporizador al cargar la página
-  iniciarTemporizadorDeCierreDeSesion();
-},[]);
-  
+    // Iniciar el temporizador al cargar la página
+    iniciarTemporizadorDeCierreDeSesion();
+  }, []);
+
 
   const handleLogout = (handleLogout) => {
     setUser(handleLogout);
     localStorage.removeItem('usuario');
     localStorage.removeItem('role');
     localStorage.removeItem('token');
+    navigate('/');
     message.info("Sesión Cerrada");
   };
 
@@ -106,14 +108,15 @@ function iniciarTemporizadorDeCierreDeSesion() {
 
     <Space direction='vertical' className='App-container' >
       <Routes>
-        {isAdmin || isVendedor ?
-          <Route exact path='/*' element={<AfterLogin />} />
-          :
+        {isAdmin || isVendedor ?(
+          <Route index path='/*' element={<AfterLogin />} />
+        ):(
           <>
-            <Route exact path="/*" element={<Navigate to="/login" replace />} />
-            <Route exact path="/login" element={<LoginForm handleLogin={handleLogin} />} />
+            <Route index path="/" element={<Navigate to="/login" replace />} />
+            <Route  path="/login" element={<LoginForm handleLogin={handleLogin} />} />
+            <Route  path="*" element={<Navigate to="/login" replace />} />
           </>
-        }
+        )}
 
 
       </Routes>
@@ -151,30 +154,28 @@ function iniciarTemporizadorDeCierreDeSesion() {
           <Col span={24}>
             <Content className='App-content'>
               <Routes>
-                {/* <Route exact path="/home" element={
+                {/* <Route  path="/home" element={
                     <ProtectedRoute isAllowed={user ? true : false}>
                       <Home />
                     </ProtectedRoute>
                   } /> */}
                 {isAdmin ?
                   <Route element={<ProtectedRoute isAllowed={isAdmin} />}>
-                    <Route exact path="/homeAdmin" element={<HomeAdmin />} />
-                    <Route exact path="/registrarProducto" element={<FormRegProducto />} />
-                    <Route exact path="/mostrarInventario" element={<TablaInventario />} />
-                    <Route exact path="/registrarCompra" element={<RegistrarCompra />} />
-                    <Route exact path="/mostrarCompra" element={<MostrarCompra />} />
-                    <Route exact path="/*" element={<Navigate to="/homeAdmin" replace />} />
+                    <Route  path="/homeAdmin" element={<HomeAdmin />} />
+                    <Route  path="/registrarProducto" element={<FormRegProducto />} />
+                    <Route  path="/mostrarInventario" element={<TablaInventario />} />
+                    <Route  path="/registrarCompra" element={<RegistrarCompra />} />
+                    <Route  path="/mostrarCompra" element={<MostrarCompra />} />
+                    <Route  path="/*" element={<Navigate to="/homeAdmin" replace />} />
                   </Route>
                   :
                   <Route element={<ProtectedRoute isAllowed={isVendedor} />}>
-                    <Route exact path="/homeVendedor" element={<HomeVendedor />} />
-                    <Route exact path="/registrarVenta" element={<RegistrarVenta />} />
-                    <Route exact path="/mostrarVenta" element={<MostrarVenta />} />
-                    <Route exact path="/*" element={<Navigate to="/homeVendedor" replace />} />
+                    <Route  path="/homeVendedor" element={<HomeVendedor />} />
+                    <Route  path="/registrarVenta" element={<RegistrarVenta />} />
+                    <Route  path="/mostrarVenta" element={<MostrarVenta />} />
+                    <Route  path="/*" element={<Navigate to="/homeVendedor" replace />} />
                   </Route>
                 }
-
-                <Route exact path="*" element={<Navigate to="/login" replace />} />
 
               </Routes>
             </Content>

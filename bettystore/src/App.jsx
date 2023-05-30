@@ -125,7 +125,7 @@ function App() {
 
   function AfterLogin() {
     return (
-      <>
+      <div className="App-container">
         {/*<Layout className='p2'>*/}
         <Content>
           <Header className='App-header' style={{ color: contextTheme.color, background: contextTheme.background }}> <AppHeader user={user} handleLogout={handleLogout} />
@@ -150,9 +150,9 @@ function App() {
             </Col>
           </Row>
         </Content>
-        <Row>
-          <Col span={24}>
-            <Content className='App-content'>
+        {/*<Row>*/}
+          <Col className='App-content' span={24}>
+            <Content>
               <Routes>
                 {/* <Route  path="/home" element={
                     <ProtectedRoute isAllowed={user ? true : false}>
@@ -180,8 +180,8 @@ function App() {
               </Routes>
             </Content>
           </Col>
-        </Row>
-      </>
+        {/*</Row>*/}
+      </div>
     );
   }
 }

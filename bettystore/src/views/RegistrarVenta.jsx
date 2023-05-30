@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Form, Input, Button, Col, Row, DatePicker, Table, AutoComplete, message, Modal, Space } from "antd";
 import dayjs from "dayjs";
-import { ShoppingCartOutlined, ShoppingOutlined } from '@ant-design/icons'
+import { ShoppingCartOutlined, ShoppingOutlined, CalculatorOutlined } from '@ant-design/icons'
 import { DeleteOutlined, SearchOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import axios from "axios";
 import Footer from "../components/Footer/Footer";
@@ -33,6 +33,8 @@ export default function RegistrarVenta() {
   const [seleccionado, setSeleccionado] = useState({});
 
   const [productoNodisponible, setProductoNoDisponible] = useState({});
+
+  const [montoTotal, setMontoTotal] = useState('0');
 
   const peticionGet = async () => {
     await axios.get("http://localhost/IndexConsultasSegundoSprint/indexConsultaSimple.php")
@@ -114,6 +116,15 @@ export default function RegistrarVenta() {
     const cantidadInt = parseInt(cantidadString, 10);
     return cantidadInt;
   }
+
+  //Funcion para convertir el precio que esta en formato de cadena a un numero double
+
+  const convertirPrecioStringADouble = (precioString) => {
+    var precioDouble = parseFloat(precioString);
+    return precioDouble.toFixed(2).replace(/^0+/, '');
+  }
+
+
 
   //FUNCIONES PARA INSERTAR DATOS EN TABLA DETALLE DE VENTAS
   const agregarAlDetalleDeVentas = (producto) => {
@@ -204,6 +215,20 @@ export default function RegistrarVenta() {
       }
     })
   };
+
+  //CALCULANDO EL MONTO TOTAL DE VENTA
+  useEffect(() => {
+
+    var montoTotal = 0.00;
+    var montoParcial = 0.00;
+    for (let i = 0; i < ventasTotales.length; i++) {
+      montoParcial = convertirPrecioStringADouble(ventasTotales[i].precio) * convertirPrecioStringADouble(ventasTotales[i].cantidad);
+      montoTotal = montoTotal + montoParcial;
+      setMontoTotal(montoTotal.toString());
+    }
+    
+  }, [ventasTotales])
+
 
   //BOTON QUE ENVIA A B.D. infomarción de la Tabla Detalle de venta
   const confirmarVenta = async () => {
@@ -404,11 +429,22 @@ export default function RegistrarVenta() {
       <Row>
         <Col lg={2} md={2}></Col>
         <Col lg={20} md={20} xs={24} className="componentsContainerDetCompraVenta">
-          <Col lg={2} md={2}></Col>
-          <Col lg={20} md={20}>
-            <Button type="primary" onClick={mostrarModal} icon={<ShoppingOutlined />}>Agregar Venta</Button>
+          {/* <Col lg={2} md={2}></Col> */}
+          <Col lg={24} md={24}>
+            <Row>
+              <Col lg={20} md={18} xs={16}>
+                <div>
+                  <Button type="primary" onClick={mostrarModal} icon={<ShoppingOutlined />}>Agregar Venta</Button>
+                </div>
+              </Col>
+              <Col lg={4} md={6} xs={8}>
+                <div className="monto-total-venta">
+                <b>Monto Total: </b>{ventasTotales.length > 0 ? montoTotal + "  Bs." : "0.00  Bs."}
+                </div>
+              </Col>
+            </Row>
           </Col>
-          <Col lg={2} md={2}></Col>
+          {/* <Col lg={2} md={2}></Col> */}
 
           {/* Tabla detalle de ventas */}
           <h2 className='subtituloTablaDetalleCompraVenta'>Detalle de venta</h2>

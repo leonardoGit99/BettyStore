@@ -34,6 +34,8 @@ export default function RegistrarCompra() {
 
   const [productoNodisponible, setProductoNoDisponible] = useState({});
 
+  const [montoTotal, setMontoTotal] = useState('0');
+
   const peticionGet = async () => {
     await axios.get("http://localhost/IndexConsultasSegundoSprint/indexConsultaSimple.php")
       .then(response => {
@@ -58,7 +60,7 @@ export default function RegistrarCompra() {
       filtrarOpciones(busqueda, producto)
     );
 
-    if (filtrado.length >= 1 ) {
+    if (filtrado.length >= 1) {
       setProductos(filtrado);
       setProductoNoDisponible("Producto disponible");
     } else {
@@ -111,6 +113,14 @@ export default function RegistrarCompra() {
     },
   ];
 
+
+    //Funcion para convertir el precio que esta en formato de cadena a un numero double
+
+    const convertirPrecioStringADouble = (precioString) => {
+      var precioDouble = parseFloat(precioString);
+      return precioDouble.toFixed(2).replace(/^0+/, '');
+    }
+
   //FUNCIONES PARA INSERTAR DATOS EN TABLA DETALLE DE COMPRAS
   const agregarAlDetalleDeCompras = (producto) => {
     const nuevoProducto = {
@@ -149,28 +159,28 @@ export default function RegistrarCompra() {
     }
     else if (nuevoProducto.nombre == undefined) {
       message.error("El producto seleccionado no existe en inventario", 2.5);
-    }else if(nuevoProducto.codigoCompra.length<4){
+    } else if (nuevoProducto.codigoCompra.length < 4) {
       message.info("Por favor, ingrese un código que tenga 4 dígitos");
     }
     else {
 
-      const datos = new FormData(); 
+      const datos = new FormData();
       datos.append("codigoCompra", nuevoProducto.codigoCompra);
 
       axios.post("http://localhost/IndexConsultasSegundoSprint/indexVerificarCodCompra.php/?verificarcodcompra=1", datos)
-      .then(response => {
+        .then(response => {
 
-        if(response.data === "Disponible"){
+          if (response.data === "Disponible") {
 
-          setComprasTotales([...comprasTotales, nuevoProducto]);
-          form.resetFields();
-          cerrarModal();
+            setComprasTotales([...comprasTotales, nuevoProducto]);
+            form.resetFields();
+            cerrarModal();
 
-        }else{
-          message.error("El código de compra ya está registrado");
-        }
+          } else {
+            message.error("El código de compra ya está registrado");
+          }
 
-      })
+        })
 
     }
   };
@@ -190,6 +200,20 @@ export default function RegistrarCompra() {
       }
     })
   };
+
+
+  //CALCULANDO EL MONTO TOTAL DE VENTA
+  useEffect(() => {
+
+    var montoTotal = 0.00;
+    var montoParcial = 0.00;
+    for (let i = 0; i < comprasTotales.length; i++) {
+      montoParcial = convertirPrecioStringADouble(comprasTotales[i].precio) * convertirPrecioStringADouble(comprasTotales[i].cantidad);
+      montoTotal = montoTotal + montoParcial;
+      setMontoTotal(montoTotal.toString());
+    }
+
+  }, [comprasTotales])
 
   //BOTON QUE ENVIA A B.D. infomarción de la Tabla Detalle de compra.
   const confirmarCompra = async () => {
@@ -275,15 +299,15 @@ export default function RegistrarCompra() {
                     <Col lg={22} md={22} xs={23}>
 
                       {/* Buscador de inventario */}
-                      <Form.Item className="barraBusquedaInvParaComprasVentas" name="buscador" 
-                      rules={[{ required: true, message: "Por favor, seleccione un producto del inventario" }
-                      ,{
-                        validator: () =>
+                      <Form.Item className="barraBusquedaInvParaComprasVentas" name="buscador"
+                        rules={[{ required: true, message: "Por favor, seleccione un producto del inventario" }
+                          , {
+                          validator: () =>
                             productoNodisponible === "Producto no disponible"
-                            ? Promise.reject(new Error('Producto no disponible'))
-                            : Promise.resolve(), 
-                      },
-                      ]} >
+                              ? Promise.reject(new Error('Producto no disponible'))
+                              : Promise.resolve(),
+                        },
+                        ]} >
                         <AutoComplete
                           /*style={{ width: 500 }}*/
                           options={productos.map((producto) => ({ value: producto.nomProd, cantidadProd: producto.cantidadProd, precioProd: producto.precioProd, codProd: producto.codProd }))}
@@ -342,7 +366,7 @@ export default function RegistrarCompra() {
                       },
                       ]}>
                       <Input showCount
-                        maxLength={4} placeholder="Ingrese la cantidad a comprar"/>
+                        maxLength={4} placeholder="Ingrese la cantidad a comprar" />
                     </Form.Item>
                   </Col>
 
@@ -358,20 +382,20 @@ export default function RegistrarCompra() {
                       },
                       {
                         validator: (_, value) =>
-                          value && value.match('^0*[1-9][0-9]*$') 
+                          value && value.match('^0*[1-9][0-9]*$')
                             ? Promise.resolve()
                             : Promise.reject(new Error('Debe ingresar solo números y un valor mayor a cero')),
                       },
                       {
                         validator: (_, value) =>
-                          value && value.length >= 4  
+                          value && value.length >= 4
                             ? Promise.resolve()
                             : Promise.reject(new Error('Por favor, ingrese un código que tenga 4 dígitos')),
                       },
                       ]}
                     >
                       <Input showCount
-                        maxLength={4} placeholder="Ingrese el código de compra"/>
+                        maxLength={4} placeholder="Ingrese el código de compra" />
                     </Form.Item>
                   </Col>
                   <Col span={24}>
@@ -394,11 +418,22 @@ export default function RegistrarCompra() {
         {/*<Layout></Layout>*/}
         <Col lg={2} md={2}></Col>
         <Col lg={20} md={20} xs={24} className="componentsContainerDetCompraVenta">
-          <Col lg={2} md={2}></Col>
-          <Col lg={20} md={20}>
-            <Button type="primary" onClick={mostrarModal} icon={<ShoppingOutlined />}>Agregar Producto</Button>
+          {/* <Col lg={2} md={2}></Col> */}
+          <Col lg={24} md={24}>
+            <Row>
+              <Col lg={20} md={18} xs={16}>
+                <div>
+                  <Button type="primary" onClick={mostrarModal} icon={<ShoppingOutlined />}>Agregar Producto</Button>
+                </div>
+              </Col>
+              <Col lg={4} md={6} xs={8}>
+                <div className="monto-total-compra">
+                <b>Monto Total: </b>{comprasTotales.length > 0 ? montoTotal + "  Bs." : "0.00  Bs."}
+                </div>
+              </Col>
+            </Row>
           </Col>
-          <Col lg={2} md={2}></Col>
+          {/* <Col lg={2} md={2}></Col> */}
 
           {/* Tabla detalle de compras */}
           <h2 className='subtituloTablaDetalleCompraVenta'>Detalle de compra</h2>

@@ -147,20 +147,6 @@ const LoginForm = ({ handleLogin }) => {
       </Col>
     </Row>
   );
-  /*  return (
-      <Form onFinish={handleSubmit}>
-        <Form.Item label="Usuario">
-          <Input value={username} onChange={(e) => setUsername(e.target.value)} />
-        </Form.Item>
-        <Form.Item label="Contraseña">
-          <Input.Password value={password} onChange={(e) => setPassword(e.target.value)} />
-        </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit">Iniciar sesión</Button>
-        </Form.Item>
-      </Form>
-    );
-    */
 };
 
 export default LoginForm;

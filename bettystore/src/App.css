@@ -257,7 +257,7 @@
 }
 
 @media only screen and (max-width: 240px) {
-  .tituloHome{
+  .tituloHome {
     font-size: medium;
   }
 }
@@ -267,7 +267,7 @@
 }
 
 @media only screen and (max-width: 991px) {
-  .img{
+  .img {
     height: 28vw;
   }
 }
@@ -277,20 +277,21 @@
 }
 
 @media only screen and (max-width: 991px) {
-  .imgHomeAdmin{
+  .imgHomeAdmin {
     height: 28vw;
   }
 }
 
-.imgVendedor{
+.imgVendedor {
   height: 16vw;
 }
 
 @media only screen and (max-width: 991px) {
-  .imgVendedor{
+  .imgVendedor {
     height: 28vw;
   }
 }
+
 /*Todo esto era para hacer el boton de las cards responsivo comento por
 si sirve adelante*/
 /*
@@ -339,13 +340,13 @@ si sirve adelante*/
   }
 }
 */
-@media only screen and (min-width: 1269px){
+@media only screen and (min-width: 1269px) {
   .textoCard {
     font-size: large;
   }
 }
 
-@media only screen and (min-width: 1116px) and (max-width: 1269px){
+@media only screen and (min-width: 1116px) and (max-width: 1269px) {
   .textoCard {
     font-size: medium;
   }
@@ -369,6 +370,34 @@ si sirve adelante*/
   }
 }
 
-.textoEnNegritaAdvertencias{
+.textoEnNegritaAdvertencias {
   font-weight: bold;
+}
+
+.monto-total-venta {
+  background-color: rgba(255, 255, 255, 0.33);
+  /* box-shadow: 7px 7px 11px rgba(0, 0, 0, 0.4); */
+  /* backdrop-filter: blur(1px); */
+  /* border: 2px dashed #01c38e; */
+  border-radius: 0.5px;
+  /* position: relative; */
+  /* z-index: 1; */
+  font-size: medium;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: center;
+}
+
+.monto-total-compra{
+  background-color: rgba(255, 255, 255, 0.33);
+  /* box-shadow: 7px 7px 11px rgba(0, 0, 0, 0.4); */
+  /* backdrop-filter: blur(1px); */
+  /* border: 2px dashed #01c38e; */
+  border-radius: 0.5px;
+  /* position: relative; */
+  /* z-index: 1; */
+  font-size: medium;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: center;
 }

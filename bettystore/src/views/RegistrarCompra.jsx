@@ -114,12 +114,12 @@ export default function RegistrarCompra() {
   ];
 
 
-    //Funcion para convertir el precio que esta en formato de cadena a un numero double
+  //Funcion para convertir el precio que esta en formato de cadena a un numero double
 
-    const convertirPrecioStringADouble = (precioString) => {
-      var precioDouble = parseFloat(precioString);
-      return precioDouble.toFixed(2).replace(/^0+/, '');
-    }
+  const convertirPrecioStringADouble = (precioString) => {
+    var precioDouble = parseFloat(precioString);
+    return precioDouble.toFixed(2).replace(/^0+/, '');
+  }
 
   //FUNCIONES PARA INSERTAR DATOS EN TABLA DETALLE DE COMPRAS
   const agregarAlDetalleDeCompras = (producto) => {
@@ -267,14 +267,14 @@ export default function RegistrarCompra() {
 
   return (
     <div>
-      <Row>
-        <Col lg={2} md={2} xs={0}></Col>
-        <Col lg={20} md={20} xs={24}>
-          <h2>Registrar Compra</h2>
-        </Col>
-        <Col lg={2} md={2}></Col>
-      </Row>
 
+      <Row>
+        <Col lg={1} md={2} xs={0}></Col>
+        <Col lg={22} md={20} xs={24}>
+          <h2 className="tituloRegistrarCompra">Registrar Compra</h2>
+        </Col>
+        <Col lg={1} md={2} xs={0}></Col>
+      </Row>
       {/*Fila para el Modal y el formulario de registro*/}
       <Row>
         <Modal
@@ -416,35 +416,44 @@ export default function RegistrarCompra() {
 
       <Row>
         {/*<Layout></Layout>*/}
-        <Col lg={2} md={2}></Col>
-        <Col lg={20} md={20} xs={24} className="componentsContainerDetCompraVenta">
-          {/* <Col lg={2} md={2}></Col> */}
-          <Col lg={24} md={24}>
+        <Col lg={1} md={2}></Col>
+        <Col lg={22} md={20} xs={24} className="componentsContainerDetCompraVenta">
+          {/* <Col lg={2} md={2}></Col>  */}
+          <Col lg={24} md={24} xs={24}>
             <Row>
-              <Col lg={20} md={18} xs={16}>
+              <Col lg={1} md={1} xs={1}></Col>
+              <Col lg={18} md={18} xs={15}>
                 <div>
                   <Button type="primary" onClick={mostrarModal} icon={<ShoppingOutlined />}>Agregar Producto</Button>
                 </div>
               </Col>
-              <Col lg={4} md={6} xs={8}>
+              <Col lg={4} md={4} xs={7}>
                 <div className="monto-total-compra">
-                <b>Monto Total: </b>{comprasTotales.length > 0 ? montoTotal + "  Bs." : "0.00  Bs."}
+                  <b>Monto Total: </b>{comprasTotales.length > 0 ? montoTotal + "  Bs." : "0.00  Bs."}
                 </div>
               </Col>
+              <Col lg={1} md={1} xs={1}></Col>
             </Row>
           </Col>
           {/* <Col lg={2} md={2}></Col> */}
-
           {/* Tabla detalle de compras */}
           <h2 className='subtituloTablaDetalleCompraVenta'>Detalle de compra</h2>
-          <Table className='tablaDetalleCompraVenta' rowKey="nombre" dataSource={comprasTotales} columns={columnasTablaDetalleCompras} locale={{ emptyText: 'No hay compras' }} bordered={true} pagination={{ pageSize: 3, pagination: true, position: ["bottomRight"] }} size={'small'} />
-          {comprasTotales.length > 0 && (
-            <Button type="primary" onClick={confirmarCompra} icon={<CheckCircleOutlined />}>
-              Registrar
-            </Button>
-          )}
+          <Row>
+            <Col lg={1} md={1} xs={1}></Col>
+            <Col lg={22} md={22} xs={22}>
+              <Table className='tablaDetalleCompraVenta' rowKey="nombre" dataSource={comprasTotales} columns={columnasTablaDetalleCompras} locale={{ emptyText: 'No hay compras' }} bordered={true} pagination={{ pageSize: 3, pagination: true, position: ["bottomRight"] }} size={'small'} />
+              {comprasTotales.length > 0 && (
+                <Button type="primary" onClick={confirmarCompra} icon={<CheckCircleOutlined />}>
+                  Registrar
+                </Button>
+              )}
+            </Col>
+            <Col lg={1} md={1} xs={1}></Col>
+          </Row>
+
+
         </Col>
-        <Col lg={2} md={2}></Col>
+        <Col lg={1} md={2}></Col>
       </Row>
       <Row>
         <p></p>

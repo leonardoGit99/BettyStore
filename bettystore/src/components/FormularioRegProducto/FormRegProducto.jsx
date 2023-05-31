@@ -13,10 +13,10 @@ const { Item } = Form;
 //  Darle forma o alinear los labels del formulario
 const layout = {
   labelCol: {
-    span: 4, md:8
+    span: 4, md: 8
   },
   wrapperCol: {
-    span: 20, md:16
+    span: 20, md: 16
   }
 };
 
@@ -141,17 +141,13 @@ function FormRegProducto() {
   return (
     <div className="formRegProducto">
       <Row>
-        <Col span={2}></Col>
-        <Col span={20}>
-          <h2 className="tituloRegistrar">Registrar Producto</h2>
-        </Col>
-        <Col span={2}></Col>
-      </Row>
-      <Row>
         <Col lg={2} md={1}></Col>
         <Col lg={20} md={22} xs={24}>
+          <Row>
+            <p></p>
+          </Row>
+          <h2 className="tituloRegistrar">Registrar Producto</h2>
           <Form {...layout} ref={formRef} className="containerForm" onFinish={peticionPost}>
-
             <Row>
               <Col lg={11} md={11} xs={24}>
                 <Item

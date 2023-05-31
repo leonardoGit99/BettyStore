@@ -2,6 +2,7 @@
 .subtituloTabla {
     font-family: 'Montserrat', sans-serif;
     margin-bottom: 4vh;
+    color: #fff;
   }
 
   .App-modal-confirmación-texto{
@@ -104,3 +105,7 @@
   .tabla tr:hover td{
     background-color: #dff6ef!important;
   } 
+
+
+
+  

@@ -226,7 +226,7 @@ export default function RegistrarVenta() {
       montoTotal = montoTotal + montoParcial;
       setMontoTotal(montoTotal.toString());
     }
-    
+
   }, [ventasTotales])
 
 
@@ -286,11 +286,11 @@ export default function RegistrarVenta() {
   return (
     <div>
       <Row>
-        <Col lg={2} md={2} xs={0}></Col>
-        <Col lg={20} md={20} xs={24}>
-          <h2>Registrar Venta</h2>
+        <Col lg={1} md={2} xs={0}></Col>
+        <Col lg={22} md={20} xs={24}>
+          <h2 style={{ color: '#fff' }}>Registrar Venta</h2>
         </Col>
-        <Col lg={2} md={2}></Col>
+        <Col lg={1} md={2} xs={0}></Col>
       </Row>
 
       <Row>
@@ -427,35 +427,43 @@ export default function RegistrarVenta() {
       </Row>
 
       <Row>
-        <Col lg={2} md={2}></Col>
-        <Col lg={20} md={20} xs={24} className="componentsContainerDetCompraVenta">
+        <Col lg={1} md={2}></Col>
+        <Col lg={22} md={20} xs={24} className="componentsContainerDetCompraVenta">
           {/* <Col lg={2} md={2}></Col> */}
-          <Col lg={24} md={24}>
+          <Col lg={24} md={24} xs={24}>
             <Row>
-              <Col lg={20} md={18} xs={16}>
+              <Col lg={1} md={1} xs={1}></Col>
+              <Col lg={18} md={18} xs={15}>
                 <div>
                   <Button type="primary" onClick={mostrarModal} icon={<ShoppingOutlined />}>Agregar Venta</Button>
                 </div>
               </Col>
-              <Col lg={4} md={6} xs={8}>
+              <Col lg={4} md={4} xs={7}>
                 <div className="monto-total-venta">
-                <b>Monto Total: </b>{ventasTotales.length > 0 ? montoTotal + "  Bs." : "0.00  Bs."}
+                  <b>Monto Total: </b>{ventasTotales.length > 0 ? montoTotal + "  Bs." : "0.00  Bs."}
                 </div>
               </Col>
+              <Col lg={1} md={1} xs={1}></Col>
             </Row>
           </Col>
           {/* <Col lg={2} md={2}></Col> */}
 
           {/* Tabla detalle de ventas */}
           <h2 className='subtituloTablaDetalleCompraVenta'>Detalle de venta</h2>
-          <Table className='tablaDetalleCompraVenta' rowKey="nombre" dataSource={ventasTotales} columns={columnasTablaDetalleVentas} locale={{ emptyText: 'No hay ventas' }} bordered={true} pagination={{ pageSize: 3, pagination: true, position: ["bottomRight"] }} size={'small'} />
-          {ventasTotales.length > 0 && (
-            <Button type="primary" onClick={confirmarVenta} icon={<CheckCircleOutlined />}>
-              Registrar
-            </Button>
-          )}
+          <Row>
+            <Col lg={1} md={1} xs={1}></Col>
+            <Col lg={22} md={22} xs={22}>
+              <Table className='tablaDetalleCompraVenta' rowKey="nombre" dataSource={ventasTotales} columns={columnasTablaDetalleVentas} locale={{ emptyText: 'No hay ventas' }} bordered={true} pagination={{ pageSize: 3, pagination: true, position: ["bottomRight"] }} size={'small'} />
+              {ventasTotales.length > 0 && (
+                <Button type="primary" onClick={confirmarVenta} icon={<CheckCircleOutlined />}>
+                  Registrar
+                </Button>
+              )}
+            </Col>
+            <Col lg={1} md={1} xs={1}></Col>
+          </Row>
         </Col>
-        <Col lg={2} md={2}></Col>
+        <Col lg={1} md={2}></Col>
       </Row>
       <Row>
         <p></p>

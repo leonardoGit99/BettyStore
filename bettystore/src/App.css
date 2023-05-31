@@ -35,14 +35,14 @@
   margin-left: 0px;
   background-color: #f3f4dc;/*#f5f2e8;
   /*ESTA LINEA PARA COLOCAR EL FONDO COMO IMAGEN*/
-  /*background-image: url(../public/assets/carro.png);*/
+  background-image: url(../public/assets/desktop-wallpaper-shopping-supermarket-E280A2-elsoar-supermarket.png);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
   /*#F5F5DC;*/
 }
 
-@media only screen and (max-width: 1500px)and (max-height: 1400px){
+@media only screen and (max-width: 1436.2px)and (max-height: 1400px){
   .App-content {
     padding: 20px;
     display: flex;
@@ -110,10 +110,16 @@
 .componentsContainerDetCompraVenta {
   border: 2px outset #01c38e;
   border-radius: 15px;
-  padding-top: 2vw;
-  padding-bottom: 2vw;
-  padding-left: 2vw;
-  padding-right: 2vw;
+  padding-top: 1vw;
+  padding-bottom: 1vw;
+  /*background-color: aquamarine;*/
+  background-color: rgba(255, 255, 255, 0.33);
+  box-shadow: 0px 8px 32px 0 rbga(0, 0, 255, 0.3);
+  backdrop-filter: blur(6.5px);
+  border: 2px outset #01c38e;
+  border-radius: 15px;
+  position: relative;
+  z-index: 0;
 }
 
 .subtituloTablaDetalleCompraVenta {
@@ -417,7 +423,13 @@ si sirve adelante*/
   font-size: medium;
   padding-top: 5px;
   padding-bottom: 5px;
-  text-align: center;
+  text-align: center; 
+}
+
+@media screen and (max-width: 600px) {
+  .monto-total-venta {
+    text-align: justify; 
+  }
 }
 
 .monto-total-compra{
@@ -432,4 +444,14 @@ si sirve adelante*/
   padding-top: 5px;
   padding-bottom: 5px;
   text-align: center;
+}
+
+@media screen and (max-width: 600px) {
+  .monto-total-compra {
+    text-align: justify; 
+  }
+}
+
+.tituloRegistrarCompra{
+  color: #fff;
 }

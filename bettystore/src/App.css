@@ -35,7 +35,7 @@
   margin-left: 0px;
   background-color: #f3f4dc;/*#f5f2e8;
   /*ESTA LINEA PARA COLOCAR EL FONDO COMO IMAGEN*/
-  background-image: url(../public/assets/desktop-wallpaper-shopping-supermarket-E280A2-elsoar-supermarket.png);
+  background-image: url(../public/assets/zyro-image.png);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -454,4 +454,8 @@ si sirve adelante*/
 
 .tituloRegistrarCompra{
   color: #fff;
+}
+
+.ant-pagination-item:not(.ant-pagination-item-active) a {
+  color: #fff !important; 
 }

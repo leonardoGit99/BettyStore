@@ -105,7 +105,7 @@ const LoginForm = ({ handleLogin }) => {
                     label="Usuario"
                     labelAlign="left"
                     name="username"
-                    rules={[{ required: true, message: 'Por favor ingresa tu usuario' }]}
+                    rules={[{ required: true, message: 'Por favor, ingrese su usuario' }]}
                   >
                     <Input
                       autoComplete='off'
@@ -118,7 +118,7 @@ const LoginForm = ({ handleLogin }) => {
                     label="Contraseña"
                     labelAlign="left"
                     name="password"
-                    rules={[{ required: true, message: 'Por favor ingresa tu contraseña' }]}
+                    rules={[{ required: true, message: 'Por favor, ingrese su contraseña' }]}
                   >
                     <Input.Password
                       placeholder="Ingrese su contraseña"

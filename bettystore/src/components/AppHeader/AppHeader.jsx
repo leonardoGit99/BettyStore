@@ -20,7 +20,7 @@ export default function AppHeader({ props, user, handleLogout }) {
     return (
       <div className="App-container-header">
         <span><img className="App-image-content" style={{ backgroundColor: contextTheme.background }} alt='PruebaImg' src='./assets/logoSuperiorBS (2).png' /></span>
-        <span className="App-title-header" style={{ color: contextTheme.color, background: contextTheme.background }}>Sistema para Administración de Tienda</span>
+        <span className="App-title-header" style={{ color: contextTheme.color, background: contextTheme.background }}>Sistema Punto de Venta</span>
         <span>
           <Popover placement="bottomRight"
             trigger={'click'}
@@ -31,7 +31,7 @@ export default function AppHeader({ props, user, handleLogout }) {
                 <a onClick={enviarCerrarSesionAApp} ><LogoutOutlined /> Cerrar Sesión</a>
               </div>
             }>
-            <span className="ocultar-nombre">{user ? user.username : null}</span><UserOutlined style={{ fontSize: '24px', cursor: "pointer" }} /></Popover>
+            <UserOutlined style={{ fontSize: '24px', cursor: "pointer" }} /> <span className="ocultar-nombre">{user ? user.username : null}</span></Popover>
         </span>
         {/*<Button className="App-context-button" shape="circle" onClick={onClickSwithButton} icon={<BgColorsOutlined />}></Button>*/}
       </div>

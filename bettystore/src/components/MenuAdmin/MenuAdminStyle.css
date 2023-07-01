@@ -1,0 +1,89 @@
+.App-menu {
+    /*height: 100%;*/
+    width: 98.9vw;
+    /* padding-left: 1vw; */
+    background-color: #01c38e;
+    /*#e0bef4;/*#fca80b;/*#feaf5f;*/
+    color: #001529;
+}
+
+@media only screen and (max-width: 1060px) {
+    .App-menu {
+        height: 140%;
+    }
+}
+
+/* Cambiar color en items de menu */
+.ant-menu-item-selected {
+    background-color: #1677ff !important;
+}
+
+.ant-menu-item-active {
+    background-color: #1677ff !important;
+}
+
+.ant-menu-submenu-active {
+    background-color: #1677ff !important;
+}
+
+.ant-menu-item-open {
+    background-color: #1677ff !important;
+}
+
+.ant-menu-submenu-open {
+    background-color: #1677ff !important;
+}
+
+.ant-menu-submenu-selected {
+    background-color: #1677ff !important;
+}
+
+.ant-menu-item-selected {
+    background-color: #1677ff !important;
+}
+
+/* Fondo del desplegable de los submenus */
+.ant-menu-submenu>.ant-menu {
+    background-color: #01c38fd5 !important;
+}
+
+.inventario-label {
+    cursor: pointer;
+    /*margin-left: 8px;*/
+}
+
+.compras-label {
+    cursor: pointer;
+   /* margin-left: 8px;*/
+}
+
+/*.ant-menu-submenu-title{
+    padding-left: 0%;
+    padding-right: 0%;
+    width: max-content;
+}
+
+.ant-menu-title-content{
+    box-sizing: 100px;
+}
+.ant-menu-overflow-item ant-menu-submenu ant-menu-submenu-horizontal inventario-label{
+    padding-inline: 0px;
+    visibility: hidden;
+    padding: 0%;
+}*/
+
+/*.menu-admin .ant-menu-overflow-item.ant-menu-submenu.ant-menu-submenu-horizontal.inventario-label,
+.menu-admin .ant-menu-submenu-title {
+  width: 100px;  
+}*/
+
+.ant-menu-overflow-item.ant-menu-submenu.ant-menu-submenu-horizontal.inventario-label{
+ padding: 0% !important;
+ padding-left: 10px !important;
+}
+
+.ant-menu-overflow-item.ant-menu-submenu.ant-menu-submenu-horizontal.compras-label{
+ padding: 0% !important;
+ padding-left: 10px !important;
+}
+

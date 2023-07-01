@@ -1,4 +1,4 @@
-.App-title-header{
+.App-title-header {
     /*font-size: larger;*/
     font-size: 2vw;
     font-weight: bolder;
@@ -9,26 +9,31 @@
 
 
 
-.App-container-header{
+.App-container-header {
     display: flex;
     height: 2vw;
 }
 
-.App-container-header Button{
+.App-container-header Button {
     margin-top: 2vh;
     margin-left: 1vh;
 }
 
-.App-image-content{
-    width: 120px;/*7vw;*/
-    height: 62px;/*4vw;*/
+.App-image-content {
+    width: 120px;
+    /*7vw;*/
+    height: 62px;
+    /*4vw;*/
     /*margin-top: 1px;*/
     /*background-color: black;*/
 }
 
+.user-Name{
+    display: none;
+}
 
 @media only screen and (max-width: 904px) {
-    .App-image-content{
+    .App-image-content {
         width: 10vw;
         height: 6vw;
         margin-top: 1vw;
@@ -37,7 +42,7 @@
 }
 
 @media only screen and (max-width: 760px) {
-    .App-image-content{
+    .App-image-content {
         width: 10vw;
         height: 7vw;
         margin-top: 1vw;
@@ -46,13 +51,14 @@
 }
 
 @media only screen and (max-width: 500px) {
-    .App-image-content{
+    .App-image-content {
         width: 16vw;
         height: 12vw;
         margin-top: 1vw;
         /*background-color: black;*/
     }
-    .App-title-header{
+
+    .App-title-header {
         /*font-size: larger;*/
         font-size: small;
         font-weight: bolder;
@@ -61,3 +67,17 @@
     }
 }
 
+.ocultar-nombre {
+    cursor: pointer;
+}
+
+@media (max-width: 500px) {
+    .ocultar-nombre {
+        display: none;
+        cursor: pointer;
+    }
+    
+    .user-Name{
+        display: block;
+    }
+}

@@ -1,10 +1,9 @@
 import React, { useRef, useState } from "react";
-import { Form, Input, Button, Col, Row, Select, DatePicker, Upload, message, Space } from "antd";
+import { Form, Input, Button, Col, Row, Select, DatePicker, Upload, message, Modal } from "antd";
 import dayjs from "dayjs";
 import { UploadOutlined } from '@ant-design/icons';
 import TextArea from "antd/es/input/TextArea";
 import axios from "axios";
-import TablaInventario from "../TablaInventario/TablaInventario";
 import './FormRegProductoStyle.css';
 import Footer from "../Footer/Footer";
 
@@ -14,10 +13,10 @@ const { Item } = Form;
 //  Darle forma o alinear los labels del formulario
 const layout = {
   labelCol: {
-    span: 4
+    span: 4, md: 8
   },
   wrapperCol: {
-    span: 20
+    span: 20, md: 16
   }
 };
 
@@ -34,6 +33,24 @@ function FormRegProducto() {
     formRef.current?.resetFields();
     setFileList([]);
   }
+
+  const borrarCamposCancelar = () => {
+    Modal.confirm({
+      okText: 'Si',
+      cancelText: 'No',
+      okType: 'danger',
+      title: '¿Está seguro que desea cancelar el registro del producto?',
+      maskClosable: 'true',
+      onOk: () => {
+        formRef.current?.resetFields();
+        setFileList([]);
+      }
+
+    })
+  }
+
+
+
 
   const [producto, setProducto] = useState({
     codProd: '',
@@ -120,23 +137,19 @@ function FormRegProducto() {
 
   }
 
-  
+
   return (
     <div className="formRegProducto">
       <Row>
-        <Col lg={2}></Col>
-        <Col lg={20}>
+        <Col lg={2} md={1}></Col>
+        <Col lg={20} md={22} xs={24}>
+          <Row>
+            <p></p>
+          </Row>
           <h2 className="tituloRegistrar">Registrar Producto</h2>
-        </Col>
-        <Col lg={2}></Col>
-      </Row>
-      <Row>
-        <Col lg={2}></Col>
-        <Col lg={20}>
           <Form {...layout} ref={formRef} className="containerForm" onFinish={peticionPost}>
-
             <Row>
-              <Col lg={11} xs={24}>
+              <Col lg={11} md={11} xs={24}>
                 <Item
                   label="Nombre"
                   name="nomProd"
@@ -155,7 +168,7 @@ function FormRegProducto() {
                   },
                   {
                     validator: (_, value) =>
-                      value && value.match('^(?=.*[a-zA-Z])[a-zA-Z0-9 ]*(?:[0-9].{0,3}\b)?[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]*$')
+                      value && value.match('^(?=.*[a-zA-Z])[a-zA-Z0-9 ]*(?:[0-9].{0,3}\b)?[a-zA-Z0-9 !&-ñÑáéíóúÁÉÍÓÚ ]*$')
                         ? Promise.resolve()
                         : Promise.reject(new Error('Debe ingresar caracteres válidos')),
                   },/*
@@ -287,7 +300,7 @@ function FormRegProducto() {
                     validator: (_, value) =>
                       value && (value.match(/^(?:[1-9]\d{0,3}(?:\.\d{1,2})?|0\.[1-9]\d?|9999(?:\.0{1,2})?)$/) || value.match(/^0*[1-9][0-9]{0,3}$/))
                         ? Promise.resolve()
-                        : Promise.reject(new Error('solo se puede ingresar números válidos y el signo "."')),
+                        : Promise.reject(new Error('Solo se puede ingresar números válidos y el signo "."')),
                   },
 
                   ]}
@@ -302,9 +315,9 @@ function FormRegProducto() {
                   />
                 </Item>
               </Col>
-              <Col lg={1}></Col>
+              <Col lg={0}></Col>
 
-              <Col lg={11} xs={24} className="c2">
+              <Col lg={11} md={12} xs={24} className="c2">
                 <Item
                   label="Imagen"
                   name="imagenProd"
@@ -319,9 +332,9 @@ function FormRegProducto() {
                   },]}
 
                 >
-                  <Upload 
-                  accept=".png, .jpeg, .jpg"
-                  maxCount={1}
+                  <Upload
+                    accept=".png, .jpeg, .jpg"
+                    maxCount={1}
                     customRequest={(info) => {
                       setFileList([info.file])
                       console.log(info.file)
@@ -332,12 +345,12 @@ function FormRegProducto() {
                     <Button
                       icon={<UploadOutlined />} >Examinar
                     </Button>
-                                      
-                    {fileList[0] ?(
-                    <div className="nombreArchivoSubido" >{fileList[0]?.name}</div>
-                  ):(<span  style={{color: 'rgba(0,0,0,0.25)'}}> No se ha seleccionado ningún archivo</span>)}
+
+                    {fileList[0] ? (
+                      <div className="nombreArchivoSubido" onClick={(ClicEnNomArch) => { ClicEnNomArch.stopPropagation() }}>{fileList[0]?.name}</div>
+                    ) : (<span style={{ color: 'rgba(0,0,0,0.25)' }} onClick={(ClicEnPlaceHolder) => { ClicEnPlaceHolder.stopPropagation() }}> No se ha seleccionado ningún archivo</span>)}
                   </Upload>
-                 
+
                 </Item>
 
                 <Item
@@ -360,7 +373,7 @@ function FormRegProducto() {
                   },
                   {
                     min: 4,
-                    message: 'Código inválido'
+                    message: 'Por favor, ingrese un código que tenga 4 dígitos'
                   },
                   ]}
                 >
@@ -397,16 +410,16 @@ function FormRegProducto() {
               </Item>
 
               <Item>
-                <Button className="botonCancelar" htmlType="button" onClick={borrarCampos}>Cancelar</Button>
+                <Button className="botonCancelar" htmlType="button" onClick={borrarCamposCancelar}>Cancelar</Button>
               </Item>
             </Row>
           </Form>
         </Col>
-        <Col lg={2}></Col>
+        <Col lg={2} md={1}></Col>
       </Row>
       <Row>
         <p></p>
-        <Footer/>
+        <Footer />
       </Row>
     </div>
   );

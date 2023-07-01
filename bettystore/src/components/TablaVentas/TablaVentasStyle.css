@@ -1,6 +1,7 @@
-.subtituloTabla {
+.subtituloTablaVentas {
   font-family: 'Montserrat', sans-serif;
   margin-bottom: 4vh;
+  color: #fff;
 }
 
 .tablasInvComprVentRegistradas th {
@@ -110,8 +111,4 @@
     max-width: 800px;
     /*700px;*/
   }
-}
-
-.ant-pagination-item-link{
-  color: #fff !important;
 }

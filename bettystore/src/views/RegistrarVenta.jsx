@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Form, Input, Button, Col, Row, DatePicker, Table, AutoComplete, message, Modal, Space } from "antd";
 import dayjs from "dayjs";
-import { ShoppingCartOutlined, ShoppingOutlined } from '@ant-design/icons'
+import { ShoppingCartOutlined, ShoppingOutlined, CalculatorOutlined } from '@ant-design/icons'
 import { DeleteOutlined, SearchOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import axios from "axios";
 import Footer from "../components/Footer/Footer";
@@ -9,10 +9,10 @@ import '../App.css';
 import 'dayjs/locale/es';
 dayjs.locale('es');
 
-export default function RegistrarCompra() {
+export default function RegistrarVenta() {
   const [form] = Form.useForm();
-  const [comprasTotales, setComprasTotales] = useState([]);
-  console.log(comprasTotales);
+  const [ventasTotales, setVentasTotales] = useState([]);
+  console.log(ventasTotales);
 
   //COMPONENTE BUSCADOR
 
@@ -30,7 +30,7 @@ export default function RegistrarCompra() {
     cantidadProd: '',
   }]);
 
-  const [seleccionado, setSeleccionado] = useState("");
+  const [seleccionado, setSeleccionado] = useState({});
 
   const [productoNodisponible, setProductoNoDisponible] = useState({});
 
@@ -64,11 +64,11 @@ export default function RegistrarCompra() {
       setProductos(filtrado);
       setProductoNoDisponible("Producto disponible");
     } else {
+
       setProductos(filtrado);
       setProductoNoDisponible("Producto no disponible");
-      /*      message.warning("Producto no disponible", 2);
-      borrarCampos();
-      */
+      /* message.warning("Producto no disponible", 2);
+        borrarCampos();*/
     }
 
   }
@@ -82,7 +82,6 @@ export default function RegistrarCompra() {
   const handleChangeDate = (value) => {
     const date = dayjs(value).format(dateFormatList[0]);
     console.log(value);
-    /*producto['fechaProd'] = date;*/
   }
 
   //Bloquear fechas menores a la actual
@@ -94,25 +93,29 @@ export default function RegistrarCompra() {
 
   const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY'];
 
-  //COMPONENTE TABLA DETALLE DE COMPRAS
-  //Tabla detalle de compras pruebas
-  const columnasTablaDetalleCompras = [
-    { title: 'Código de compra', dataIndex: 'codigoCompra', key: 'codigoCompra' },
+  //COMPONENTE TABLA DETALLE DE VENTAS
+  const columnasTablaDetalleVentas = [
+    { title: 'Código de venta', dataIndex: 'codigoVenta', key: 'codigoVenta' },
     { title: 'Código de producto', dataIndex: 'codProd', key: 'codProd' },
     { title: 'Nombre', dataIndex: 'nombre', key: 'nombre' },
     { title: 'Precio (Bs.)', dataIndex: 'precio', key: 'precio' },
     { title: 'Cantidad', dataIndex: 'cantidad', key: 'cantidad' },
-    { title: 'Fecha de compra', dataIndex: 'fecha', key: 'fecha' },
+    { title: 'Fecha de venta', dataIndex: 'fecha', key: 'fecha' },
     {
       title: 'Opciones',
       dataIndex: 'opciones',
       key: 'opciones',
       render: (_, fila) => (
-        <Button type="primary" danger onClick={() => eliminarProductoDetalleCompras(fila.nombre)} icon={<DeleteOutlined />} />
+        <Button type="primary" danger onClick={() => eliminarProductoDetalleVentas(fila.nombre)} icon={<DeleteOutlined />} />
       ),
     },
   ];
 
+  //Funcion para convertir la cantidad que esta en formato de cadena a un numero entero.
+  const convertirCantStringAInt = (cantidadString) => {
+    const cantidadInt = parseInt(cantidadString, 10);
+    return cantidadInt;
+  }
 
   //Funcion para convertir el precio que esta en formato de cadena a un numero double
 
@@ -121,63 +124,76 @@ export default function RegistrarCompra() {
     return precioDouble.toFixed(2).replace(/^0+/, '');
   }
 
-  //FUNCIONES PARA INSERTAR DATOS EN TABLA DETALLE DE COMPRAS
-  const agregarAlDetalleDeCompras = (producto) => {
+
+
+  //FUNCIONES PARA INSERTAR DATOS EN TABLA DETALLE DE VENTAS
+  const agregarAlDetalleDeVentas = (producto) => {
     const nuevoProducto = {
-      codigoCompra: producto.codigoCompra,
+      codigoVenta: producto.codigoVenta,
       codProd: seleccionado.codProd,
       nombre: seleccionado.value,
       precio: seleccionado.precioProd,
       cantidad: producto.cantidad,
       fecha: producto.fecha.format(dateFormatList[0]),
     };
-    // Control de producto existente en detalle de compras
+    // Control de producto existente en detalle de ventas
     let productoExistenteC1 = false;
     let productoExistenteC2 = false;
-    let codigoDeCompraExistente = false;
-    for (let i = 0; i < comprasTotales.length; i++) {
-      //Nombre del producto y el codigo de compras ya esta en tabla detalle de compras                    
-      if ((comprasTotales[i].codProd === nuevoProducto.codProd && comprasTotales[i].codigoCompra === nuevoProducto.codigoCompra)) {
+    let codigoDeVentaExistente = false;
+    for (let i = 0; i < ventasTotales.length; i++) {
+      //Nombre del producto y el codigo de venta ya esta en tabla detalle de ventas                    
+      if ((ventasTotales[i].codProd === nuevoProducto.codProd && ventasTotales[i].codigoVenta === nuevoProducto.codigoVenta)) {
         productoExistenteC1 = true;
         break;
-        // Nombre de producto ya esta en tabla detalle de compras y codigo de compra es diferente al del detalle de compras
-      } else if ((comprasTotales[i].codProd === nuevoProducto.codProd && comprasTotales[i].codigoCompra !== nuevoProducto.codigoCompra)) {
+        // Nombre de producto ya esta en tabla detalle de ventas y codigo de ventas es diferente al del detalle de ventas
+      } else if ((ventasTotales[i].codProd === nuevoProducto.codProd && ventasTotales[i].codigoVenta !== nuevoProducto.codigoVenta)) {
         productoExistenteC2 = true;
         break;
-        // Nombre diferente al detalle de compras y codigo de compras que ya esta en el detalle de compras
-      } else if ((comprasTotales[i].codProd !== nuevoProducto.codProd && comprasTotales[i].codigoCompra === nuevoProducto.codigoCompra)) {
-        codigoDeCompraExistente = true;
+        // Nombre diferente al detalle de ventas y codigo de ventas que ya esta en el detalle de ventas
+      } else if ((ventasTotales[i].codProd !== nuevoProducto.codProd && ventasTotales[i].codigoVenta === nuevoProducto.codigoVenta)) {
+        codigoDeVentaExistente = true;
         break;
       }
     }
     if (productoExistenteC1) {
-      message.error("Producto ya existente en el detalle de compras", 2.5);
+      message.error("Producto ya existente en el detalle de ventas", 2.5);
     } else if (productoExistenteC2) {
-      message.error("Producto ya existente en el detalle de compras", 2.5);
-    } else if (codigoDeCompraExistente) {
-      message.error("Código de compra existente en el detalle de compras", 2.5);
+      message.error("Producto ya existente en el detalle de ventas", 2.5);
+    } else if (codigoDeVentaExistente) {
+      message.error("Código de venta existente en el detalle de ventas", 2.5);
     }
-    else if (nuevoProducto.nombre == undefined) {
+    else if (nuevoProducto.nombre === undefined) {
       message.error("El producto seleccionado no existe en inventario", 2.5);
-    } else if (nuevoProducto.codigoCompra.length < 4) {
-      message.info("Por favor, ingrese un código que tenga 4 dígitos");
+    }
+    else if (convertirCantStringAInt(nuevoProducto.cantidad) > convertirCantStringAInt(seleccionado.cantidadProd)) {
+      message.error(
+        <span>
+          Tiene <span className="textoEnNegritaAdvertencias">{seleccionado.cantidadProd} (u)</span> disponibles del producto '<span className="textoEnNegritaAdvertencias">{seleccionado.value}</span>' en stock
+        </span>,
+        3
+      );
     }
     else {
-
       const datos = new FormData();
-      datos.append("codigoCompra", nuevoProducto.codigoCompra);
+      datos.append("codigoVenta", nuevoProducto.codigoVenta);
 
-      axios.post("http://localhost/IndexConsultasSegundoSprint/indexVerificarCodCompra.php/?verificarcodcompra=1", datos)
+      axios.post("http://localhost/IndexConsultasTercerSprint/indexVerificarCodVenta.php/?verificarcodventa=1", datos)
         .then(response => {
 
           if (response.data === "Disponible") {
 
-            setComprasTotales([...comprasTotales, nuevoProducto]);
+            setVentasTotales([...ventasTotales, nuevoProducto]);
+            message.info(
+              <span>
+                Quedaron <span className="textoEnNegritaAdvertencias">{(seleccionado.cantidadProd - nuevoProducto.cantidad)} (u)</span> del producto '<span className="textoEnNegritaAdvertencias">{seleccionado.value}</span>' en stock
+              </span>,
+              2.5
+            );
             form.resetFields();
             cerrarModal();
 
           } else {
-            message.error("El código de compra ya está registrado");
+            message.error("El código de venta ya está registrado");
           }
 
         })
@@ -185,50 +201,50 @@ export default function RegistrarCompra() {
     }
   };
 
-  const eliminarProductoDetalleCompras = (key) => {
+  const eliminarProductoDetalleVentas = (key) => {
     Modal.confirm({
       okText: 'Eliminar',
       cancelText: 'Cancelar',
       okType: 'danger',
-      //Arreglar bug de key cambiar por nombre de producto
-      title: '¿Está seguro que desea eliminar el producto ' + key + ' del detalle de compra?',
+      title: '¿Está seguro que desea eliminar el producto ' + key + ' del detalle de venta?',
       maskClosable: 'true',
       onOk: () => {
-        const productoAEliminarDelDetalleCompra = comprasTotales.filter((product) => product.nombre !== key);
-        setComprasTotales(productoAEliminarDelDetalleCompra);
-        message.info('Esta compra ha sido eliminada exitosamente del detalle de compra', 2);
+        const productoAEliminarDelDetalleVenta = ventasTotales.filter((product) => product.nombre !== key);
+        setVentasTotales(productoAEliminarDelDetalleVenta);
+        message.info('Esta venta ha sido eliminada exitosamente del detalle de venta', 2.5);
       }
     })
   };
-
 
   //CALCULANDO EL MONTO TOTAL DE VENTA
   useEffect(() => {
 
     var montoTotal = 0.00;
     var montoParcial = 0.00;
-    for (let i = 0; i < comprasTotales.length; i++) {
-      montoParcial = convertirPrecioStringADouble(comprasTotales[i].precio) * convertirPrecioStringADouble(comprasTotales[i].cantidad);
+    for (let i = 0; i < ventasTotales.length; i++) {
+      montoParcial = convertirPrecioStringADouble(ventasTotales[i].precio) * convertirPrecioStringADouble(ventasTotales[i].cantidad);
       montoTotal = montoTotal + montoParcial;
       setMontoTotal(montoTotal.toString());
     }
 
-  }, [comprasTotales])
+  }, [ventasTotales])
 
-  //BOTON QUE ENVIA A B.D. infomarción de la Tabla Detalle de compra.
-  const confirmarCompra = async () => {
-    // Verifica que haya al menos un producto en el carrito
-    if (comprasTotales.length === 0) {
-      message.warning('Agrega productos al detalle de compras primero');
+
+  //BOTON QUE ENVIA A B.D. infomarción de la Tabla Detalle de venta
+  const confirmarVenta = async () => {
+    // Verifica que haya al menos un producto en el detalle de venta
+    if (ventasTotales.length === 0) {
+      message.warning('Agrega productos al detalle de venta primero');
       return;
     }
-    //Petición Post botón registrar, para pasar datosInventario de tabla detalle de compras a tabla compras.
+    //Petición Post botón registrar, para pasar datosInventario de tabla detalle de venta a tabla ventas.
     // Envia los productos al servidor
-    await axios.post('http://localhost/IndexConsultasSegundoSprint/indexInsertarDetalleCompra.php/?insertarCompra=', comprasTotales)
+    await axios.post('http://localhost/IndexConsultasTercerSprint/indexInsertarDetalleVenta.php/?insertarVenta=', ventasTotales)
       .then(response => {
-        // Si la respuesta es exitosa, se limpia el detalle de compras
-        setComprasTotales([]);
-        message.info("¡Compra exitosa!", 2.5);
+        // Si la respuesta es exitosa, se limpia el detalle de ventas
+        setVentasTotales([]);
+        message.info("¡Venta exitosa!", 2.5);
+        peticionGet();
       })
       .catch(error => {
         message.error('Lo sentimos, algo salió mal');
@@ -250,64 +266,61 @@ export default function RegistrarCompra() {
   }
 
   const layout = {
+    //etiquetas del formulario
     labelCol: {
       span: 8
     },
+    //items del formulario
     wrapperCol: {
       span: 18
     }
   };
 
-  //Borrar los campos del formulario de reg. Compras
-  const formRefRegComp = useRef(null);
+  //Borrar los campos del formulario del registro de venta
+  const formRefRegVent = useRef(null);
   const borrarCampos = () => {
-    formRefRegComp.current?.resetFields();
+    formRefRegVent.current?.resetFields();
   }
 
 
   return (
     <div>
-
       <Row>
         <Col lg={1} md={2} xs={0}></Col>
         <Col lg={22} md={20} xs={24}>
-          <h2 className="tituloRegistrarCompra">Registrar Compra</h2>
+          <h2 style={{ color: '#fff' }}>Registrar Venta</h2>
         </Col>
         <Col lg={1} md={2} xs={0}></Col>
       </Row>
-      {/*Fila para el Modal y el formulario de registro*/}
+
       <Row>
         <Modal
-          title={<div className="tituloModalRegistrarCompraVenta">Por favor, agrega un producto al detalle de compra</div>}
-          /*style={{textAlign:'center'}}*/
+          title={<div className="tituloModalRegistrarCompraVenta">Por favor, agrega un producto al detalle de venta</div>}
           open={modalEsVisible}
           onCancel={cerrarModal}
           footer={null}
           width={600}
           destroyOnClose='true'
         >
-          {/*<Layout></Layout>*/}
-          {/*Contenedor general*/}
           <Col lg={24} md={24} xs={24} className="componentsContainer">
             <Row>
               <Col lg={0} md={0} xs={1}></Col>
               {/*Columna para todo el formulario*/}
               <Col lg={24} md={24} xs={22}>
-                <Form {...layout} form={form} ref={formRefRegComp} onFinish={agregarAlDetalleDeCompras} layout="horizontal">
+                <Form {...layout} form={form} ref={formRefRegVent} onFinish={agregarAlDetalleDeVentas} layout="horizontal">
                   <Row>
                     <Col lg={0} md={0} xs={1}></Col>
                     <Col lg={22} md={22} xs={23}>
 
                       {/* Buscador de inventario */}
-                      <Form.Item className="barraBusquedaInvParaComprasVentas" name="buscador"
-                        rules={[{ required: true, message: "Por favor, seleccione un producto del inventario" }
-                          , {
-                          validator: () =>
-                            productoNodisponible === "Producto no disponible"
-                              ? Promise.reject(new Error('Producto no disponible'))
-                              : Promise.resolve(),
-                        },
-                        ]} >
+                      <Form.Item className="barraBusquedaInvParaComprasVentas" name="buscador" rules={[{ required: true, message: "Por favor, seleccione un producto del inventario" }
+                        , {
+                        validator: () =>
+                          productoNodisponible === "Producto no disponible"
+                            ? Promise.reject(new Error('Producto no disponible'))
+                            : Promise.resolve(),
+                      },
+                      ]}>
                         <AutoComplete
                           /*style={{ width: 500 }}*/
                           options={productos.map((producto) => ({ value: producto.nomProd, cantidadProd: producto.cantidadProd, precioProd: producto.precioProd, codProd: producto.codProd }))}
@@ -338,7 +351,7 @@ export default function RegistrarCompra() {
                   </Col>
                   {/*<Col lg={1}></Col>*/}
                   <Col span={24}>
-                    <Form.Item label="Fecha de Compra" labelAlign="left" name="fecha"
+                    <Form.Item label="Fecha de Venta" labelAlign="left" name="fecha"
                       rules={[{ required: true, message: "Por favor, seleccione una fecha", }]}>
                       <DatePicker placeholder="DD/MM/AAAA"
                         disabledDate={disabledDate}
@@ -366,15 +379,15 @@ export default function RegistrarCompra() {
                       },
                       ]}>
                       <Input showCount
-                        maxLength={4} placeholder="Ingrese la cantidad a comprar" />
+                        maxLength={4} placeholder="Ingrese la cantidad a vender" />
                     </Form.Item>
                   </Col>
 
                   <Col span={24}>
-                    <Form.Item label="Código Compra" labelAlign="left" name="codigoCompra"
+                    <Form.Item label="Código Venta" labelAlign="left" name="codigoVenta"
                       rules={[{
                         required: true,
-                        message: "Por favor, ingrese un código",
+                        message: "Por favor, ingrese el código de venta",
                       },
                       {
                         whitespace: true,
@@ -395,7 +408,7 @@ export default function RegistrarCompra() {
                       ]}
                     >
                       <Input showCount
-                        maxLength={4} placeholder="Ingrese el código de compra" />
+                        maxLength={4} placeholder="Ingrese el código de venta" />
                     </Form.Item>
                   </Col>
                   <Col span={24}>
@@ -410,48 +423,45 @@ export default function RegistrarCompra() {
               <Col xs={1}></Col>
             </Row>
           </Col>
-          {/*<Col lg={2}></Col>*/}
         </Modal>
       </Row>
 
       <Row>
-        {/*<Layout></Layout>*/}
         <Col lg={1} md={2}></Col>
         <Col lg={22} md={20} xs={24} className="componentsContainerDetCompraVenta">
-          {/* <Col lg={2} md={2}></Col>  */}
+          {/* <Col lg={2} md={2}></Col> */}
           <Col lg={24} md={24} xs={24}>
             <Row>
               <Col lg={1} md={1} xs={1}></Col>
               <Col lg={18} md={18} xs={15}>
                 <div>
-                  <Button type="primary" onClick={mostrarModal} icon={<ShoppingOutlined />}>Agregar Producto</Button>
+                  <Button type="primary" onClick={mostrarModal} icon={<ShoppingOutlined />}>Agregar Venta</Button>
                 </div>
               </Col>
               <Col lg={4} md={4} xs={7}>
-                <div className="monto-total-compra">
-                  <b>Monto Total: </b>{comprasTotales.length > 0 ? montoTotal + "  Bs." : "0.00  Bs."}
+                <div className="monto-total-venta">
+                  <b>Monto Total: </b>{ventasTotales.length > 0 ? montoTotal + "  Bs." : "0.00  Bs."}
                 </div>
               </Col>
               <Col lg={1} md={1} xs={1}></Col>
             </Row>
           </Col>
           {/* <Col lg={2} md={2}></Col> */}
-          {/* Tabla detalle de compras */}
-          <h2 className='subtituloTablaDetalleCompraVenta'>Detalle de compra</h2>
+
+          {/* Tabla detalle de ventas */}
+          <h2 className='subtituloTablaDetalleCompraVenta'>Detalle de venta</h2>
           <Row>
             <Col lg={1} md={1} xs={1}></Col>
             <Col lg={22} md={22} xs={22}>
-              <Table className='tablaDetalleCompraVenta' rowKey="nombre" dataSource={comprasTotales} columns={columnasTablaDetalleCompras} locale={{ emptyText: 'No hay compras' }} bordered={true} pagination={{ pageSize: 3, pagination: true, position: ["bottomRight"] }} size={'small'} />
-              {comprasTotales.length > 0 && (
-                <Button type="primary" onClick={confirmarCompra} icon={<CheckCircleOutlined />}>
+              <Table className='tablaDetalleCompraVenta' rowKey="nombre" dataSource={ventasTotales} columns={columnasTablaDetalleVentas} locale={{ emptyText: 'No hay ventas' }} bordered={true} pagination={{ pageSize: 3, pagination: true, position: ["bottomRight"] }} size={'small'} />
+              {ventasTotales.length > 0 && (
+                <Button type="primary" onClick={confirmarVenta} icon={<CheckCircleOutlined />}>
                   Registrar
                 </Button>
               )}
             </Col>
             <Col lg={1} md={1} xs={1}></Col>
           </Row>
-
-
         </Col>
         <Col lg={1} md={2}></Col>
       </Row>

@@ -37,7 +37,7 @@ function App() {
   const navigate = useNavigate();
 
   // Definir el tiempo de inactividad en milisegundos (por ejemplo, 15 minutos)
-  var tiempoInactividad = 1 * 40 * 1000; // 35 segundos
+  var tiempoInactividad = 15 * 60 * 1000; // 15 minutos
 
   var tiempoCierreSesion; // Variable para almacenar el temporizador de cierre de sesión
 
